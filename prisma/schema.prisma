@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../src/generated/type-graphql"
+}
+
+enum role {
+  DOCTOR
+  PATIENT
+}
+
+enum gender {
+  MAlE
+  FEMALE
+}
+
+model User {
+  id                       Int           @id @default(autoincrement())
+  name                     String
+  email                    String?       @unique
+  password                 String?
+  phoneNumber              String?       @unique
+  role                     role          @default(PATIENT)
+  token                    String?
+  tokenExpire              DateTime?
+  otp                      String?
+  resetPasswordToken       String?
+  resetPasswordTokenExpire DateTime?
+  otpExpire                DateTime?
+  proflePicture            String?
+  appointment              Appointment[]
+}
+
+model Appointment {
+  id             Int      @id @default(autoincrement())
+  User           User?    @relation(fields: [userId], references: [id])
+  userId         Int?
+  fullName       String?
+  age            String?
+  gender         gender?
+  phoneNo        String?
+  address        String?
+  medicalHistory String?
+  presciptions   String[]
+}

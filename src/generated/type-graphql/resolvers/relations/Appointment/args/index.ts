@@ -1,0 +1,1 @@
+export { AppointmentUserArgs } from "./AppointmentUserArgs";
