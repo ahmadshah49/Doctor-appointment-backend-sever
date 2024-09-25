@@ -36,24 +36,26 @@ model User {
   resetPasswordToken       String?
   resetPasswordTokenExpire DateTime?
   otpExpire                DateTime?
-  profilePicture           String? 
-  doctor  Doctor?
-  patient Patient?
+  profilePicture           String?
+  doctor                   Doctor?
+  patient                  Patient?
 }
 
 model Doctor {
-  id           Int           @id @default(autoincrement())
-  User         User          @relation(fields: [userId], references: [id])
-  userId       Int           @unique
-  name         String
-  profilePhoto String?
-  address      String
-  availability String?
-  email        String
-  isAvailable  Boolean?      @default(true)
-  gender       gender
-  patients     Patient[]
-  appointments Appointment[]
+  id                 Int                  @id @default(autoincrement())
+  User               User                 @relation(fields: [userId], references: [id])
+  userId             Int                  @unique
+  name               String
+  profilePhoto       String?
+  address            String
+  availability       String?
+  email              String
+  isAvailable        Boolean?             @default(true) //check this feild
+  gender             gender
+  patients           Patient[]
+  appointments       Appointment[]
+  AvailabilitySlot   AvailabilitySlot[]
+  UnavailabilitySlot UnavailabilitySlot[]
 }
 
 model Patient {
@@ -85,9 +87,30 @@ model Appointment {
   status         AppointmentStatus? @default(UPCOMING)
 
   Doctor    Doctor?  @relation(fields: [doctorId], references: [id])
-  doctorId  Int?
+  doctorId  Int?     @unique
   Patient   Patient? @relation(fields: [patientId], references: [id])
-  patientId Int?
+  patientId Int?     @unique
+}
+
+model AvailabilitySlot {
+  id        Int      @id @default(autoincrement())
+  doctorId  Int      @unique
+  day       String
+  startTime DateTime
+  endTime   DateTime
+  isBooked  Boolean  @default(false) // False by default (jab tak koi book na kare)
+
+  doctor Doctor @relation(fields: [doctorId], references: [id])
+}
+
+model UnavailabilitySlot {
+  id          Int      @id @default(autoincrement())
+  doctorId    Int      @unique
+  startDate   DateTime // Doctor unavailable from
+  endDate     DateTime // Doctor unavailable till
+  reason      String? // Optional: Reason for unavailability
+  isAvailable Boolean?
+  doctor      Doctor   @relation(fields: [doctorId], references: [id])
 }
 
 enum AppointmentStatus {

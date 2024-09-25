@@ -1,0 +1,15 @@
+export { AggregateAvailabilitySlotArgs } from "./AggregateAvailabilitySlotArgs";
+export { CreateManyAndReturnAvailabilitySlotArgs } from "./CreateManyAndReturnAvailabilitySlotArgs";
+export { CreateManyAvailabilitySlotArgs } from "./CreateManyAvailabilitySlotArgs";
+export { CreateOneAvailabilitySlotArgs } from "./CreateOneAvailabilitySlotArgs";
+export { DeleteManyAvailabilitySlotArgs } from "./DeleteManyAvailabilitySlotArgs";
+export { DeleteOneAvailabilitySlotArgs } from "./DeleteOneAvailabilitySlotArgs";
+export { FindFirstAvailabilitySlotArgs } from "./FindFirstAvailabilitySlotArgs";
+export { FindFirstAvailabilitySlotOrThrowArgs } from "./FindFirstAvailabilitySlotOrThrowArgs";
+export { FindManyAvailabilitySlotArgs } from "./FindManyAvailabilitySlotArgs";
+export { FindUniqueAvailabilitySlotArgs } from "./FindUniqueAvailabilitySlotArgs";
+export { FindUniqueAvailabilitySlotOrThrowArgs } from "./FindUniqueAvailabilitySlotOrThrowArgs";
+export { GroupByAvailabilitySlotArgs } from "./GroupByAvailabilitySlotArgs";
+export { UpdateManyAvailabilitySlotArgs } from "./UpdateManyAvailabilitySlotArgs";
+export { UpdateOneAvailabilitySlotArgs } from "./UpdateOneAvailabilitySlotArgs";
+export { UpsertOneAvailabilitySlotArgs } from "./UpsertOneAvailabilitySlotArgs";

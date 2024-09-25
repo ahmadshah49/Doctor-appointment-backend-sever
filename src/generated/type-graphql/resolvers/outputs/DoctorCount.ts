@@ -3,12 +3,14 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DoctorCountAppointmentsArgs } from "./args/DoctorCountAppointmentsArgs";
+import { DoctorCountAvailabilitySlotArgs } from "./args/DoctorCountAvailabilitySlotArgs";
 import { DoctorCountPatientsArgs } from "./args/DoctorCountPatientsArgs";
 
 @TypeGraphQL.ObjectType("DoctorCount", {})
 export class DoctorCount {
   patients!: number;
   appointments!: number;
+  AvailabilitySlot!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     name: "patients",
@@ -24,5 +26,13 @@ export class DoctorCount {
   })
   getAppointments(@TypeGraphQL.Root() root: DoctorCount, @TypeGraphQL.Args() args: DoctorCountAppointmentsArgs): number {
     return root.appointments;
+  }
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    name: "AvailabilitySlot",
+    nullable: false
+  })
+  getAvailabilitySlot(@TypeGraphQL.Root() root: DoctorCount, @TypeGraphQL.Args() args: DoctorCountAvailabilitySlotArgs): number {
+    return root.AvailabilitySlot;
   }
 }

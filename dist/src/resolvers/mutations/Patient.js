@@ -21,6 +21,7 @@ const type_graphql_2 = require("../../generated/type-graphql");
 const MiddleWare_1 = require("../../middleware/MiddleWare");
 const graphql_1 = require("graphql");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
+const ImageUploader_1 = require("../../utils/ImageUploader");
 let PatientResolver = class PatientResolver {
     async createPatient(phoneNo, fullName, age, gender, adress, profilePicture, context) {
         if (!phoneNo || !fullName || !age || !gender || !adress) {
@@ -35,6 +36,15 @@ let PatientResolver = class PatientResolver {
         if (dbUser) {
             throw new graphql_1.GraphQLError("It looks like you’ve already set up your patient information. You can update your details instead of creating new ones.");
         }
+        let imageUrl = null;
+        if (profilePicture) {
+            try {
+                imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePicture);
+            }
+            catch (error) {
+                throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
+            }
+        }
         const user = await prisma_1.default.patient.create({
             data: {
                 address: adress,
@@ -43,18 +53,17 @@ let PatientResolver = class PatientResolver {
                 gender: gender,
                 phoneNo: phoneNo,
                 userId: currentUserId,
-                profilePicture: profilePicture || null,
+                profilePicture: imageUrl || null,
             },
         });
         return "Patient Created";
     }
-    async updatePatientInfo(phoneNo, fullName, age, gender, adress, profilePicture, context
-    // @Arg("medicalHistory", { nullable: true }) medicalHistory: string,
-    ) {
+    async updatePatientInfo(phoneNo, fullName, age, gender, adress, profilePicture, context) {
         if (!phoneNo || !fullName || !age || !gender || !adress) {
             throw new graphql_1.GraphQLError("Please add all fields");
         }
         const currentUserId = context.payload?.userId;
+        const addProfileImage = await (0, ImageUploader_1.ImageUploader)(profilePicture);
         await prisma_1.default.patient.update({
             where: {
                 userId: currentUserId,
@@ -66,7 +75,7 @@ let PatientResolver = class PatientResolver {
                 gender: gender,
                 phoneNo: phoneNo,
                 userId: currentUserId,
-                profilePicture: profilePicture || null,
+                profilePicture: addProfileImage || null,
             },
         });
         return "Patient Info Updated";
@@ -90,11 +99,11 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
     (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
-    __param(0, (0, type_graphql_1.Arg)("phoneNo")),
-    __param(1, (0, type_graphql_1.Arg)("fullName")),
-    __param(2, (0, type_graphql_1.Arg)("age")),
-    __param(3, (0, type_graphql_1.Arg)("gender", () => type_graphql_2.gender)),
-    __param(4, (0, type_graphql_1.Arg)("address")),
+    __param(0, (0, type_graphql_1.Arg)("phoneNo", { nullable: true })),
+    __param(1, (0, type_graphql_1.Arg)("fullName", { nullable: true })),
+    __param(2, (0, type_graphql_1.Arg)("age", { nullable: true })),
+    __param(3, (0, type_graphql_1.Arg)("gender", () => type_graphql_2.gender, { nullable: true })),
+    __param(4, (0, type_graphql_1.Arg)("address", { nullable: true })),
     __param(5, (0, type_graphql_1.Arg)("profilePicture", { nullable: true })),
     __param(6, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),

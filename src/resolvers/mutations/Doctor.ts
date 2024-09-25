@@ -12,6 +12,7 @@ import Prisma from "../../lib/prisma";
 import { GraphQLError } from "graphql";
 import { Context } from "../../context/Context";
 import { DoctorTypes } from "../../types/ResolverTypes";
+import { ImageUploader } from "../../utils/ImageUploader";
 
 @Resolver(() => Doctor)
 export class DoctorResolver {
@@ -22,7 +23,7 @@ export class DoctorResolver {
       const doctor = await Prisma.doctor.findMany();
       console.log("Doctor", doctor);
       return doctor;
-    } catch (error) {    
+    } catch (error) {
       console.log("Error While Getting doctors", error);
 
       throw new GraphQLError("Error While Getting doctors");
@@ -40,9 +41,6 @@ export class DoctorResolver {
     @Arg("gender", () => gender) gender: gender,
     @Ctx() context: Context
   ) {
-    if (!name || !address || !email || !gender) {
-      throw new GraphQLError("Please add name,email,address and gender");
-    }
     const currentUserId = context.payload?.userId;
     const dbUser = await Prisma.doctor.findUnique({
       where: {
@@ -72,24 +70,22 @@ export class DoctorResolver {
   @Mutation(() => String)
   @UseMiddleware(isAuth, isDoctor)
   async updateDoctor(
-    @Arg("name") name: string,
+    @Arg("name", { nullable: true }) name: string,
     @Arg("profilePhoto", { nullable: true }) profilePhoto: string,
-    @Arg("address") address: string,
+    @Arg("address", { nullable: true }) address: string,
     @Arg("availability", { nullable: true }) availability: string,
-    @Arg("email") email: string,
+    @Arg("email", { nullable: true }) email: string,
     @Arg("isAvailable", { nullable: true }) isAvailable: boolean,
-    @Arg("gender", () => gender) gender: gender,
+    @Arg("gender", () => gender, { nullable: true }) gender: gender,
     @Ctx() context: Context
   ) {
-    if (!name || !address || !email || !gender) {
-      throw new GraphQLError("Please add name,email,address and gender");
-    }
     const currentUserId = context.payload?.userId;
-
+    const addProfileImage = await ImageUploader(profilePhoto);
     await Prisma.doctor.update({
       where: {
         userId: currentUserId,
       },
+
       data: {
         address,
         email,
@@ -97,10 +93,11 @@ export class DoctorResolver {
         name,
         availability,
         isAvailable,
-        profilePhoto,
+        profilePhoto: addProfileImage || null,
         userId: currentUserId,
       },
     });
     return "Data Updated";
   }
+  
 }

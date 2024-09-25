@@ -34,6 +34,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorCreateWithoutAppointmentsInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
+const AvailabilitySlotCreateNestedManyWithoutDoctorInput_1 = require("../inputs/AvailabilitySlotCreateNestedManyWithoutDoctorInput");
 const PatientCreateNestedManyWithoutDoctorInput_1 = require("../inputs/PatientCreateNestedManyWithoutDoctorInput");
 const UserCreateNestedOneWithoutDoctorInput_1 = require("../inputs/UserCreateNestedOneWithoutDoctorInput");
 const gender_1 = require("../../enums/gender");
@@ -94,6 +95,12 @@ __decorate([
     }),
     __metadata("design:type", PatientCreateNestedManyWithoutDoctorInput_1.PatientCreateNestedManyWithoutDoctorInput)
 ], DoctorCreateWithoutAppointmentsInput.prototype, "patients", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AvailabilitySlotCreateNestedManyWithoutDoctorInput_1.AvailabilitySlotCreateNestedManyWithoutDoctorInput, {
+        nullable: true
+    }),
+    __metadata("design:type", AvailabilitySlotCreateNestedManyWithoutDoctorInput_1.AvailabilitySlotCreateNestedManyWithoutDoctorInput)
+], DoctorCreateWithoutAppointmentsInput.prototype, "AvailabilitySlot", void 0);
 exports.DoctorCreateWithoutAppointmentsInput = DoctorCreateWithoutAppointmentsInput = __decorate([
     TypeGraphQL.InputType("DoctorCreateWithoutAppointmentsInput", {})
 ], DoctorCreateWithoutAppointmentsInput);

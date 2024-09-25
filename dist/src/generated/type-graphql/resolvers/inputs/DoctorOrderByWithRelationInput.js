@@ -35,6 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorOrderByWithRelationInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentOrderByRelationAggregateInput_1 = require("../inputs/AppointmentOrderByRelationAggregateInput");
+const AvailabilitySlotOrderByRelationAggregateInput_1 = require("../inputs/AvailabilitySlotOrderByRelationAggregateInput");
 const PatientOrderByRelationAggregateInput_1 = require("../inputs/PatientOrderByRelationAggregateInput");
 const SortOrderInput_1 = require("../inputs/SortOrderInput");
 const UserOrderByWithRelationInput_1 = require("../inputs/UserOrderByWithRelationInput");
@@ -114,6 +115,12 @@ __decorate([
     }),
     __metadata("design:type", AppointmentOrderByRelationAggregateInput_1.AppointmentOrderByRelationAggregateInput)
 ], DoctorOrderByWithRelationInput.prototype, "appointments", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AvailabilitySlotOrderByRelationAggregateInput_1.AvailabilitySlotOrderByRelationAggregateInput, {
+        nullable: true
+    }),
+    __metadata("design:type", AvailabilitySlotOrderByRelationAggregateInput_1.AvailabilitySlotOrderByRelationAggregateInput)
+], DoctorOrderByWithRelationInput.prototype, "AvailabilitySlot", void 0);
 exports.DoctorOrderByWithRelationInput = DoctorOrderByWithRelationInput = __decorate([
     TypeGraphQL.InputType("DoctorOrderByWithRelationInput", {})
 ], DoctorOrderByWithRelationInput);

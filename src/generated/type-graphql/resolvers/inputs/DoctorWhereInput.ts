@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AppointmentListRelationFilter } from "../inputs/AppointmentListRelationFilter";
+import { AvailabilitySlotListRelationFilter } from "../inputs/AvailabilitySlotListRelationFilter";
 import { BoolNullableFilter } from "../inputs/BoolNullableFilter";
 import { EnumgenderFilter } from "../inputs/EnumgenderFilter";
 import { IntFilter } from "../inputs/IntFilter";
@@ -87,4 +88,9 @@ export class DoctorWhereInput {
     nullable: true
   })
   appointments?: AppointmentListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => AvailabilitySlotListRelationFilter, {
+    nullable: true
+  })
+  AvailabilitySlot?: AvailabilitySlotListRelationFilter | undefined;
 }

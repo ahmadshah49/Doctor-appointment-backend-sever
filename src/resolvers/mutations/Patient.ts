@@ -11,6 +11,7 @@ import { isAuth, isDoctor } from "../../middleware/MiddleWare";
 import { GraphQLError } from "graphql";
 import Prisma from "../../lib/prisma";
 import { Context } from "../../context/Context";
+import { ImageUploader } from "../../utils/ImageUploader";
 
 @Resolver(() => Patient)
 export class PatientResolver {
@@ -39,6 +40,17 @@ export class PatientResolver {
         "It looks like you’ve already set up your patient information. You can update your details instead of creating new ones."
       );
     }
+    let imageUrl = null;
+    if (profilePicture) {
+      try {
+        imageUrl = await ImageUploader(profilePicture);
+      } catch (error) {
+        throw new GraphQLError(
+          "Error uploading profile picture: ",
+          error.message
+        );
+      }
+    }
     const user = await Prisma.patient.create({
       data: {
         address: adress,
@@ -47,7 +59,7 @@ export class PatientResolver {
         gender: gender,
         phoneNo: phoneNo,
         userId: currentUserId,
-        profilePicture: profilePicture || null,
+        profilePicture: imageUrl || null,
       },
     });
 
@@ -56,20 +68,19 @@ export class PatientResolver {
   @Mutation(() => String)
   @UseMiddleware(isAuth)
   async updatePatientInfo(
-    @Arg("phoneNo") phoneNo: string,
-    @Arg("fullName") fullName: string,
-    @Arg("age") age: string,
-    @Arg("gender", () => gender) gender: gender,
-    @Arg("address") adress: string,
+    @Arg("phoneNo", { nullable: true }) phoneNo: string,
+    @Arg("fullName", { nullable: true }) fullName: string,
+    @Arg("age", { nullable: true }) age: string,
+    @Arg("gender", () => gender, { nullable: true }) gender: gender,
+    @Arg("address", { nullable: true }) adress: string,
     @Arg("profilePicture", { nullable: true }) profilePicture: string,
     @Ctx() context: Context
-    // @Arg("medicalHistory", { nullable: true }) medicalHistory: string,
   ) {
     if (!phoneNo || !fullName || !age || !gender || !adress) {
       throw new GraphQLError("Please add all fields");
     }
     const currentUserId = context.payload?.userId;
-
+    const addProfileImage = await ImageUploader(profilePicture);
     await Prisma.patient.update({
       where: {
         userId: currentUserId,
@@ -81,7 +92,7 @@ export class PatientResolver {
         gender: gender,
         phoneNo: phoneNo,
         userId: currentUserId,
-        profilePicture: profilePicture || null,
+        profilePicture: addProfileImage || null,
       },
     });
 

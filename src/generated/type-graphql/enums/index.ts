@@ -1,5 +1,6 @@
 export { AppointmentScalarFieldEnum } from "./AppointmentScalarFieldEnum";
 export { AppointmentStatus } from "./AppointmentStatus";
+export { AvailabilitySlotScalarFieldEnum } from "./AvailabilitySlotScalarFieldEnum";
 export { DoctorScalarFieldEnum } from "./DoctorScalarFieldEnum";
 export { NullsOrder } from "./NullsOrder";
 export { PatientScalarFieldEnum } from "./PatientScalarFieldEnum";

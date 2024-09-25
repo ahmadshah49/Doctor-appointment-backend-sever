@@ -35,6 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorWhereUniqueInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentListRelationFilter_1 = require("../inputs/AppointmentListRelationFilter");
+const AvailabilitySlotListRelationFilter_1 = require("../inputs/AvailabilitySlotListRelationFilter");
 const BoolNullableFilter_1 = require("../inputs/BoolNullableFilter");
 const DoctorWhereInput_1 = require("../inputs/DoctorWhereInput");
 const EnumgenderFilter_1 = require("../inputs/EnumgenderFilter");
@@ -135,6 +136,12 @@ __decorate([
     }),
     __metadata("design:type", AppointmentListRelationFilter_1.AppointmentListRelationFilter)
 ], DoctorWhereUniqueInput.prototype, "appointments", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AvailabilitySlotListRelationFilter_1.AvailabilitySlotListRelationFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", AvailabilitySlotListRelationFilter_1.AvailabilitySlotListRelationFilter)
+], DoctorWhereUniqueInput.prototype, "AvailabilitySlot", void 0);
 exports.DoctorWhereUniqueInput = DoctorWhereUniqueInput = __decorate([
     TypeGraphQL.InputType("DoctorWhereUniqueInput", {})
 ], DoctorWhereUniqueInput);

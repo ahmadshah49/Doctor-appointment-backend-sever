@@ -38,10 +38,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorRelationsResolver = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const Appointment_1 = require("../../../models/Appointment");
+const AvailabilitySlot_1 = require("../../../models/AvailabilitySlot");
 const Doctor_1 = require("../../../models/Doctor");
 const Patient_1 = require("../../../models/Patient");
 const User_1 = require("../../../models/User");
 const DoctorAppointmentsArgs_1 = require("./args/DoctorAppointmentsArgs");
+const DoctorAvailabilitySlotArgs_1 = require("./args/DoctorAvailabilitySlotArgs");
 const DoctorPatientsArgs_1 = require("./args/DoctorPatientsArgs");
 const helpers_1 = require("../../../helpers");
 let DoctorRelationsResolver = class DoctorRelationsResolver {
@@ -73,6 +75,17 @@ let DoctorRelationsResolver = class DoctorRelationsResolver {
                 id: doctor.id,
             },
         }).appointments({
+            ...args,
+            ...(_count && (0, helpers_1.transformCountFieldIntoSelectRelationsCount)(_count)),
+        });
+    }
+    async AvailabilitySlot(doctor, ctx, info, args) {
+        const { _count } = (0, helpers_1.transformInfoIntoPrismaArgs)(info);
+        return (0, helpers_1.getPrismaFromContext)(ctx).doctor.findUniqueOrThrow({
+            where: {
+                id: doctor.id,
+            },
+        }).AvailabilitySlot({
             ...args,
             ...(_count && (0, helpers_1.transformCountFieldIntoSelectRelationsCount)(_count)),
         });
@@ -114,6 +127,18 @@ __decorate([
     __metadata("design:paramtypes", [Doctor_1.Doctor, Object, Object, DoctorAppointmentsArgs_1.DoctorAppointmentsArgs]),
     __metadata("design:returntype", Promise)
 ], DoctorRelationsResolver.prototype, "appointments", null);
+__decorate([
+    TypeGraphQL.FieldResolver(_type => [AvailabilitySlot_1.AvailabilitySlot], {
+        nullable: false
+    }),
+    __param(0, TypeGraphQL.Root()),
+    __param(1, TypeGraphQL.Ctx()),
+    __param(2, TypeGraphQL.Info()),
+    __param(3, TypeGraphQL.Args()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Doctor_1.Doctor, Object, Object, DoctorAvailabilitySlotArgs_1.DoctorAvailabilitySlotArgs]),
+    __metadata("design:returntype", Promise)
+], DoctorRelationsResolver.prototype, "AvailabilitySlot", null);
 exports.DoctorRelationsResolver = DoctorRelationsResolver = __decorate([
     TypeGraphQL.Resolver(_of => Doctor_1.Doctor)
 ], DoctorRelationsResolver);

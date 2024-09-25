@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AppointmentUpdateManyWithoutDoctorNestedInput } from "../inputs/AppointmentUpdateManyWithoutDoctorNestedInput";
+import { AvailabilitySlotUpdateManyWithoutDoctorNestedInput } from "../inputs/AvailabilitySlotUpdateManyWithoutDoctorNestedInput";
 import { EnumgenderFieldUpdateOperationsInput } from "../inputs/EnumgenderFieldUpdateOperationsInput";
 import { NullableBoolFieldUpdateOperationsInput } from "../inputs/NullableBoolFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
@@ -61,4 +62,9 @@ export class DoctorUpdateInput {
     nullable: true
   })
   appointments?: AppointmentUpdateManyWithoutDoctorNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => AvailabilitySlotUpdateManyWithoutDoctorNestedInput, {
+    nullable: true
+  })
+  AvailabilitySlot?: AvailabilitySlotUpdateManyWithoutDoctorNestedInput | undefined;
 }

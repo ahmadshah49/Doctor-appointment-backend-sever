@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
 import { Appointment } from "../models/Appointment";
+import { AvailabilitySlot } from "../models/AvailabilitySlot";
 import { Patient } from "../models/Patient";
 import { User } from "../models/User";
 import { gender } from "../enums/gender";
@@ -60,6 +61,8 @@ export class Doctor {
   patients?: Patient[];
 
   appointments?: Appointment[];
+
+  AvailabilitySlot?: AvailabilitySlot[];
 
   @TypeGraphQL.Field(_type => DoctorCount, {
     nullable: true

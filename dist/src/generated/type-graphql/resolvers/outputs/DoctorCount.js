@@ -38,6 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorCount = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const DoctorCountAppointmentsArgs_1 = require("./args/DoctorCountAppointmentsArgs");
+const DoctorCountAvailabilitySlotArgs_1 = require("./args/DoctorCountAvailabilitySlotArgs");
 const DoctorCountPatientsArgs_1 = require("./args/DoctorCountPatientsArgs");
 let DoctorCount = class DoctorCount {
     getPatients(root, args) {
@@ -45,6 +46,9 @@ let DoctorCount = class DoctorCount {
     }
     getAppointments(root, args) {
         return root.appointments;
+    }
+    getAvailabilitySlot(root, args) {
+        return root.AvailabilitySlot;
     }
 };
 exports.DoctorCount = DoctorCount;
@@ -70,6 +74,17 @@ __decorate([
     __metadata("design:paramtypes", [DoctorCount, DoctorCountAppointmentsArgs_1.DoctorCountAppointmentsArgs]),
     __metadata("design:returntype", Number)
 ], DoctorCount.prototype, "getAppointments", null);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        name: "AvailabilitySlot",
+        nullable: false
+    }),
+    __param(0, TypeGraphQL.Root()),
+    __param(1, TypeGraphQL.Args()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [DoctorCount, DoctorCountAvailabilitySlotArgs_1.DoctorCountAvailabilitySlotArgs]),
+    __metadata("design:returntype", Number)
+], DoctorCount.prototype, "getAvailabilitySlot", null);
 exports.DoctorCount = DoctorCount = __decorate([
     TypeGraphQL.ObjectType("DoctorCount", {})
 ], DoctorCount);

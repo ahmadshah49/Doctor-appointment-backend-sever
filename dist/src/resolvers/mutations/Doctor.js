@@ -21,6 +21,7 @@ const type_graphql_2 = require("../../generated/type-graphql");
 const MiddleWare_1 = require("../../middleware/MiddleWare");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
 const graphql_1 = require("graphql");
+const ImageUploader_1 = require("../../utils/ImageUploader");
 let DoctorResolver = class DoctorResolver {
     async allDoctor() {
         try {
@@ -34,9 +35,6 @@ let DoctorResolver = class DoctorResolver {
         }
     }
     async createDoctor(name, profilePhoto, address, availability, email, isAvailable, gender, context) {
-        if (!name || !address || !email || !gender) {
-            throw new graphql_1.GraphQLError("Please add name,email,address and gender");
-        }
         const currentUserId = context.payload?.userId;
         const dbUser = await prisma_1.default.doctor.findUnique({
             where: {
@@ -61,10 +59,8 @@ let DoctorResolver = class DoctorResolver {
         return "Data Added";
     }
     async updateDoctor(name, profilePhoto, address, availability, email, isAvailable, gender, context) {
-        if (!name || !address || !email || !gender) {
-            throw new graphql_1.GraphQLError("Please add name,email,address and gender");
-        }
         const currentUserId = context.payload?.userId;
+        const addProfileImage = await (0, ImageUploader_1.ImageUploader)(profilePhoto);
         await prisma_1.default.doctor.update({
             where: {
                 userId: currentUserId,
@@ -76,7 +72,7 @@ let DoctorResolver = class DoctorResolver {
                 name,
                 availability,
                 isAvailable,
-                profilePhoto,
+                profilePhoto: addProfileImage || null,
                 userId: currentUserId,
             },
         });
@@ -109,13 +105,13 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
     (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth, MiddleWare_1.isDoctor),
-    __param(0, (0, type_graphql_1.Arg)("name")),
+    __param(0, (0, type_graphql_1.Arg)("name", { nullable: true })),
     __param(1, (0, type_graphql_1.Arg)("profilePhoto", { nullable: true })),
-    __param(2, (0, type_graphql_1.Arg)("address")),
+    __param(2, (0, type_graphql_1.Arg)("address", { nullable: true })),
     __param(3, (0, type_graphql_1.Arg)("availability", { nullable: true })),
-    __param(4, (0, type_graphql_1.Arg)("email")),
+    __param(4, (0, type_graphql_1.Arg)("email", { nullable: true })),
     __param(5, (0, type_graphql_1.Arg)("isAvailable", { nullable: true })),
-    __param(6, (0, type_graphql_1.Arg)("gender", () => type_graphql_2.gender)),
+    __param(6, (0, type_graphql_1.Arg)("gender", () => type_graphql_2.gender, { nullable: true })),
     __param(7, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String, String, String, Boolean, String, Object]),

@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.Patient = exports.Doctor = exports.Appointment = void 0;
+exports.User = exports.Patient = exports.Doctor = exports.AvailabilitySlot = exports.Appointment = void 0;
 var Appointment_1 = require("./Appointment");
 Object.defineProperty(exports, "Appointment", { enumerable: true, get: function () { return Appointment_1.Appointment; } });
+var AvailabilitySlot_1 = require("./AvailabilitySlot");
+Object.defineProperty(exports, "AvailabilitySlot", { enumerable: true, get: function () { return AvailabilitySlot_1.AvailabilitySlot; } });
 var Doctor_1 = require("./Doctor");
 Object.defineProperty(exports, "Doctor", { enumerable: true, get: function () { return Doctor_1.Doctor; } });
 var Patient_1 = require("./Patient");

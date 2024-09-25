@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PatientCountAppointmentsArgs = exports.DoctorCountPatientsArgs = exports.DoctorCountAppointmentsArgs = exports.CreateManyAndReturnPatientDoctorArgs = exports.CreateManyAndReturnAppointmentPatientArgs = exports.CreateManyAndReturnAppointmentDoctorArgs = void 0;
+exports.PatientCountAppointmentsArgs = exports.DoctorCountPatientsArgs = exports.DoctorCountAvailabilitySlotArgs = exports.DoctorCountAppointmentsArgs = exports.CreateManyAndReturnPatientDoctorArgs = exports.CreateManyAndReturnAppointmentPatientArgs = exports.CreateManyAndReturnAppointmentDoctorArgs = void 0;
 var CreateManyAndReturnAppointmentDoctorArgs_1 = require("./CreateManyAndReturnAppointmentDoctorArgs");
 Object.defineProperty(exports, "CreateManyAndReturnAppointmentDoctorArgs", { enumerable: true, get: function () { return CreateManyAndReturnAppointmentDoctorArgs_1.CreateManyAndReturnAppointmentDoctorArgs; } });
 var CreateManyAndReturnAppointmentPatientArgs_1 = require("./CreateManyAndReturnAppointmentPatientArgs");
@@ -9,6 +9,8 @@ var CreateManyAndReturnPatientDoctorArgs_1 = require("./CreateManyAndReturnPatie
 Object.defineProperty(exports, "CreateManyAndReturnPatientDoctorArgs", { enumerable: true, get: function () { return CreateManyAndReturnPatientDoctorArgs_1.CreateManyAndReturnPatientDoctorArgs; } });
 var DoctorCountAppointmentsArgs_1 = require("./DoctorCountAppointmentsArgs");
 Object.defineProperty(exports, "DoctorCountAppointmentsArgs", { enumerable: true, get: function () { return DoctorCountAppointmentsArgs_1.DoctorCountAppointmentsArgs; } });
+var DoctorCountAvailabilitySlotArgs_1 = require("./DoctorCountAvailabilitySlotArgs");
+Object.defineProperty(exports, "DoctorCountAvailabilitySlotArgs", { enumerable: true, get: function () { return DoctorCountAvailabilitySlotArgs_1.DoctorCountAvailabilitySlotArgs; } });
 var DoctorCountPatientsArgs_1 = require("./DoctorCountPatientsArgs");
 Object.defineProperty(exports, "DoctorCountPatientsArgs", { enumerable: true, get: function () { return DoctorCountPatientsArgs_1.DoctorCountPatientsArgs; } });
 var PatientCountAppointmentsArgs_1 = require("./PatientCountAppointmentsArgs");
