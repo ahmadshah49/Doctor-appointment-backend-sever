@@ -137,7 +137,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter)
-], UserScalarWhereWithAggregatesInput.prototype, "proflePicture", void 0);
+], UserScalarWhereWithAggregatesInput.prototype, "profilePicture", void 0);
 exports.UserScalarWhereWithAggregatesInput = UserScalarWhereWithAggregatesInput = __decorate([
     TypeGraphQL.InputType("UserScalarWhereWithAggregatesInput", {})
 ], UserScalarWhereWithAggregatesInput);

@@ -1,1 +1,2 @@
-export { AppointmentUserArgs } from "./AppointmentUserArgs";
+export { AppointmentDoctorArgs } from "./AppointmentDoctorArgs";
+export { AppointmentPatientArgs } from "./AppointmentPatientArgs";

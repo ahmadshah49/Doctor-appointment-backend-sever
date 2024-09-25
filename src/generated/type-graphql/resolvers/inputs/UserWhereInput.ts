@@ -2,10 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { AppointmentListRelationFilter } from "../inputs/AppointmentListRelationFilter";
 import { DateTimeNullableFilter } from "../inputs/DateTimeNullableFilter";
+import { DoctorNullableRelationFilter } from "../inputs/DoctorNullableRelationFilter";
 import { EnumroleFilter } from "../inputs/EnumroleFilter";
 import { IntFilter } from "../inputs/IntFilter";
+import { PatientNullableRelationFilter } from "../inputs/PatientNullableRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 
@@ -89,10 +90,15 @@ export class UserWhereInput {
   @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  proflePicture?: StringNullableFilter | undefined;
+  profilePicture?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => AppointmentListRelationFilter, {
+  @TypeGraphQL.Field(_type => DoctorNullableRelationFilter, {
     nullable: true
   })
-  appointment?: AppointmentListRelationFilter | undefined;
+  doctor?: DoctorNullableRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => PatientNullableRelationFilter, {
+    nullable: true
+  })
+  patient?: PatientNullableRelationFilter | undefined;
 }

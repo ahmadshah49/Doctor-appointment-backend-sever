@@ -115,7 +115,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], UserMaxOrderByAggregateInput.prototype, "proflePicture", void 0);
+], UserMaxOrderByAggregateInput.prototype, "profilePicture", void 0);
 exports.UserMaxOrderByAggregateInput = UserMaxOrderByAggregateInput = __decorate([
     TypeGraphQL.InputType("UserMaxOrderByAggregateInput", {})
 ], UserMaxOrderByAggregateInput);

@@ -115,7 +115,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], UserMinOrderByAggregateInput.prototype, "proflePicture", void 0);
+], UserMinOrderByAggregateInput.prototype, "profilePicture", void 0);
 exports.UserMinOrderByAggregateInput = UserMinOrderByAggregateInput = __decorate([
     TypeGraphQL.InputType("UserMinOrderByAggregateInput", {})
 ], UserMinOrderByAggregateInput);

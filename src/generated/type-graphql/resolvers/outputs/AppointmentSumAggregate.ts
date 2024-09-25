@@ -13,5 +13,10 @@ export class AppointmentSumAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
   })
-  userId!: number | null;
+  doctorId!: number | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  patientId!: number | null;
 }

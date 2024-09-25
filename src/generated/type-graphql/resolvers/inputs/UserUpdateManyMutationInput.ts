@@ -67,5 +67,5 @@ export class UserUpdateManyMutationInput {
   @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
-  proflePicture?: NullableStringFieldUpdateOperationsInput | undefined;
+  profilePicture?: NullableStringFieldUpdateOperationsInput | undefined;
 }

@@ -2,7 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { AppointmentOrderByRelationAggregateInput } from "../inputs/AppointmentOrderByRelationAggregateInput";
+import { DoctorOrderByWithRelationInput } from "../inputs/DoctorOrderByWithRelationInput";
+import { PatientOrderByWithRelationInput } from "../inputs/PatientOrderByWithRelationInput";
 import { SortOrderInput } from "../inputs/SortOrderInput";
 import { SortOrder } from "../../enums/SortOrder";
 
@@ -71,10 +72,15 @@ export class UserOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
-  proflePicture?: SortOrderInput | undefined;
+  profilePicture?: SortOrderInput | undefined;
 
-  @TypeGraphQL.Field(_type => AppointmentOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => DoctorOrderByWithRelationInput, {
     nullable: true
   })
-  appointment?: AppointmentOrderByRelationAggregateInput | undefined;
+  doctor?: DoctorOrderByWithRelationInput | undefined;
+
+  @TypeGraphQL.Field(_type => PatientOrderByWithRelationInput, {
+    nullable: true
+  })
+  patient?: PatientOrderByWithRelationInput | undefined;
 }

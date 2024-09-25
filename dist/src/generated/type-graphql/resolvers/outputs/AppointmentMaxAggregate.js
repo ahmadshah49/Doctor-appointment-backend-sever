@@ -34,6 +34,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentMaxAggregate = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
+const AppointmentStatus_1 = require("../../enums/AppointmentStatus");
 const gender_1 = require("../../enums/gender");
 let AppointmentMaxAggregate = class AppointmentMaxAggregate {
 };
@@ -44,12 +45,6 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], AppointmentMaxAggregate.prototype, "id", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: true
-    }),
-    __metadata("design:type", Number)
-], AppointmentMaxAggregate.prototype, "userId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
         nullable: true
@@ -86,6 +81,36 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AppointmentMaxAggregate.prototype, "medicalHistory", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentMaxAggregate.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: true
+    }),
+    __metadata("design:type", Date)
+], AppointmentMaxAggregate.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AppointmentStatus_1.AppointmentStatus, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentMaxAggregate.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentMaxAggregate.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentMaxAggregate.prototype, "patientId", void 0);
 exports.AppointmentMaxAggregate = AppointmentMaxAggregate = __decorate([
     TypeGraphQL.ObjectType("AppointmentMaxAggregate", {})
 ], AppointmentMaxAggregate);

@@ -48,7 +48,13 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", Number)
-], AppointmentSumAggregate.prototype, "userId", void 0);
+], AppointmentSumAggregate.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentSumAggregate.prototype, "patientId", void 0);
 exports.AppointmentSumAggregate = AppointmentSumAggregate = __decorate([
     TypeGraphQL.ObjectType("AppointmentSumAggregate", {})
 ], AppointmentSumAggregate);

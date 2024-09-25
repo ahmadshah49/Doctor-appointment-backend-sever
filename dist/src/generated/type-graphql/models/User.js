@@ -35,7 +35,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const role_1 = require("../enums/role");
-const UserCount_1 = require("../resolvers/outputs/UserCount");
 let User = class User {
 };
 exports.User = User;
@@ -116,13 +115,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], User.prototype, "proflePicture", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => UserCount_1.UserCount, {
-        nullable: true
-    }),
-    __metadata("design:type", UserCount_1.UserCount)
-], User.prototype, "_count", void 0);
+], User.prototype, "profilePicture", void 0);
 exports.User = User = __decorate([
     TypeGraphQL.ObjectType("User", {})
 ], User);

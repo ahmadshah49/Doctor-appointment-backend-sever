@@ -34,6 +34,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentScalarWhereInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
+const DateTimeFilter_1 = require("../inputs/DateTimeFilter");
+const EnumAppointmentStatusNullableFilter_1 = require("../inputs/EnumAppointmentStatusNullableFilter");
 const EnumgenderNullableFilter_1 = require("../inputs/EnumgenderNullableFilter");
 const IntFilter_1 = require("../inputs/IntFilter");
 const IntNullableFilter_1 = require("../inputs/IntNullableFilter");
@@ -66,12 +68,6 @@ __decorate([
     }),
     __metadata("design:type", IntFilter_1.IntFilter)
 ], AppointmentScalarWhereInput.prototype, "id", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
-], AppointmentScalarWhereInput.prototype, "userId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
         nullable: true
@@ -114,6 +110,36 @@ __decorate([
     }),
     __metadata("design:type", StringNullableListFilter_1.StringNullableListFilter)
 ], AppointmentScalarWhereInput.prototype, "presciptions", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
+], AppointmentScalarWhereInput.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
+], AppointmentScalarWhereInput.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => EnumAppointmentStatusNullableFilter_1.EnumAppointmentStatusNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", EnumAppointmentStatusNullableFilter_1.EnumAppointmentStatusNullableFilter)
+], AppointmentScalarWhereInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
+], AppointmentScalarWhereInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
+], AppointmentScalarWhereInput.prototype, "patientId", void 0);
 exports.AppointmentScalarWhereInput = AppointmentScalarWhereInput = __decorate([
     TypeGraphQL.InputType("AppointmentScalarWhereInput", {})
 ], AppointmentScalarWhereInput);

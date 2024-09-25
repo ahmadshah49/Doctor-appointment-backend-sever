@@ -49,7 +49,13 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], AppointmentAvgOrderByAggregateInput.prototype, "userId", void 0);
+], AppointmentAvgOrderByAggregateInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentAvgOrderByAggregateInput.prototype, "patientId", void 0);
 exports.AppointmentAvgOrderByAggregateInput = AppointmentAvgOrderByAggregateInput = __decorate([
     TypeGraphQL.InputType("AppointmentAvgOrderByAggregateInput", {})
 ], AppointmentAvgOrderByAggregateInput);

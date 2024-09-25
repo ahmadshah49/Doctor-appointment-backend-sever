@@ -120,7 +120,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], UserGroupBy.prototype, "proflePicture", void 0);
+], UserGroupBy.prototype, "profilePicture", void 0);
 __decorate([
     TypeGraphQL.Field(_type => UserCountAggregate_1.UserCountAggregate, {
         nullable: true

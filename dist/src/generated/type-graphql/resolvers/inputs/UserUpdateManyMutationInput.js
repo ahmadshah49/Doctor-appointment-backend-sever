@@ -112,7 +112,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
-], UserUpdateManyMutationInput.prototype, "proflePicture", void 0);
+], UserUpdateManyMutationInput.prototype, "profilePicture", void 0);
 exports.UserUpdateManyMutationInput = UserUpdateManyMutationInput = __decorate([
     TypeGraphQL.InputType("UserUpdateManyMutationInput", {})
 ], UserUpdateManyMutationInput);

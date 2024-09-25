@@ -69,5 +69,5 @@ export class UserMaxOrderByAggregateInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  proflePicture?: "asc" | "desc" | undefined;
+  profilePicture?: "asc" | "desc" | undefined;
 }

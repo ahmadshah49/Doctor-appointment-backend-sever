@@ -1,0 +1,15 @@
+export { AggregateDoctorArgs } from "./AggregateDoctorArgs";
+export { CreateManyAndReturnDoctorArgs } from "./CreateManyAndReturnDoctorArgs";
+export { CreateManyDoctorArgs } from "./CreateManyDoctorArgs";
+export { CreateOneDoctorArgs } from "./CreateOneDoctorArgs";
+export { DeleteManyDoctorArgs } from "./DeleteManyDoctorArgs";
+export { DeleteOneDoctorArgs } from "./DeleteOneDoctorArgs";
+export { FindFirstDoctorArgs } from "./FindFirstDoctorArgs";
+export { FindFirstDoctorOrThrowArgs } from "./FindFirstDoctorOrThrowArgs";
+export { FindManyDoctorArgs } from "./FindManyDoctorArgs";
+export { FindUniqueDoctorArgs } from "./FindUniqueDoctorArgs";
+export { FindUniqueDoctorOrThrowArgs } from "./FindUniqueDoctorOrThrowArgs";
+export { GroupByDoctorArgs } from "./GroupByDoctorArgs";
+export { UpdateManyDoctorArgs } from "./UpdateManyDoctorArgs";
+export { UpdateOneDoctorArgs } from "./UpdateOneDoctorArgs";
+export { UpsertOneDoctorArgs } from "./UpsertOneDoctorArgs";

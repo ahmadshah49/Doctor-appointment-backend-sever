@@ -34,10 +34,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserUpdateInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const AppointmentUpdateManyWithoutUserNestedInput_1 = require("../inputs/AppointmentUpdateManyWithoutUserNestedInput");
+const DoctorUpdateOneWithoutUserNestedInput_1 = require("../inputs/DoctorUpdateOneWithoutUserNestedInput");
 const EnumroleFieldUpdateOperationsInput_1 = require("../inputs/EnumroleFieldUpdateOperationsInput");
 const NullableDateTimeFieldUpdateOperationsInput_1 = require("../inputs/NullableDateTimeFieldUpdateOperationsInput");
 const NullableStringFieldUpdateOperationsInput_1 = require("../inputs/NullableStringFieldUpdateOperationsInput");
+const PatientUpdateOneWithoutUserNestedInput_1 = require("../inputs/PatientUpdateOneWithoutUserNestedInput");
 const StringFieldUpdateOperationsInput_1 = require("../inputs/StringFieldUpdateOperationsInput");
 let UserUpdateInput = class UserUpdateInput {
 };
@@ -113,13 +114,19 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
-], UserUpdateInput.prototype, "proflePicture", void 0);
+], UserUpdateInput.prototype, "profilePicture", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => AppointmentUpdateManyWithoutUserNestedInput_1.AppointmentUpdateManyWithoutUserNestedInput, {
+    TypeGraphQL.Field(_type => DoctorUpdateOneWithoutUserNestedInput_1.DoctorUpdateOneWithoutUserNestedInput, {
         nullable: true
     }),
-    __metadata("design:type", AppointmentUpdateManyWithoutUserNestedInput_1.AppointmentUpdateManyWithoutUserNestedInput)
-], UserUpdateInput.prototype, "appointment", void 0);
+    __metadata("design:type", DoctorUpdateOneWithoutUserNestedInput_1.DoctorUpdateOneWithoutUserNestedInput)
+], UserUpdateInput.prototype, "doctor", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => PatientUpdateOneWithoutUserNestedInput_1.PatientUpdateOneWithoutUserNestedInput, {
+        nullable: true
+    }),
+    __metadata("design:type", PatientUpdateOneWithoutUserNestedInput_1.PatientUpdateOneWithoutUserNestedInput)
+], UserUpdateInput.prototype, "patient", void 0);
 exports.UserUpdateInput = UserUpdateInput = __decorate([
     TypeGraphQL.InputType("UserUpdateInput", {})
 ], UserUpdateInput);

@@ -35,11 +35,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentWhereUniqueInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentWhereInput_1 = require("../inputs/AppointmentWhereInput");
+const DateTimeFilter_1 = require("../inputs/DateTimeFilter");
+const DoctorNullableRelationFilter_1 = require("../inputs/DoctorNullableRelationFilter");
+const EnumAppointmentStatusNullableFilter_1 = require("../inputs/EnumAppointmentStatusNullableFilter");
 const EnumgenderNullableFilter_1 = require("../inputs/EnumgenderNullableFilter");
 const IntNullableFilter_1 = require("../inputs/IntNullableFilter");
+const PatientNullableRelationFilter_1 = require("../inputs/PatientNullableRelationFilter");
 const StringNullableFilter_1 = require("../inputs/StringNullableFilter");
 const StringNullableListFilter_1 = require("../inputs/StringNullableListFilter");
-const UserNullableRelationFilter_1 = require("../inputs/UserNullableRelationFilter");
 let AppointmentWhereUniqueInput = class AppointmentWhereUniqueInput {
 };
 exports.AppointmentWhereUniqueInput = AppointmentWhereUniqueInput;
@@ -67,12 +70,6 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], AppointmentWhereUniqueInput.prototype, "NOT", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
-], AppointmentWhereUniqueInput.prototype, "userId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
         nullable: true
@@ -116,11 +113,47 @@ __decorate([
     __metadata("design:type", StringNullableListFilter_1.StringNullableListFilter)
 ], AppointmentWhereUniqueInput.prototype, "presciptions", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => UserNullableRelationFilter_1.UserNullableRelationFilter, {
+    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
         nullable: true
     }),
-    __metadata("design:type", UserNullableRelationFilter_1.UserNullableRelationFilter)
-], AppointmentWhereUniqueInput.prototype, "User", void 0);
+    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
+], AppointmentWhereUniqueInput.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
+], AppointmentWhereUniqueInput.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => EnumAppointmentStatusNullableFilter_1.EnumAppointmentStatusNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", EnumAppointmentStatusNullableFilter_1.EnumAppointmentStatusNullableFilter)
+], AppointmentWhereUniqueInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
+], AppointmentWhereUniqueInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
+], AppointmentWhereUniqueInput.prototype, "patientId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DoctorNullableRelationFilter_1.DoctorNullableRelationFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", DoctorNullableRelationFilter_1.DoctorNullableRelationFilter)
+], AppointmentWhereUniqueInput.prototype, "Doctor", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => PatientNullableRelationFilter_1.PatientNullableRelationFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", PatientNullableRelationFilter_1.PatientNullableRelationFilter)
+], AppointmentWhereUniqueInput.prototype, "Patient", void 0);
 exports.AppointmentWhereUniqueInput = AppointmentWhereUniqueInput = __decorate([
     TypeGraphQL.InputType("AppointmentWhereUniqueInput", {})
 ], AppointmentWhereUniqueInput);

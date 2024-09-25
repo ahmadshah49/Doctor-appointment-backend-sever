@@ -48,12 +48,6 @@ __decorate([
         nullable: false
     }),
     __metadata("design:type", Number)
-], AppointmentCountAggregate.prototype, "userId", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: false
-    }),
-    __metadata("design:type", Number)
 ], AppointmentCountAggregate.prototype, "fullName", void 0);
 __decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {
@@ -91,6 +85,36 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], AppointmentCountAggregate.prototype, "presciptions", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
+], AppointmentCountAggregate.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
+], AppointmentCountAggregate.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
+], AppointmentCountAggregate.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
+], AppointmentCountAggregate.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
+], AppointmentCountAggregate.prototype, "patientId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {
         nullable: false

@@ -3,11 +3,14 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AppointmentWhereInput } from "../inputs/AppointmentWhereInput";
+import { DateTimeFilter } from "../inputs/DateTimeFilter";
+import { DoctorNullableRelationFilter } from "../inputs/DoctorNullableRelationFilter";
+import { EnumAppointmentStatusNullableFilter } from "../inputs/EnumAppointmentStatusNullableFilter";
 import { EnumgenderNullableFilter } from "../inputs/EnumgenderNullableFilter";
 import { IntNullableFilter } from "../inputs/IntNullableFilter";
+import { PatientNullableRelationFilter } from "../inputs/PatientNullableRelationFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { StringNullableListFilter } from "../inputs/StringNullableListFilter";
-import { UserNullableRelationFilter } from "../inputs/UserNullableRelationFilter";
 
 @TypeGraphQL.InputType("AppointmentWhereUniqueInput", {})
 export class AppointmentWhereUniqueInput {
@@ -30,11 +33,6 @@ export class AppointmentWhereUniqueInput {
     nullable: true
   })
   NOT?: AppointmentWhereInput[] | undefined;
-
-  @TypeGraphQL.Field(_type => IntNullableFilter, {
-    nullable: true
-  })
-  userId?: IntNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
@@ -71,8 +69,38 @@ export class AppointmentWhereUniqueInput {
   })
   presciptions?: StringNullableListFilter | undefined;
 
-  @TypeGraphQL.Field(_type => UserNullableRelationFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  User?: UserNullableRelationFilter | undefined;
+  details?: StringNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeFilter, {
+    nullable: true
+  })
+  scheduledDate?: DateTimeFilter | undefined;
+
+  @TypeGraphQL.Field(_type => EnumAppointmentStatusNullableFilter, {
+    nullable: true
+  })
+  status?: EnumAppointmentStatusNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntNullableFilter, {
+    nullable: true
+  })
+  doctorId?: IntNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntNullableFilter, {
+    nullable: true
+  })
+  patientId?: IntNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => DoctorNullableRelationFilter, {
+    nullable: true
+  })
+  Doctor?: DoctorNullableRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => PatientNullableRelationFilter, {
+    nullable: true
+  })
+  Patient?: PatientNullableRelationFilter | undefined;
 }

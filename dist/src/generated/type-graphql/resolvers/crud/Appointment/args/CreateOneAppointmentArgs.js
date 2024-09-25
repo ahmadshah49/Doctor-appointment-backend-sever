@@ -40,7 +40,7 @@ let CreateOneAppointmentArgs = class CreateOneAppointmentArgs {
 exports.CreateOneAppointmentArgs = CreateOneAppointmentArgs;
 __decorate([
     TypeGraphQL.Field(_type => AppointmentCreateInput_1.AppointmentCreateInput, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", AppointmentCreateInput_1.AppointmentCreateInput)
 ], CreateOneAppointmentArgs.prototype, "data", void 0);

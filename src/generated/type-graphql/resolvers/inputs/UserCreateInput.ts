@@ -2,7 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { AppointmentCreateNestedManyWithoutUserInput } from "../inputs/AppointmentCreateNestedManyWithoutUserInput";
+import { DoctorCreateNestedOneWithoutUserInput } from "../inputs/DoctorCreateNestedOneWithoutUserInput";
+import { PatientCreateNestedOneWithoutUserInput } from "../inputs/PatientCreateNestedOneWithoutUserInput";
 import { role } from "../../enums/role";
 
 @TypeGraphQL.InputType("UserCreateInput", {})
@@ -65,10 +66,15 @@ export class UserCreateInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  proflePicture?: string | undefined;
+  profilePicture?: string | undefined;
 
-  @TypeGraphQL.Field(_type => AppointmentCreateNestedManyWithoutUserInput, {
+  @TypeGraphQL.Field(_type => DoctorCreateNestedOneWithoutUserInput, {
     nullable: true
   })
-  appointment?: AppointmentCreateNestedManyWithoutUserInput | undefined;
+  doctor?: DoctorCreateNestedOneWithoutUserInput | undefined;
+
+  @TypeGraphQL.Field(_type => PatientCreateNestedOneWithoutUserInput, {
+    nullable: true
+  })
+  patient?: PatientCreateNestedOneWithoutUserInput | undefined;
 }

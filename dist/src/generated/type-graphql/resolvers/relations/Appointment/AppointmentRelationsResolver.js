@@ -38,17 +38,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentRelationsResolver = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const Appointment_1 = require("../../../models/Appointment");
-const User_1 = require("../../../models/User");
-const AppointmentUserArgs_1 = require("./args/AppointmentUserArgs");
+const Doctor_1 = require("../../../models/Doctor");
+const Patient_1 = require("../../../models/Patient");
+const AppointmentDoctorArgs_1 = require("./args/AppointmentDoctorArgs");
+const AppointmentPatientArgs_1 = require("./args/AppointmentPatientArgs");
 const helpers_1 = require("../../../helpers");
 let AppointmentRelationsResolver = class AppointmentRelationsResolver {
-    async User(appointment, ctx, info, args) {
+    async Doctor(appointment, ctx, info, args) {
         const { _count } = (0, helpers_1.transformInfoIntoPrismaArgs)(info);
         return (0, helpers_1.getPrismaFromContext)(ctx).appointment.findUniqueOrThrow({
             where: {
                 id: appointment.id,
             },
-        }).User({
+        }).Doctor({
+            ...args,
+            ...(_count && (0, helpers_1.transformCountFieldIntoSelectRelationsCount)(_count)),
+        });
+    }
+    async Patient(appointment, ctx, info, args) {
+        const { _count } = (0, helpers_1.transformInfoIntoPrismaArgs)(info);
+        return (0, helpers_1.getPrismaFromContext)(ctx).appointment.findUniqueOrThrow({
+            where: {
+                id: appointment.id,
+            },
+        }).Patient({
             ...args,
             ...(_count && (0, helpers_1.transformCountFieldIntoSelectRelationsCount)(_count)),
         });
@@ -56,7 +69,7 @@ let AppointmentRelationsResolver = class AppointmentRelationsResolver {
 };
 exports.AppointmentRelationsResolver = AppointmentRelationsResolver;
 __decorate([
-    TypeGraphQL.FieldResolver(_type => User_1.User, {
+    TypeGraphQL.FieldResolver(_type => Doctor_1.Doctor, {
         nullable: true
     }),
     __param(0, TypeGraphQL.Root()),
@@ -64,9 +77,21 @@ __decorate([
     __param(2, TypeGraphQL.Info()),
     __param(3, TypeGraphQL.Args()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Appointment_1.Appointment, Object, Object, AppointmentUserArgs_1.AppointmentUserArgs]),
+    __metadata("design:paramtypes", [Appointment_1.Appointment, Object, Object, AppointmentDoctorArgs_1.AppointmentDoctorArgs]),
     __metadata("design:returntype", Promise)
-], AppointmentRelationsResolver.prototype, "User", null);
+], AppointmentRelationsResolver.prototype, "Doctor", null);
+__decorate([
+    TypeGraphQL.FieldResolver(_type => Patient_1.Patient, {
+        nullable: true
+    }),
+    __param(0, TypeGraphQL.Root()),
+    __param(1, TypeGraphQL.Ctx()),
+    __param(2, TypeGraphQL.Info()),
+    __param(3, TypeGraphQL.Args()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Appointment_1.Appointment, Object, Object, AppointmentPatientArgs_1.AppointmentPatientArgs]),
+    __metadata("design:returntype", Promise)
+], AppointmentRelationsResolver.prototype, "Patient", null);
 exports.AppointmentRelationsResolver = AppointmentRelationsResolver = __decorate([
     TypeGraphQL.Resolver(_of => Appointment_1.Appointment)
 ], AppointmentRelationsResolver);

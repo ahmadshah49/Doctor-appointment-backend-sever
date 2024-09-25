@@ -55,12 +55,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", SortOrderInput_1.SortOrderInput)
-], AppointmentOrderByWithAggregationInput.prototype, "userId", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
-        nullable: true
-    }),
-    __metadata("design:type", SortOrderInput_1.SortOrderInput)
 ], AppointmentOrderByWithAggregationInput.prototype, "fullName", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
@@ -98,6 +92,36 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AppointmentOrderByWithAggregationInput.prototype, "presciptions", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AppointmentOrderByWithAggregationInput.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentOrderByWithAggregationInput.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AppointmentOrderByWithAggregationInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AppointmentOrderByWithAggregationInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AppointmentOrderByWithAggregationInput.prototype, "patientId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => AppointmentCountOrderByAggregateInput_1.AppointmentCountOrderByAggregateInput, {
         nullable: true

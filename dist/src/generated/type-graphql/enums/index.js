@@ -1,10 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.role = exports.gender = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.SortOrder = exports.QueryMode = exports.NullsOrder = exports.AppointmentScalarFieldEnum = void 0;
+exports.role = exports.gender = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.SortOrder = exports.QueryMode = exports.PatientScalarFieldEnum = exports.NullsOrder = exports.DoctorScalarFieldEnum = exports.AppointmentStatus = exports.AppointmentScalarFieldEnum = void 0;
 var AppointmentScalarFieldEnum_1 = require("./AppointmentScalarFieldEnum");
 Object.defineProperty(exports, "AppointmentScalarFieldEnum", { enumerable: true, get: function () { return AppointmentScalarFieldEnum_1.AppointmentScalarFieldEnum; } });
+var AppointmentStatus_1 = require("./AppointmentStatus");
+Object.defineProperty(exports, "AppointmentStatus", { enumerable: true, get: function () { return AppointmentStatus_1.AppointmentStatus; } });
+var DoctorScalarFieldEnum_1 = require("./DoctorScalarFieldEnum");
+Object.defineProperty(exports, "DoctorScalarFieldEnum", { enumerable: true, get: function () { return DoctorScalarFieldEnum_1.DoctorScalarFieldEnum; } });
 var NullsOrder_1 = require("./NullsOrder");
 Object.defineProperty(exports, "NullsOrder", { enumerable: true, get: function () { return NullsOrder_1.NullsOrder; } });
+var PatientScalarFieldEnum_1 = require("./PatientScalarFieldEnum");
+Object.defineProperty(exports, "PatientScalarFieldEnum", { enumerable: true, get: function () { return PatientScalarFieldEnum_1.PatientScalarFieldEnum; } });
 var QueryMode_1 = require("./QueryMode");
 Object.defineProperty(exports, "QueryMode", { enumerable: true, get: function () { return QueryMode_1.QueryMode; } });
 var SortOrder_1 = require("./SortOrder");

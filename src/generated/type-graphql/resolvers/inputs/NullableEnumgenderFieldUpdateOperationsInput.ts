@@ -9,5 +9,5 @@ export class NullableEnumgenderFieldUpdateOperationsInput {
   @TypeGraphQL.Field(_type => gender, {
     nullable: true
   })
-  set?: "MAlE" | "FEMALE" | undefined;
+  set?: "MAlE" | "FEMALE" | "OTHERS" | undefined;
 }

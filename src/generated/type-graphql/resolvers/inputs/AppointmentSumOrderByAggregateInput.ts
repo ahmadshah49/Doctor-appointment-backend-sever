@@ -14,5 +14,10 @@ export class AppointmentSumOrderByAggregateInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  userId?: "asc" | "desc" | undefined;
+  doctorId?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  patientId?: "asc" | "desc" | undefined;
 }

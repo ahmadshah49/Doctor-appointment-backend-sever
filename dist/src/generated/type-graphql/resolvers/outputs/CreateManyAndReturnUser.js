@@ -115,7 +115,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], CreateManyAndReturnUser.prototype, "proflePicture", void 0);
+], CreateManyAndReturnUser.prototype, "profilePicture", void 0);
 exports.CreateManyAndReturnUser = CreateManyAndReturnUser = __decorate([
     TypeGraphQL.ObjectType("CreateManyAndReturnUser", {})
 ], CreateManyAndReturnUser);

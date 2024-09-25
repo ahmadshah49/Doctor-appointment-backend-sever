@@ -115,7 +115,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], UserMaxAggregate.prototype, "proflePicture", void 0);
+], UserMaxAggregate.prototype, "profilePicture", void 0);
 exports.UserMaxAggregate = UserMaxAggregate = __decorate([
     TypeGraphQL.ObjectType("UserMaxAggregate", {})
 ], UserMaxAggregate);

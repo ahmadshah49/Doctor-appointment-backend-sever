@@ -34,8 +34,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentOrderByWithRelationInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
+const DoctorOrderByWithRelationInput_1 = require("../inputs/DoctorOrderByWithRelationInput");
+const PatientOrderByWithRelationInput_1 = require("../inputs/PatientOrderByWithRelationInput");
 const SortOrderInput_1 = require("../inputs/SortOrderInput");
-const UserOrderByWithRelationInput_1 = require("../inputs/UserOrderByWithRelationInput");
 const SortOrder_1 = require("../../enums/SortOrder");
 let AppointmentOrderByWithRelationInput = class AppointmentOrderByWithRelationInput {
 };
@@ -46,12 +47,6 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AppointmentOrderByWithRelationInput.prototype, "id", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
-        nullable: true
-    }),
-    __metadata("design:type", SortOrderInput_1.SortOrderInput)
-], AppointmentOrderByWithRelationInput.prototype, "userId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
         nullable: true
@@ -95,11 +90,47 @@ __decorate([
     __metadata("design:type", String)
 ], AppointmentOrderByWithRelationInput.prototype, "presciptions", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => UserOrderByWithRelationInput_1.UserOrderByWithRelationInput, {
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
         nullable: true
     }),
-    __metadata("design:type", UserOrderByWithRelationInput_1.UserOrderByWithRelationInput)
-], AppointmentOrderByWithRelationInput.prototype, "User", void 0);
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AppointmentOrderByWithRelationInput.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentOrderByWithRelationInput.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AppointmentOrderByWithRelationInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AppointmentOrderByWithRelationInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AppointmentOrderByWithRelationInput.prototype, "patientId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DoctorOrderByWithRelationInput_1.DoctorOrderByWithRelationInput, {
+        nullable: true
+    }),
+    __metadata("design:type", DoctorOrderByWithRelationInput_1.DoctorOrderByWithRelationInput)
+], AppointmentOrderByWithRelationInput.prototype, "Doctor", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => PatientOrderByWithRelationInput_1.PatientOrderByWithRelationInput, {
+        nullable: true
+    }),
+    __metadata("design:type", PatientOrderByWithRelationInput_1.PatientOrderByWithRelationInput)
+], AppointmentOrderByWithRelationInput.prototype, "Patient", void 0);
 exports.AppointmentOrderByWithRelationInput = AppointmentOrderByWithRelationInput = __decorate([
     TypeGraphQL.InputType("AppointmentOrderByWithRelationInput", {})
 ], AppointmentOrderByWithRelationInput);

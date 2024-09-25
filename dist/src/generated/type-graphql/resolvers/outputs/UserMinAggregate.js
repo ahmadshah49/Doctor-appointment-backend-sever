@@ -115,7 +115,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], UserMinAggregate.prototype, "proflePicture", void 0);
+], UserMinAggregate.prototype, "profilePicture", void 0);
 exports.UserMinAggregate = UserMinAggregate = __decorate([
     TypeGraphQL.ObjectType("UserMinAggregate", {})
 ], UserMinAggregate);

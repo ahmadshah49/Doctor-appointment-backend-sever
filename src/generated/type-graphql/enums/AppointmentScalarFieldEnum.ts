@@ -2,14 +2,18 @@ import * as TypeGraphQL from "type-graphql";
 
 export enum AppointmentScalarFieldEnum {
   id = "id",
-  userId = "userId",
   fullName = "fullName",
   age = "age",
   gender = "gender",
   phoneNo = "phoneNo",
   address = "address",
   medicalHistory = "medicalHistory",
-  presciptions = "presciptions"
+  presciptions = "presciptions",
+  details = "details",
+  scheduledDate = "scheduledDate",
+  status = "status",
+  doctorId = "doctorId",
+  patientId = "patientId"
 }
 TypeGraphQL.registerEnumType(AppointmentScalarFieldEnum, {
   name: "AppointmentScalarFieldEnum",

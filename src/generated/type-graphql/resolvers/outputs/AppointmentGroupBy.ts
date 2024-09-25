@@ -7,6 +7,7 @@ import { AppointmentCountAggregate } from "../outputs/AppointmentCountAggregate"
 import { AppointmentMaxAggregate } from "../outputs/AppointmentMaxAggregate";
 import { AppointmentMinAggregate } from "../outputs/AppointmentMinAggregate";
 import { AppointmentSumAggregate } from "../outputs/AppointmentSumAggregate";
+import { AppointmentStatus } from "../../enums/AppointmentStatus";
 import { gender } from "../../enums/gender";
 
 @TypeGraphQL.ObjectType("AppointmentGroupBy", {})
@@ -15,11 +16,6 @@ export class AppointmentGroupBy {
     nullable: false
   })
   id!: number;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
-  })
-  userId!: number | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -34,7 +30,7 @@ export class AppointmentGroupBy {
   @TypeGraphQL.Field(_type => gender, {
     nullable: true
   })
-  gender!: "MAlE" | "FEMALE" | null;
+  gender!: "MAlE" | "FEMALE" | "OTHERS" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -55,6 +51,31 @@ export class AppointmentGroupBy {
     nullable: true
   })
   presciptions!: string[] | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  details!: string | null;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  scheduledDate!: Date;
+
+  @TypeGraphQL.Field(_type => AppointmentStatus, {
+    nullable: true
+  })
+  status!: "UPCOMING" | "IN_PROGRESS" | "MISSED" | "COMPLETED" | "CANCELLED" | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  doctorId!: number | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  patientId!: number | null;
 
   @TypeGraphQL.Field(_type => AppointmentCountAggregate, {
     nullable: true

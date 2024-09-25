@@ -34,7 +34,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserCreateInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const AppointmentCreateNestedManyWithoutUserInput_1 = require("../inputs/AppointmentCreateNestedManyWithoutUserInput");
+const DoctorCreateNestedOneWithoutUserInput_1 = require("../inputs/DoctorCreateNestedOneWithoutUserInput");
+const PatientCreateNestedOneWithoutUserInput_1 = require("../inputs/PatientCreateNestedOneWithoutUserInput");
 const role_1 = require("../../enums/role");
 let UserCreateInput = class UserCreateInput {
 };
@@ -110,13 +111,19 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], UserCreateInput.prototype, "proflePicture", void 0);
+], UserCreateInput.prototype, "profilePicture", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => AppointmentCreateNestedManyWithoutUserInput_1.AppointmentCreateNestedManyWithoutUserInput, {
+    TypeGraphQL.Field(_type => DoctorCreateNestedOneWithoutUserInput_1.DoctorCreateNestedOneWithoutUserInput, {
         nullable: true
     }),
-    __metadata("design:type", AppointmentCreateNestedManyWithoutUserInput_1.AppointmentCreateNestedManyWithoutUserInput)
-], UserCreateInput.prototype, "appointment", void 0);
+    __metadata("design:type", DoctorCreateNestedOneWithoutUserInput_1.DoctorCreateNestedOneWithoutUserInput)
+], UserCreateInput.prototype, "doctor", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => PatientCreateNestedOneWithoutUserInput_1.PatientCreateNestedOneWithoutUserInput, {
+        nullable: true
+    }),
+    __metadata("design:type", PatientCreateNestedOneWithoutUserInput_1.PatientCreateNestedOneWithoutUserInput)
+], UserCreateInput.prototype, "patient", void 0);
 exports.UserCreateInput = UserCreateInput = __decorate([
     TypeGraphQL.InputType("UserCreateInput", {})
 ], UserCreateInput);

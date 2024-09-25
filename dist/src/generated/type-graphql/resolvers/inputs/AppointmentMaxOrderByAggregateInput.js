@@ -49,12 +49,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], AppointmentMaxOrderByAggregateInput.prototype, "userId", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
-        nullable: true
-    }),
-    __metadata("design:type", String)
 ], AppointmentMaxOrderByAggregateInput.prototype, "fullName", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
@@ -86,6 +80,36 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AppointmentMaxOrderByAggregateInput.prototype, "medicalHistory", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentMaxOrderByAggregateInput.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentMaxOrderByAggregateInput.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentMaxOrderByAggregateInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentMaxOrderByAggregateInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentMaxOrderByAggregateInput.prototype, "patientId", void 0);
 exports.AppointmentMaxOrderByAggregateInput = AppointmentMaxOrderByAggregateInput = __decorate([
     TypeGraphQL.InputType("AppointmentMaxOrderByAggregateInput", {})
 ], AppointmentMaxOrderByAggregateInput);

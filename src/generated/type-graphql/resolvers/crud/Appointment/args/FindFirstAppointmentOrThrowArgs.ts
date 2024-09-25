@@ -35,5 +35,5 @@ export class FindFirstAppointmentOrThrowArgs {
   @TypeGraphQL.Field(_type => [AppointmentScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "userId" | "fullName" | "age" | "gender" | "phoneNo" | "address" | "medicalHistory" | "presciptions"> | undefined;
+  distinct?: Array<"id" | "fullName" | "age" | "gender" | "phoneNo" | "address" | "medicalHistory" | "presciptions" | "details" | "scheduledDate" | "status" | "doctorId" | "patientId"> | undefined;
 }

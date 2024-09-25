@@ -88,5 +88,5 @@ export class UserScalarWhereWithAggregatesInput {
   @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
-  proflePicture?: StringNullableWithAggregatesFilter | undefined;
+  profilePicture?: StringNullableWithAggregatesFilter | undefined;
 }

@@ -69,5 +69,5 @@ export class UserMaxAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  proflePicture!: string | null;
+  profilePicture!: string | null;
 }

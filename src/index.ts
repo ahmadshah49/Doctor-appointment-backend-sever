@@ -7,9 +7,17 @@ import { buildSchemaSync } from "type-graphql";
 import { MinimalQueryResolver } from "./resolvers/querys/DummyQuery";
 import { createContext } from "./context/Context";
 import { ExampleResolver } from "./resolvers/mutations/Example";
+import { PatientResolver } from "./resolvers/mutations/Patient";
+import { DoctorResolver } from "./resolvers/mutations/Doctor";
 const index = async () => {
   const schema = buildSchemaSync({
-    resolvers: [AuthResolver, MinimalQueryResolver, ExampleResolver],
+    resolvers: [
+      AuthResolver,
+      MinimalQueryResolver,
+      ExampleResolver,
+      PatientResolver,
+      DoctorResolver,
+    ],
 
     validate: false,
   });

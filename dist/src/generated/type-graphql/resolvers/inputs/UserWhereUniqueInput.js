@@ -34,9 +34,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserWhereUniqueInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const AppointmentListRelationFilter_1 = require("../inputs/AppointmentListRelationFilter");
 const DateTimeNullableFilter_1 = require("../inputs/DateTimeNullableFilter");
+const DoctorNullableRelationFilter_1 = require("../inputs/DoctorNullableRelationFilter");
 const EnumroleFilter_1 = require("../inputs/EnumroleFilter");
+const PatientNullableRelationFilter_1 = require("../inputs/PatientNullableRelationFilter");
 const StringFilter_1 = require("../inputs/StringFilter");
 const StringNullableFilter_1 = require("../inputs/StringNullableFilter");
 const UserWhereInput_1 = require("../inputs/UserWhereInput");
@@ -138,13 +139,19 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
-], UserWhereUniqueInput.prototype, "proflePicture", void 0);
+], UserWhereUniqueInput.prototype, "profilePicture", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => AppointmentListRelationFilter_1.AppointmentListRelationFilter, {
+    TypeGraphQL.Field(_type => DoctorNullableRelationFilter_1.DoctorNullableRelationFilter, {
         nullable: true
     }),
-    __metadata("design:type", AppointmentListRelationFilter_1.AppointmentListRelationFilter)
-], UserWhereUniqueInput.prototype, "appointment", void 0);
+    __metadata("design:type", DoctorNullableRelationFilter_1.DoctorNullableRelationFilter)
+], UserWhereUniqueInput.prototype, "doctor", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => PatientNullableRelationFilter_1.PatientNullableRelationFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", PatientNullableRelationFilter_1.PatientNullableRelationFilter)
+], UserWhereUniqueInput.prototype, "patient", void 0);
 exports.UserWhereUniqueInput = UserWhereUniqueInput = __decorate([
     TypeGraphQL.InputType("UserWhereUniqueInput", {})
 ], UserWhereUniqueInput);

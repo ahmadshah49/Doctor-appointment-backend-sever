@@ -28,7 +28,6 @@ const TypeGraphQL = __importStar(require("type-graphql"));
 var AppointmentScalarFieldEnum;
 (function (AppointmentScalarFieldEnum) {
     AppointmentScalarFieldEnum["id"] = "id";
-    AppointmentScalarFieldEnum["userId"] = "userId";
     AppointmentScalarFieldEnum["fullName"] = "fullName";
     AppointmentScalarFieldEnum["age"] = "age";
     AppointmentScalarFieldEnum["gender"] = "gender";
@@ -36,6 +35,11 @@ var AppointmentScalarFieldEnum;
     AppointmentScalarFieldEnum["address"] = "address";
     AppointmentScalarFieldEnum["medicalHistory"] = "medicalHistory";
     AppointmentScalarFieldEnum["presciptions"] = "presciptions";
+    AppointmentScalarFieldEnum["details"] = "details";
+    AppointmentScalarFieldEnum["scheduledDate"] = "scheduledDate";
+    AppointmentScalarFieldEnum["status"] = "status";
+    AppointmentScalarFieldEnum["doctorId"] = "doctorId";
+    AppointmentScalarFieldEnum["patientId"] = "patientId";
 })(AppointmentScalarFieldEnum || (exports.AppointmentScalarFieldEnum = AppointmentScalarFieldEnum = {}));
 TypeGraphQL.registerEnumType(AppointmentScalarFieldEnum, {
     name: "AppointmentScalarFieldEnum",

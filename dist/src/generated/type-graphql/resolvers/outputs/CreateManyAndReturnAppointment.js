@@ -37,12 +37,18 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateManyAndReturnAppointment = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const CreateManyAndReturnAppointmentUserArgs_1 = require("./args/CreateManyAndReturnAppointmentUserArgs");
-const User_1 = require("../../models/User");
+const CreateManyAndReturnAppointmentDoctorArgs_1 = require("./args/CreateManyAndReturnAppointmentDoctorArgs");
+const CreateManyAndReturnAppointmentPatientArgs_1 = require("./args/CreateManyAndReturnAppointmentPatientArgs");
+const Doctor_1 = require("../../models/Doctor");
+const Patient_1 = require("../../models/Patient");
+const AppointmentStatus_1 = require("../../enums/AppointmentStatus");
 const gender_1 = require("../../enums/gender");
 let CreateManyAndReturnAppointment = class CreateManyAndReturnAppointment {
-    getUser(root, args) {
-        return root.User;
+    getDoctor(root, args) {
+        return root.Doctor;
+    }
+    getPatient(root, args) {
+        return root.Patient;
     }
 };
 exports.CreateManyAndReturnAppointment = CreateManyAndReturnAppointment;
@@ -52,12 +58,6 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], CreateManyAndReturnAppointment.prototype, "id", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: true
-    }),
-    __metadata("design:type", Number)
-], CreateManyAndReturnAppointment.prototype, "userId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
         nullable: true
@@ -101,16 +101,57 @@ __decorate([
     __metadata("design:type", Array)
 ], CreateManyAndReturnAppointment.prototype, "presciptions", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => User_1.User, {
-        name: "User",
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], CreateManyAndReturnAppointment.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], CreateManyAndReturnAppointment.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AppointmentStatus_1.AppointmentStatus, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], CreateManyAndReturnAppointment.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], CreateManyAndReturnAppointment.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], CreateManyAndReturnAppointment.prototype, "patientId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Doctor_1.Doctor, {
+        name: "Doctor",
         nullable: true
     }),
     __param(0, TypeGraphQL.Root()),
     __param(1, TypeGraphQL.Args()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [CreateManyAndReturnAppointment, CreateManyAndReturnAppointmentUserArgs_1.CreateManyAndReturnAppointmentUserArgs]),
-    __metadata("design:returntype", User_1.User)
-], CreateManyAndReturnAppointment.prototype, "getUser", null);
+    __metadata("design:paramtypes", [CreateManyAndReturnAppointment, CreateManyAndReturnAppointmentDoctorArgs_1.CreateManyAndReturnAppointmentDoctorArgs]),
+    __metadata("design:returntype", Doctor_1.Doctor)
+], CreateManyAndReturnAppointment.prototype, "getDoctor", null);
+__decorate([
+    TypeGraphQL.Field(_type => Patient_1.Patient, {
+        name: "Patient",
+        nullable: true
+    }),
+    __param(0, TypeGraphQL.Root()),
+    __param(1, TypeGraphQL.Args()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [CreateManyAndReturnAppointment, CreateManyAndReturnAppointmentPatientArgs_1.CreateManyAndReturnAppointmentPatientArgs]),
+    __metadata("design:returntype", Patient_1.Patient)
+], CreateManyAndReturnAppointment.prototype, "getPatient", null);
 exports.CreateManyAndReturnAppointment = CreateManyAndReturnAppointment = __decorate([
     TypeGraphQL.ObjectType("CreateManyAndReturnAppointment", {})
 ], CreateManyAndReturnAppointment);

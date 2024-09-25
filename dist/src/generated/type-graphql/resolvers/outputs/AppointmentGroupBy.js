@@ -39,6 +39,7 @@ const AppointmentCountAggregate_1 = require("../outputs/AppointmentCountAggregat
 const AppointmentMaxAggregate_1 = require("../outputs/AppointmentMaxAggregate");
 const AppointmentMinAggregate_1 = require("../outputs/AppointmentMinAggregate");
 const AppointmentSumAggregate_1 = require("../outputs/AppointmentSumAggregate");
+const AppointmentStatus_1 = require("../../enums/AppointmentStatus");
 const gender_1 = require("../../enums/gender");
 let AppointmentGroupBy = class AppointmentGroupBy {
 };
@@ -49,12 +50,6 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], AppointmentGroupBy.prototype, "id", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: true
-    }),
-    __metadata("design:type", Number)
-], AppointmentGroupBy.prototype, "userId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
         nullable: true
@@ -97,6 +92,36 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], AppointmentGroupBy.prototype, "presciptions", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentGroupBy.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], AppointmentGroupBy.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AppointmentStatus_1.AppointmentStatus, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentGroupBy.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentGroupBy.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentGroupBy.prototype, "patientId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => AppointmentCountAggregate_1.AppointmentCountAggregate, {
         nullable: true

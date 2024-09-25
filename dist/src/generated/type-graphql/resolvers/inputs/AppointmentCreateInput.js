@@ -35,7 +35,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentCreateInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentCreatepresciptionsInput_1 = require("../inputs/AppointmentCreatepresciptionsInput");
-const UserCreateNestedOneWithoutAppointmentInput_1 = require("../inputs/UserCreateNestedOneWithoutAppointmentInput");
+const DoctorCreateNestedOneWithoutAppointmentsInput_1 = require("../inputs/DoctorCreateNestedOneWithoutAppointmentsInput");
+const PatientCreateNestedOneWithoutAppointmentsInput_1 = require("../inputs/PatientCreateNestedOneWithoutAppointmentsInput");
+const AppointmentStatus_1 = require("../../enums/AppointmentStatus");
 const gender_1 = require("../../enums/gender");
 let AppointmentCreateInput = class AppointmentCreateInput {
 };
@@ -83,11 +85,35 @@ __decorate([
     __metadata("design:type", AppointmentCreatepresciptionsInput_1.AppointmentCreatepresciptionsInput)
 ], AppointmentCreateInput.prototype, "presciptions", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => UserCreateNestedOneWithoutAppointmentInput_1.UserCreateNestedOneWithoutAppointmentInput, {
+    TypeGraphQL.Field(_type => String, {
         nullable: true
     }),
-    __metadata("design:type", UserCreateNestedOneWithoutAppointmentInput_1.UserCreateNestedOneWithoutAppointmentInput)
-], AppointmentCreateInput.prototype, "User", void 0);
+    __metadata("design:type", String)
+], AppointmentCreateInput.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], AppointmentCreateInput.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AppointmentStatus_1.AppointmentStatus, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentCreateInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DoctorCreateNestedOneWithoutAppointmentsInput_1.DoctorCreateNestedOneWithoutAppointmentsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", DoctorCreateNestedOneWithoutAppointmentsInput_1.DoctorCreateNestedOneWithoutAppointmentsInput)
+], AppointmentCreateInput.prototype, "Doctor", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => PatientCreateNestedOneWithoutAppointmentsInput_1.PatientCreateNestedOneWithoutAppointmentsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", PatientCreateNestedOneWithoutAppointmentsInput_1.PatientCreateNestedOneWithoutAppointmentsInput)
+], AppointmentCreateInput.prototype, "Patient", void 0);
 exports.AppointmentCreateInput = AppointmentCreateInput = __decorate([
     TypeGraphQL.InputType("AppointmentCreateInput", {})
 ], AppointmentCreateInput);

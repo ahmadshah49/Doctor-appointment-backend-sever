@@ -35,6 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentCreateManyInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentCreatepresciptionsInput_1 = require("../inputs/AppointmentCreatepresciptionsInput");
+const AppointmentStatus_1 = require("../../enums/AppointmentStatus");
 const gender_1 = require("../../enums/gender");
 let AppointmentCreateManyInput = class AppointmentCreateManyInput {
 };
@@ -45,12 +46,6 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], AppointmentCreateManyInput.prototype, "id", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: true
-    }),
-    __metadata("design:type", Number)
-], AppointmentCreateManyInput.prototype, "userId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
         nullable: true
@@ -93,6 +88,36 @@ __decorate([
     }),
     __metadata("design:type", AppointmentCreatepresciptionsInput_1.AppointmentCreatepresciptionsInput)
 ], AppointmentCreateManyInput.prototype, "presciptions", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentCreateManyInput.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], AppointmentCreateManyInput.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AppointmentStatus_1.AppointmentStatus, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentCreateManyInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentCreateManyInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentCreateManyInput.prototype, "patientId", void 0);
 exports.AppointmentCreateManyInput = AppointmentCreateManyInput = __decorate([
     TypeGraphQL.InputType("AppointmentCreateManyInput", {})
 ], AppointmentCreateManyInput);

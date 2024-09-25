@@ -3,7 +3,9 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AppointmentCreatepresciptionsInput } from "../inputs/AppointmentCreatepresciptionsInput";
-import { UserCreateNestedOneWithoutAppointmentInput } from "../inputs/UserCreateNestedOneWithoutAppointmentInput";
+import { DoctorCreateNestedOneWithoutAppointmentsInput } from "../inputs/DoctorCreateNestedOneWithoutAppointmentsInput";
+import { PatientCreateNestedOneWithoutAppointmentsInput } from "../inputs/PatientCreateNestedOneWithoutAppointmentsInput";
+import { AppointmentStatus } from "../../enums/AppointmentStatus";
 import { gender } from "../../enums/gender";
 
 @TypeGraphQL.InputType("AppointmentCreateInput", {})
@@ -21,7 +23,7 @@ export class AppointmentCreateInput {
   @TypeGraphQL.Field(_type => gender, {
     nullable: true
   })
-  gender?: "MAlE" | "FEMALE" | undefined;
+  gender?: "MAlE" | "FEMALE" | "OTHERS" | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -43,8 +45,28 @@ export class AppointmentCreateInput {
   })
   presciptions?: AppointmentCreatepresciptionsInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutAppointmentInput, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  User?: UserCreateNestedOneWithoutAppointmentInput | undefined;
+  details?: string | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  scheduledDate!: Date;
+
+  @TypeGraphQL.Field(_type => AppointmentStatus, {
+    nullable: true
+  })
+  status?: "UPCOMING" | "IN_PROGRESS" | "MISSED" | "COMPLETED" | "CANCELLED" | undefined;
+
+  @TypeGraphQL.Field(_type => DoctorCreateNestedOneWithoutAppointmentsInput, {
+    nullable: true
+  })
+  Doctor?: DoctorCreateNestedOneWithoutAppointmentsInput | undefined;
+
+  @TypeGraphQL.Field(_type => PatientCreateNestedOneWithoutAppointmentsInput, {
+    nullable: true
+  })
+  Patient?: PatientCreateNestedOneWithoutAppointmentsInput | undefined;
 }

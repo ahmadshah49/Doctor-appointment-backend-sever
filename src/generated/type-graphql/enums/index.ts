@@ -1,5 +1,8 @@
 export { AppointmentScalarFieldEnum } from "./AppointmentScalarFieldEnum";
+export { AppointmentStatus } from "./AppointmentStatus";
+export { DoctorScalarFieldEnum } from "./DoctorScalarFieldEnum";
 export { NullsOrder } from "./NullsOrder";
+export { PatientScalarFieldEnum } from "./PatientScalarFieldEnum";
 export { QueryMode } from "./QueryMode";
 export { SortOrder } from "./SortOrder";
 export { TransactionIsolationLevel } from "./TransactionIsolationLevel";

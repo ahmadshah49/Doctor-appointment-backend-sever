@@ -29,6 +29,7 @@ var gender;
 (function (gender) {
     gender["MAlE"] = "MAlE";
     gender["FEMALE"] = "FEMALE";
+    gender["OTHERS"] = "OTHERS";
 })(gender || (exports.gender = gender = {}));
 TypeGraphQL.registerEnumType(gender, {
     name: "gender",

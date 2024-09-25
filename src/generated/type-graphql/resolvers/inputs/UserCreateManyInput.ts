@@ -69,5 +69,5 @@ export class UserCreateManyInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  proflePicture?: string | undefined;
+  profilePicture?: string | undefined;
 }

@@ -74,7 +74,7 @@ export class UserGroupBy {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  proflePicture!: string | null;
+  profilePicture!: string | null;
 
   @TypeGraphQL.Field(_type => UserCountAggregate, {
     nullable: true

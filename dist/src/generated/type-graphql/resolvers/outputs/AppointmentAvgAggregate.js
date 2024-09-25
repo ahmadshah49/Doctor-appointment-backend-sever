@@ -48,7 +48,13 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", Number)
-], AppointmentAvgAggregate.prototype, "userId", void 0);
+], AppointmentAvgAggregate.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Float, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentAvgAggregate.prototype, "patientId", void 0);
 exports.AppointmentAvgAggregate = AppointmentAvgAggregate = __decorate([
     TypeGraphQL.ObjectType("AppointmentAvgAggregate", {})
 ], AppointmentAvgAggregate);

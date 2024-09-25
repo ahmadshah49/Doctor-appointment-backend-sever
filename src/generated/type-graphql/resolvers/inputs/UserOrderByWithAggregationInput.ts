@@ -75,7 +75,7 @@ export class UserOrderByWithAggregationInput {
   @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
-  proflePicture?: SortOrderInput | undefined;
+  profilePicture?: SortOrderInput | undefined;
 
   @TypeGraphQL.Field(_type => UserCountOrderByAggregateInput, {
     nullable: true

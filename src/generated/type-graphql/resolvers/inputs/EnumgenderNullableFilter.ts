@@ -10,17 +10,17 @@ export class EnumgenderNullableFilter {
   @TypeGraphQL.Field(_type => gender, {
     nullable: true
   })
-  equals?: "MAlE" | "FEMALE" | undefined;
+  equals?: "MAlE" | "FEMALE" | "OTHERS" | undefined;
 
   @TypeGraphQL.Field(_type => [gender], {
     nullable: true
   })
-  in?: Array<"MAlE" | "FEMALE"> | undefined;
+  in?: Array<"MAlE" | "FEMALE" | "OTHERS"> | undefined;
 
   @TypeGraphQL.Field(_type => [gender], {
     nullable: true
   })
-  notIn?: Array<"MAlE" | "FEMALE"> | undefined;
+  notIn?: Array<"MAlE" | "FEMALE" | "OTHERS"> | undefined;
 
   @TypeGraphQL.Field(_type => NestedEnumgenderNullableFilter, {
     nullable: true

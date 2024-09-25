@@ -35,6 +35,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentUpdateManyMutationInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentUpdatepresciptionsInput_1 = require("../inputs/AppointmentUpdatepresciptionsInput");
+const DateTimeFieldUpdateOperationsInput_1 = require("../inputs/DateTimeFieldUpdateOperationsInput");
+const NullableEnumAppointmentStatusFieldUpdateOperationsInput_1 = require("../inputs/NullableEnumAppointmentStatusFieldUpdateOperationsInput");
 const NullableEnumgenderFieldUpdateOperationsInput_1 = require("../inputs/NullableEnumgenderFieldUpdateOperationsInput");
 const NullableStringFieldUpdateOperationsInput_1 = require("../inputs/NullableStringFieldUpdateOperationsInput");
 let AppointmentUpdateManyMutationInput = class AppointmentUpdateManyMutationInput {
@@ -82,6 +84,24 @@ __decorate([
     }),
     __metadata("design:type", AppointmentUpdatepresciptionsInput_1.AppointmentUpdatepresciptionsInput)
 ], AppointmentUpdateManyMutationInput.prototype, "presciptions", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
+], AppointmentUpdateManyMutationInput.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
+], AppointmentUpdateManyMutationInput.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => NullableEnumAppointmentStatusFieldUpdateOperationsInput_1.NullableEnumAppointmentStatusFieldUpdateOperationsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", NullableEnumAppointmentStatusFieldUpdateOperationsInput_1.NullableEnumAppointmentStatusFieldUpdateOperationsInput)
+], AppointmentUpdateManyMutationInput.prototype, "status", void 0);
 exports.AppointmentUpdateManyMutationInput = AppointmentUpdateManyMutationInput = __decorate([
     TypeGraphQL.InputType("AppointmentUpdateManyMutationInput", {})
 ], AppointmentUpdateManyMutationInput);

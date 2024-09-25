@@ -34,7 +34,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserOrderByWithRelationInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const AppointmentOrderByRelationAggregateInput_1 = require("../inputs/AppointmentOrderByRelationAggregateInput");
+const DoctorOrderByWithRelationInput_1 = require("../inputs/DoctorOrderByWithRelationInput");
+const PatientOrderByWithRelationInput_1 = require("../inputs/PatientOrderByWithRelationInput");
 const SortOrderInput_1 = require("../inputs/SortOrderInput");
 const SortOrder_1 = require("../../enums/SortOrder");
 let UserOrderByWithRelationInput = class UserOrderByWithRelationInput {
@@ -117,13 +118,19 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", SortOrderInput_1.SortOrderInput)
-], UserOrderByWithRelationInput.prototype, "proflePicture", void 0);
+], UserOrderByWithRelationInput.prototype, "profilePicture", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => AppointmentOrderByRelationAggregateInput_1.AppointmentOrderByRelationAggregateInput, {
+    TypeGraphQL.Field(_type => DoctorOrderByWithRelationInput_1.DoctorOrderByWithRelationInput, {
         nullable: true
     }),
-    __metadata("design:type", AppointmentOrderByRelationAggregateInput_1.AppointmentOrderByRelationAggregateInput)
-], UserOrderByWithRelationInput.prototype, "appointment", void 0);
+    __metadata("design:type", DoctorOrderByWithRelationInput_1.DoctorOrderByWithRelationInput)
+], UserOrderByWithRelationInput.prototype, "doctor", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => PatientOrderByWithRelationInput_1.PatientOrderByWithRelationInput, {
+        nullable: true
+    }),
+    __metadata("design:type", PatientOrderByWithRelationInput_1.PatientOrderByWithRelationInput)
+], UserOrderByWithRelationInput.prototype, "patient", void 0);
 exports.UserOrderByWithRelationInput = UserOrderByWithRelationInput = __decorate([
     TypeGraphQL.InputType("UserOrderByWithRelationInput", {})
 ], UserOrderByWithRelationInput);

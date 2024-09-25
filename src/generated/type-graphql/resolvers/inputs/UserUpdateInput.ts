@@ -2,10 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { AppointmentUpdateManyWithoutUserNestedInput } from "../inputs/AppointmentUpdateManyWithoutUserNestedInput";
+import { DoctorUpdateOneWithoutUserNestedInput } from "../inputs/DoctorUpdateOneWithoutUserNestedInput";
 import { EnumroleFieldUpdateOperationsInput } from "../inputs/EnumroleFieldUpdateOperationsInput";
 import { NullableDateTimeFieldUpdateOperationsInput } from "../inputs/NullableDateTimeFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { PatientUpdateOneWithoutUserNestedInput } from "../inputs/PatientUpdateOneWithoutUserNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType("UserUpdateInput", {})
@@ -68,10 +69,15 @@ export class UserUpdateInput {
   @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
-  proflePicture?: NullableStringFieldUpdateOperationsInput | undefined;
+  profilePicture?: NullableStringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => AppointmentUpdateManyWithoutUserNestedInput, {
+  @TypeGraphQL.Field(_type => DoctorUpdateOneWithoutUserNestedInput, {
     nullable: true
   })
-  appointment?: AppointmentUpdateManyWithoutUserNestedInput | undefined;
+  doctor?: DoctorUpdateOneWithoutUserNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => PatientUpdateOneWithoutUserNestedInput, {
+    nullable: true
+  })
+  patient?: PatientUpdateOneWithoutUserNestedInput | undefined;
 }

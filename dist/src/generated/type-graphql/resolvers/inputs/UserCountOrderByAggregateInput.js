@@ -115,7 +115,7 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], UserCountOrderByAggregateInput.prototype, "proflePicture", void 0);
+], UserCountOrderByAggregateInput.prototype, "profilePicture", void 0);
 exports.UserCountOrderByAggregateInput = UserCountOrderByAggregateInput = __decorate([
     TypeGraphQL.InputType("UserCountOrderByAggregateInput", {})
 ], UserCountOrderByAggregateInput);

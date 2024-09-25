@@ -34,6 +34,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Appointment = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
+const AppointmentStatus_1 = require("../enums/AppointmentStatus");
 const gender_1 = require("../enums/gender");
 let Appointment = class Appointment {
 };
@@ -44,12 +45,6 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], Appointment.prototype, "id", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: true
-    }),
-    __metadata("design:type", Number)
-], Appointment.prototype, "userId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
         nullable: true
@@ -92,6 +87,36 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], Appointment.prototype, "presciptions", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], Appointment.prototype, "details", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], Appointment.prototype, "scheduledDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => AppointmentStatus_1.AppointmentStatus, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], Appointment.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], Appointment.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], Appointment.prototype, "patientId", void 0);
 exports.Appointment = Appointment = __decorate([
     TypeGraphQL.ObjectType("Appointment", {})
 ], Appointment);

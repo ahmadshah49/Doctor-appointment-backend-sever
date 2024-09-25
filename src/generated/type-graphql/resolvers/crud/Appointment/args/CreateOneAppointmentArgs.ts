@@ -5,7 +5,7 @@ import { AppointmentCreateInput } from "../../../inputs/AppointmentCreateInput";
 @TypeGraphQL.ArgsType()
 export class CreateOneAppointmentArgs {
   @TypeGraphQL.Field(_type => AppointmentCreateInput, {
-    nullable: true
+    nullable: false
   })
-  data?: AppointmentCreateInput | undefined;
+  data!: AppointmentCreateInput;
 }

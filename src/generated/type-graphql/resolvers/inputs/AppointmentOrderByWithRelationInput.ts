@@ -2,8 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { DoctorOrderByWithRelationInput } from "../inputs/DoctorOrderByWithRelationInput";
+import { PatientOrderByWithRelationInput } from "../inputs/PatientOrderByWithRelationInput";
 import { SortOrderInput } from "../inputs/SortOrderInput";
-import { UserOrderByWithRelationInput } from "../inputs/UserOrderByWithRelationInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("AppointmentOrderByWithRelationInput", {})
@@ -12,11 +13,6 @@ export class AppointmentOrderByWithRelationInput {
     nullable: true
   })
   id?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrderInput, {
-    nullable: true
-  })
-  userId?: SortOrderInput | undefined;
 
   @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
@@ -53,8 +49,38 @@ export class AppointmentOrderByWithRelationInput {
   })
   presciptions?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => UserOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
-  User?: UserOrderByWithRelationInput | undefined;
+  details?: SortOrderInput | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  scheduledDate?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrderInput, {
+    nullable: true
+  })
+  status?: SortOrderInput | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrderInput, {
+    nullable: true
+  })
+  doctorId?: SortOrderInput | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrderInput, {
+    nullable: true
+  })
+  patientId?: SortOrderInput | undefined;
+
+  @TypeGraphQL.Field(_type => DoctorOrderByWithRelationInput, {
+    nullable: true
+  })
+  Doctor?: DoctorOrderByWithRelationInput | undefined;
+
+  @TypeGraphQL.Field(_type => PatientOrderByWithRelationInput, {
+    nullable: true
+  })
+  Patient?: PatientOrderByWithRelationInput | undefined;
 }

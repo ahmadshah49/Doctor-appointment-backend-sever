@@ -3,9 +3,12 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AppointmentUpdatepresciptionsInput } from "../inputs/AppointmentUpdatepresciptionsInput";
+import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
+import { DoctorUpdateOneWithoutAppointmentsNestedInput } from "../inputs/DoctorUpdateOneWithoutAppointmentsNestedInput";
+import { NullableEnumAppointmentStatusFieldUpdateOperationsInput } from "../inputs/NullableEnumAppointmentStatusFieldUpdateOperationsInput";
 import { NullableEnumgenderFieldUpdateOperationsInput } from "../inputs/NullableEnumgenderFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
-import { UserUpdateOneWithoutAppointmentNestedInput } from "../inputs/UserUpdateOneWithoutAppointmentNestedInput";
+import { PatientUpdateOneWithoutAppointmentsNestedInput } from "../inputs/PatientUpdateOneWithoutAppointmentsNestedInput";
 
 @TypeGraphQL.InputType("AppointmentUpdateInput", {})
 export class AppointmentUpdateInput {
@@ -44,8 +47,28 @@ export class AppointmentUpdateInput {
   })
   presciptions?: AppointmentUpdatepresciptionsInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserUpdateOneWithoutAppointmentNestedInput, {
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
-  User?: UserUpdateOneWithoutAppointmentNestedInput | undefined;
+  details?: NullableStringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  scheduledDate?: DateTimeFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => NullableEnumAppointmentStatusFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  status?: NullableEnumAppointmentStatusFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => DoctorUpdateOneWithoutAppointmentsNestedInput, {
+    nullable: true
+  })
+  Doctor?: DoctorUpdateOneWithoutAppointmentsNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => PatientUpdateOneWithoutAppointmentsNestedInput, {
+    nullable: true
+  })
+  Patient?: PatientUpdateOneWithoutAppointmentsNestedInput | undefined;
 }

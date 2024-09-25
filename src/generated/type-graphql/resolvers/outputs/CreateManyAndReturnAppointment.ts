@@ -2,8 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CreateManyAndReturnAppointmentUserArgs } from "./args/CreateManyAndReturnAppointmentUserArgs";
-import { User } from "../../models/User";
+import { CreateManyAndReturnAppointmentDoctorArgs } from "./args/CreateManyAndReturnAppointmentDoctorArgs";
+import { CreateManyAndReturnAppointmentPatientArgs } from "./args/CreateManyAndReturnAppointmentPatientArgs";
+import { Doctor } from "../../models/Doctor";
+import { Patient } from "../../models/Patient";
+import { AppointmentStatus } from "../../enums/AppointmentStatus";
 import { gender } from "../../enums/gender";
 
 @TypeGraphQL.ObjectType("CreateManyAndReturnAppointment", {})
@@ -12,11 +15,6 @@ export class CreateManyAndReturnAppointment {
     nullable: false
   })
   id!: number;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
-  })
-  userId!: number | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -31,7 +29,7 @@ export class CreateManyAndReturnAppointment {
   @TypeGraphQL.Field(_type => gender, {
     nullable: true
   })
-  gender!: "MAlE" | "FEMALE" | null;
+  gender!: "MAlE" | "FEMALE" | "OTHERS" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -53,13 +51,47 @@ export class CreateManyAndReturnAppointment {
   })
   presciptions!: string[] | null;
 
-  User!: User | null;
-
-  @TypeGraphQL.Field(_type => User, {
-    name: "User",
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  getUser(@TypeGraphQL.Root() root: CreateManyAndReturnAppointment, @TypeGraphQL.Args() args: CreateManyAndReturnAppointmentUserArgs): User | null {
-    return root.User;
+  details!: string | null;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  scheduledDate!: Date;
+
+  @TypeGraphQL.Field(_type => AppointmentStatus, {
+    nullable: true
+  })
+  status!: "UPCOMING" | "IN_PROGRESS" | "MISSED" | "COMPLETED" | "CANCELLED" | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  doctorId!: number | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  patientId!: number | null;
+
+  Doctor!: Doctor | null;
+  Patient!: Patient | null;
+
+  @TypeGraphQL.Field(_type => Doctor, {
+    name: "Doctor",
+    nullable: true
+  })
+  getDoctor(@TypeGraphQL.Root() root: CreateManyAndReturnAppointment, @TypeGraphQL.Args() args: CreateManyAndReturnAppointmentDoctorArgs): Doctor | null {
+    return root.Doctor;
+  }
+
+  @TypeGraphQL.Field(_type => Patient, {
+    name: "Patient",
+    nullable: true
+  })
+  getPatient(@TypeGraphQL.Root() root: CreateManyAndReturnAppointment, @TypeGraphQL.Args() args: CreateManyAndReturnAppointmentPatientArgs): Patient | null {
+    return root.Patient;
   }
 }

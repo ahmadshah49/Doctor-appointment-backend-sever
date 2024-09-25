@@ -2,6 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
+import { EnumAppointmentStatusNullableWithAggregatesFilter } from "../inputs/EnumAppointmentStatusNullableWithAggregatesFilter";
 import { EnumgenderNullableWithAggregatesFilter } from "../inputs/EnumgenderNullableWithAggregatesFilter";
 import { IntNullableWithAggregatesFilter } from "../inputs/IntNullableWithAggregatesFilter";
 import { IntWithAggregatesFilter } from "../inputs/IntWithAggregatesFilter";
@@ -29,11 +31,6 @@ export class AppointmentScalarWhereWithAggregatesInput {
     nullable: true
   })
   id?: IntWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => IntNullableWithAggregatesFilter, {
-    nullable: true
-  })
-  userId?: IntNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
@@ -69,4 +66,29 @@ export class AppointmentScalarWhereWithAggregatesInput {
     nullable: true
   })
   presciptions?: StringNullableListFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+    nullable: true
+  })
+  details?: StringNullableWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
+    nullable: true
+  })
+  scheduledDate?: DateTimeWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => EnumAppointmentStatusNullableWithAggregatesFilter, {
+    nullable: true
+  })
+  status?: EnumAppointmentStatusNullableWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntNullableWithAggregatesFilter, {
+    nullable: true
+  })
+  doctorId?: IntNullableWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntNullableWithAggregatesFilter, {
+    nullable: true
+  })
+  patientId?: IntNullableWithAggregatesFilter | undefined;
 }

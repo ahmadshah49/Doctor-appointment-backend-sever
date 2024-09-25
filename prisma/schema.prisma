@@ -20,29 +20,59 @@ enum role {
 enum gender {
   MAlE
   FEMALE
+  OTHERS
 }
 
 model User {
-  id                       Int           @id @default(autoincrement())
+  id                       Int       @id @default(autoincrement())
   name                     String
-  email                    String?       @unique
+  email                    String?   @unique
   password                 String?
-  phoneNumber              String?       @unique
-  role                     role          @default(PATIENT)
+  phoneNumber              String?   @unique
+  role                     role      @default(PATIENT)
   token                    String?
   tokenExpire              DateTime?
   otp                      String?
   resetPasswordToken       String?
   resetPasswordTokenExpire DateTime?
   otpExpire                DateTime?
-  proflePicture            String?
-  appointment              Appointment[]
+  profilePicture           String? 
+  doctor  Doctor?
+  patient Patient?
+}
+
+model Doctor {
+  id           Int           @id @default(autoincrement())
+  User         User          @relation(fields: [userId], references: [id])
+  userId       Int           @unique
+  name         String
+  profilePhoto String?
+  address      String
+  availability String?
+  email        String
+  isAvailable  Boolean?      @default(true)
+  gender       gender
+  patients     Patient[]
+  appointments Appointment[]
+}
+
+model Patient {
+  id             Int           @id @default(autoincrement())
+  age            String
+  fullName       String
+  gender         gender
+  address        String
+  profilePicture String?
+  phoneNo        String
+  Doctor         Doctor?       @relation(fields: [doctorId], references: [id])
+  doctorId       Int?          @unique
+  User           User          @relation(fields: [userId], references: [id])
+  userId         Int           @unique
+  appointments   Appointment[]
 }
 
 model Appointment {
-  id             Int      @id @default(autoincrement())
-  User           User?    @relation(fields: [userId], references: [id])
-  userId         Int?
+  id             Int                @id @default(autoincrement())
   fullName       String?
   age            String?
   gender         gender?
@@ -50,4 +80,20 @@ model Appointment {
   address        String?
   medicalHistory String?
   presciptions   String[]
+  details        String?
+  scheduledDate  DateTime
+  status         AppointmentStatus? @default(UPCOMING)
+
+  Doctor    Doctor?  @relation(fields: [doctorId], references: [id])
+  doctorId  Int?
+  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patientId Int?
+}
+
+enum AppointmentStatus {
+  UPCOMING
+  IN_PROGRESS
+  MISSED
+  COMPLETED
+  CANCELLED
 }
