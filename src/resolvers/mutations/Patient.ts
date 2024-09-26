@@ -98,4 +98,79 @@ export class PatientResolver {
 
     return "Patient Info Updated";
   }
+  @Mutation(() => String)
+  @UseMiddleware(isAuth)
+  async createAppointment(
+    @Arg("fullName") fullName: string,
+    @Arg("email") email: string,
+    @Arg("age") age: string,
+    @Arg("gender", () => gender) gender: gender,
+    @Arg("phoneNo") phoneNo: string,
+    @Arg("address") address: string,
+    @Arg("medicalHistory", { nullable: true }) medicalHistory: string,
+    @Arg("presciptions", () => [String], { nullable: true })
+    presciptions: string[],
+    @Arg("details", { nullable: true }) details: string,
+    @Arg("scheduledDate") scheduledDate: Date,
+    @Arg("startTime") startTime: Date,
+    @Arg("endTime") endTime: Date,
+    @Arg("doctorId") doctorId: number,
+    @Ctx() context: Context
+    // @Arg("patientId") patientId: number
+  ) {
+    if (
+      !fullName ||
+      !email ||
+      !age ||
+      !gender ||
+      !phoneNo ||
+      !address ||
+      !presciptions ||
+      !scheduledDate ||
+      !startTime ||
+      !endTime
+    ) {
+      throw new GraphQLError("Please add all required Fields");
+    }
+
+    if (context.payload.role !== "PATIENT") {
+      throw new GraphQLError("You are not patient so you can't di this action");
+    }
+    console.log("User Role", context.payload.role);
+    const currentUserId = context.payload.userId;
+    if (!currentUserId) {
+      throw new GraphQLError("User not found");
+    }
+    console.log("Doctor id", doctorId);
+
+    console.log("Current User Id", currentUserId);
+
+    const checkDoctorId = await Prisma.doctor.findUnique({
+      where: { userId: doctorId },
+    });
+    console.log("Doctor Id", checkDoctorId.id);
+    console.log("Doctor", checkDoctorId);
+
+    if (!checkDoctorId) {
+      throw new GraphQLError("Doctor not found!");
+    }
+    await Prisma.appointment.create({
+      data: {
+        address,
+        age,
+        email,
+        fullName,
+        gender,
+        phoneNo,
+        details,
+        presciptions,
+        startTime,
+        endTime,
+        scheduledDate,
+        patientId: currentUserId,
+        doctorId,
+      },
+    });
+    return "Appointment Added";
+  }
 }

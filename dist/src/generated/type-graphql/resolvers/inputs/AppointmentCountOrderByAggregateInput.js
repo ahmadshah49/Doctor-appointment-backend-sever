@@ -79,6 +79,12 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
+], AppointmentCountOrderByAggregateInput.prototype, "email", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
 ], AppointmentCountOrderByAggregateInput.prototype, "medicalHistory", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
@@ -104,6 +110,18 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AppointmentCountOrderByAggregateInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentCountOrderByAggregateInput.prototype, "startTime", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AppointmentCountOrderByAggregateInput.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true

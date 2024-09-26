@@ -44,11 +44,17 @@ __decorate([
     __metadata("design:type", Number)
 ], AvailabilitySlotCreateManyDoctorInput.prototype, "id", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => String, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
-    __metadata("design:type", String)
-], AvailabilitySlotCreateManyDoctorInput.prototype, "day", void 0);
+    __metadata("design:type", Date)
+], AvailabilitySlotCreateManyDoctorInput.prototype, "startDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], AvailabilitySlotCreateManyDoctorInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
         nullable: false

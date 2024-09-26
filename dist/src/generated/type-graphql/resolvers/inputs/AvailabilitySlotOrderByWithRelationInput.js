@@ -35,6 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AvailabilitySlotOrderByWithRelationInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const DoctorOrderByWithRelationInput_1 = require("../inputs/DoctorOrderByWithRelationInput");
+const SortOrderInput_1 = require("../inputs/SortOrderInput");
 const SortOrder_1 = require("../../enums/SortOrder");
 let AvailabilitySlotOrderByWithRelationInput = class AvailabilitySlotOrderByWithRelationInput {
 };
@@ -50,13 +51,13 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotOrderByWithRelationInput.prototype, "doctorId", void 0);
+], AvailabilitySlotOrderByWithRelationInput.prototype, "startDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotOrderByWithRelationInput.prototype, "day", void 0);
+], AvailabilitySlotOrderByWithRelationInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
@@ -70,11 +71,17 @@ __decorate([
     __metadata("design:type", String)
 ], AvailabilitySlotOrderByWithRelationInput.prototype, "endTime", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AvailabilitySlotOrderByWithRelationInput.prototype, "isBooked", void 0);
+__decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotOrderByWithRelationInput.prototype, "isBooked", void 0);
+], AvailabilitySlotOrderByWithRelationInput.prototype, "doctorId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DoctorOrderByWithRelationInput_1.DoctorOrderByWithRelationInput, {
         nullable: true

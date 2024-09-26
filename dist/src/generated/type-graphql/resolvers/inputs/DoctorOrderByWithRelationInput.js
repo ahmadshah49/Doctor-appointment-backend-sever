@@ -38,6 +38,7 @@ const AppointmentOrderByRelationAggregateInput_1 = require("../inputs/Appointmen
 const AvailabilitySlotOrderByRelationAggregateInput_1 = require("../inputs/AvailabilitySlotOrderByRelationAggregateInput");
 const PatientOrderByRelationAggregateInput_1 = require("../inputs/PatientOrderByRelationAggregateInput");
 const SortOrderInput_1 = require("../inputs/SortOrderInput");
+const UnavailabilitySlotOrderByRelationAggregateInput_1 = require("../inputs/UnavailabilitySlotOrderByRelationAggregateInput");
 const UserOrderByWithRelationInput_1 = require("../inputs/UserOrderByWithRelationInput");
 const SortOrder_1 = require("../../enums/SortOrder");
 let DoctorOrderByWithRelationInput = class DoctorOrderByWithRelationInput {
@@ -121,6 +122,12 @@ __decorate([
     }),
     __metadata("design:type", AvailabilitySlotOrderByRelationAggregateInput_1.AvailabilitySlotOrderByRelationAggregateInput)
 ], DoctorOrderByWithRelationInput.prototype, "AvailabilitySlot", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => UnavailabilitySlotOrderByRelationAggregateInput_1.UnavailabilitySlotOrderByRelationAggregateInput, {
+        nullable: true
+    }),
+    __metadata("design:type", UnavailabilitySlotOrderByRelationAggregateInput_1.UnavailabilitySlotOrderByRelationAggregateInput)
+], DoctorOrderByWithRelationInput.prototype, "UnavailabilitySlot", void 0);
 exports.DoctorOrderByWithRelationInput = DoctorOrderByWithRelationInput = __decorate([
     TypeGraphQL.InputType("DoctorOrderByWithRelationInput", {})
 ], DoctorOrderByWithRelationInput);

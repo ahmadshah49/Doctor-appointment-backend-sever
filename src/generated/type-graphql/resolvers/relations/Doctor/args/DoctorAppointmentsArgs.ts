@@ -35,5 +35,5 @@ export class DoctorAppointmentsArgs {
   @TypeGraphQL.Field(_type => [AppointmentScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "fullName" | "age" | "gender" | "phoneNo" | "address" | "medicalHistory" | "presciptions" | "details" | "scheduledDate" | "status" | "doctorId" | "patientId"> | undefined;
+  distinct?: Array<"id" | "fullName" | "age" | "gender" | "phoneNo" | "address" | "email" | "medicalHistory" | "presciptions" | "details" | "scheduledDate" | "status" | "startTime" | "endTime" | "doctorId" | "patientId"> | undefined;
 }

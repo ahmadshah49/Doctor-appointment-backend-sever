@@ -8,6 +8,7 @@ import { NullableBoolFieldUpdateOperationsInput } from "../inputs/NullableBoolFi
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { PatientUpdateManyWithoutDoctorNestedInput } from "../inputs/PatientUpdateManyWithoutDoctorNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
+import { UnavailabilitySlotUpdateManyWithoutDoctorNestedInput } from "../inputs/UnavailabilitySlotUpdateManyWithoutDoctorNestedInput";
 import { UserUpdateOneRequiredWithoutDoctorNestedInput } from "../inputs/UserUpdateOneRequiredWithoutDoctorNestedInput";
 
 @TypeGraphQL.InputType("DoctorUpdateWithoutAvailabilitySlotInput", {})
@@ -61,4 +62,9 @@ export class DoctorUpdateWithoutAvailabilitySlotInput {
     nullable: true
   })
   appointments?: AppointmentUpdateManyWithoutDoctorNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => UnavailabilitySlotUpdateManyWithoutDoctorNestedInput, {
+    nullable: true
+  })
+  UnavailabilitySlot?: UnavailabilitySlotUpdateManyWithoutDoctorNestedInput | undefined;
 }

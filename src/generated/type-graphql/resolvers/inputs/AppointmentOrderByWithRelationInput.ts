@@ -14,30 +14,35 @@ export class AppointmentOrderByWithRelationInput {
   })
   id?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrderInput, {
+  @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  fullName?: SortOrderInput | undefined;
+  fullName?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrderInput, {
+  @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  age?: SortOrderInput | undefined;
+  age?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrderInput, {
+  @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  gender?: SortOrderInput | undefined;
+  gender?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrderInput, {
+  @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  phoneNo?: SortOrderInput | undefined;
+  phoneNo?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrderInput, {
+  @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  address?: SortOrderInput | undefined;
+  address?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  email?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
@@ -54,15 +59,25 @@ export class AppointmentOrderByWithRelationInput {
   })
   details?: SortOrderInput | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrder, {
+  @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
-  scheduledDate?: "asc" | "desc" | undefined;
+  scheduledDate?: SortOrderInput | undefined;
 
   @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
   status?: SortOrderInput | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  startTime?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  endTime?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true

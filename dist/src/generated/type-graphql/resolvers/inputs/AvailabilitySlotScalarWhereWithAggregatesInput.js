@@ -34,10 +34,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AvailabilitySlotScalarWhereWithAggregatesInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const BoolWithAggregatesFilter_1 = require("../inputs/BoolWithAggregatesFilter");
+const BoolNullableWithAggregatesFilter_1 = require("../inputs/BoolNullableWithAggregatesFilter");
 const DateTimeWithAggregatesFilter_1 = require("../inputs/DateTimeWithAggregatesFilter");
 const IntWithAggregatesFilter_1 = require("../inputs/IntWithAggregatesFilter");
-const StringWithAggregatesFilter_1 = require("../inputs/StringWithAggregatesFilter");
 let AvailabilitySlotScalarWhereWithAggregatesInput = class AvailabilitySlotScalarWhereWithAggregatesInput {
 };
 exports.AvailabilitySlotScalarWhereWithAggregatesInput = AvailabilitySlotScalarWhereWithAggregatesInput;
@@ -66,17 +65,17 @@ __decorate([
     __metadata("design:type", IntWithAggregatesFilter_1.IntWithAggregatesFilter)
 ], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "id", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => IntWithAggregatesFilter_1.IntWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", IntWithAggregatesFilter_1.IntWithAggregatesFilter)
-], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "doctorId", void 0);
+    __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
+], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "startDate", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringWithAggregatesFilter_1.StringWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
-], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "day", void 0);
+    __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
+], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
         nullable: true
@@ -90,11 +89,17 @@ __decorate([
     __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
 ], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "endTime", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => BoolWithAggregatesFilter_1.BoolWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => BoolNullableWithAggregatesFilter_1.BoolNullableWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", BoolWithAggregatesFilter_1.BoolWithAggregatesFilter)
+    __metadata("design:type", BoolNullableWithAggregatesFilter_1.BoolNullableWithAggregatesFilter)
 ], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "isBooked", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => IntWithAggregatesFilter_1.IntWithAggregatesFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", IntWithAggregatesFilter_1.IntWithAggregatesFilter)
+], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "doctorId", void 0);
 exports.AvailabilitySlotScalarWhereWithAggregatesInput = AvailabilitySlotScalarWhereWithAggregatesInput = __decorate([
     TypeGraphQL.InputType("AvailabilitySlotScalarWhereWithAggregatesInput", {})
 ], AvailabilitySlotScalarWhereWithAggregatesInput);

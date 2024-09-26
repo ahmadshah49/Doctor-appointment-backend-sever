@@ -2,13 +2,15 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { DateTimeNullableWithAggregatesFilter } from "../inputs/DateTimeNullableWithAggregatesFilter";
 import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
 import { EnumAppointmentStatusNullableWithAggregatesFilter } from "../inputs/EnumAppointmentStatusNullableWithAggregatesFilter";
-import { EnumgenderNullableWithAggregatesFilter } from "../inputs/EnumgenderNullableWithAggregatesFilter";
+import { EnumgenderWithAggregatesFilter } from "../inputs/EnumgenderWithAggregatesFilter";
 import { IntNullableWithAggregatesFilter } from "../inputs/IntNullableWithAggregatesFilter";
 import { IntWithAggregatesFilter } from "../inputs/IntWithAggregatesFilter";
 import { StringNullableListFilter } from "../inputs/StringNullableListFilter";
 import { StringNullableWithAggregatesFilter } from "../inputs/StringNullableWithAggregatesFilter";
+import { StringWithAggregatesFilter } from "../inputs/StringWithAggregatesFilter";
 
 @TypeGraphQL.InputType("AppointmentScalarWhereWithAggregatesInput", {})
 export class AppointmentScalarWhereWithAggregatesInput {
@@ -32,30 +34,35 @@ export class AppointmentScalarWhereWithAggregatesInput {
   })
   id?: IntWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  fullName?: StringNullableWithAggregatesFilter | undefined;
+  fullName?: StringWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  age?: StringNullableWithAggregatesFilter | undefined;
+  age?: StringWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EnumgenderNullableWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => EnumgenderWithAggregatesFilter, {
     nullable: true
   })
-  gender?: EnumgenderNullableWithAggregatesFilter | undefined;
+  gender?: EnumgenderWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  phoneNo?: StringNullableWithAggregatesFilter | undefined;
+  phoneNo?: StringWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  address?: StringNullableWithAggregatesFilter | undefined;
+  address?: StringWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
+    nullable: true
+  })
+  email?: StringWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
@@ -72,15 +79,25 @@ export class AppointmentScalarWhereWithAggregatesInput {
   })
   details?: StringNullableWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => DateTimeNullableWithAggregatesFilter, {
     nullable: true
   })
-  scheduledDate?: DateTimeWithAggregatesFilter | undefined;
+  scheduledDate?: DateTimeNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumAppointmentStatusNullableWithAggregatesFilter, {
     nullable: true
   })
   status?: EnumAppointmentStatusNullableWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
+    nullable: true
+  })
+  startTime?: DateTimeWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
+    nullable: true
+  })
+  endTime?: DateTimeWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => IntNullableWithAggregatesFilter, {
     nullable: true

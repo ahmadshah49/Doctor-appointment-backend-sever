@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PatientCountAppointmentsArgs = exports.DoctorCountPatientsArgs = exports.DoctorCountAvailabilitySlotArgs = exports.DoctorCountAppointmentsArgs = exports.CreateManyAndReturnPatientDoctorArgs = exports.CreateManyAndReturnAppointmentPatientArgs = exports.CreateManyAndReturnAppointmentDoctorArgs = void 0;
+exports.PatientCountAppointmentsArgs = exports.DoctorCountUnavailabilitySlotArgs = exports.DoctorCountPatientsArgs = exports.DoctorCountAvailabilitySlotArgs = exports.DoctorCountAppointmentsArgs = exports.CreateManyAndReturnPatientDoctorArgs = exports.CreateManyAndReturnAppointmentPatientArgs = exports.CreateManyAndReturnAppointmentDoctorArgs = void 0;
 var CreateManyAndReturnAppointmentDoctorArgs_1 = require("./CreateManyAndReturnAppointmentDoctorArgs");
 Object.defineProperty(exports, "CreateManyAndReturnAppointmentDoctorArgs", { enumerable: true, get: function () { return CreateManyAndReturnAppointmentDoctorArgs_1.CreateManyAndReturnAppointmentDoctorArgs; } });
 var CreateManyAndReturnAppointmentPatientArgs_1 = require("./CreateManyAndReturnAppointmentPatientArgs");
@@ -13,5 +13,7 @@ var DoctorCountAvailabilitySlotArgs_1 = require("./DoctorCountAvailabilitySlotAr
 Object.defineProperty(exports, "DoctorCountAvailabilitySlotArgs", { enumerable: true, get: function () { return DoctorCountAvailabilitySlotArgs_1.DoctorCountAvailabilitySlotArgs; } });
 var DoctorCountPatientsArgs_1 = require("./DoctorCountPatientsArgs");
 Object.defineProperty(exports, "DoctorCountPatientsArgs", { enumerable: true, get: function () { return DoctorCountPatientsArgs_1.DoctorCountPatientsArgs; } });
+var DoctorCountUnavailabilitySlotArgs_1 = require("./DoctorCountUnavailabilitySlotArgs");
+Object.defineProperty(exports, "DoctorCountUnavailabilitySlotArgs", { enumerable: true, get: function () { return DoctorCountUnavailabilitySlotArgs_1.DoctorCountUnavailabilitySlotArgs; } });
 var PatientCountAppointmentsArgs_1 = require("./PatientCountAppointmentsArgs");
 Object.defineProperty(exports, "PatientCountAppointmentsArgs", { enumerable: true, get: function () { return PatientCountAppointmentsArgs_1.PatientCountAppointmentsArgs; } });

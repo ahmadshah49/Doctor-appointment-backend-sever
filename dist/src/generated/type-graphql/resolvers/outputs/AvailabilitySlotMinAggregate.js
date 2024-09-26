@@ -44,17 +44,17 @@ __decorate([
     __metadata("design:type", Number)
 ], AvailabilitySlotMinAggregate.prototype, "id", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: true
     }),
-    __metadata("design:type", Number)
-], AvailabilitySlotMinAggregate.prototype, "doctorId", void 0);
+    __metadata("design:type", Date)
+], AvailabilitySlotMinAggregate.prototype, "startDate", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => String, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: true
     }),
-    __metadata("design:type", String)
-], AvailabilitySlotMinAggregate.prototype, "day", void 0);
+    __metadata("design:type", Date)
+], AvailabilitySlotMinAggregate.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
         nullable: true
@@ -73,6 +73,12 @@ __decorate([
     }),
     __metadata("design:type", Boolean)
 ], AvailabilitySlotMinAggregate.prototype, "isBooked", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AvailabilitySlotMinAggregate.prototype, "doctorId", void 0);
 exports.AvailabilitySlotMinAggregate = AvailabilitySlotMinAggregate = __decorate([
     TypeGraphQL.ObjectType("AvailabilitySlotMinAggregate", {})
 ], AvailabilitySlotMinAggregate);

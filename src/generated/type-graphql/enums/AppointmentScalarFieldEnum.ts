@@ -7,11 +7,14 @@ export enum AppointmentScalarFieldEnum {
   gender = "gender",
   phoneNo = "phoneNo",
   address = "address",
+  email = "email",
   medicalHistory = "medicalHistory",
   presciptions = "presciptions",
   details = "details",
   scheduledDate = "scheduledDate",
   status = "status",
+  startTime = "startTime",
+  endTime = "endTime",
   doctorId = "doctorId",
   patientId = "patientId"
 }

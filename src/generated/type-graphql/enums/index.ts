@@ -7,6 +7,7 @@ export { PatientScalarFieldEnum } from "./PatientScalarFieldEnum";
 export { QueryMode } from "./QueryMode";
 export { SortOrder } from "./SortOrder";
 export { TransactionIsolationLevel } from "./TransactionIsolationLevel";
+export { UnavailabilitySlotScalarFieldEnum } from "./UnavailabilitySlotScalarFieldEnum";
 export { UserScalarFieldEnum } from "./UserScalarFieldEnum";
 export { gender } from "./gender";
 export { role } from "./role";

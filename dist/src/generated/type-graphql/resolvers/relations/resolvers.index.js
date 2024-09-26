@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRelationsResolver = exports.PatientRelationsResolver = exports.DoctorRelationsResolver = exports.AvailabilitySlotRelationsResolver = exports.AppointmentRelationsResolver = void 0;
+exports.UserRelationsResolver = exports.UnavailabilitySlotRelationsResolver = exports.PatientRelationsResolver = exports.DoctorRelationsResolver = exports.AvailabilitySlotRelationsResolver = exports.AppointmentRelationsResolver = void 0;
 var AppointmentRelationsResolver_1 = require("./Appointment/AppointmentRelationsResolver");
 Object.defineProperty(exports, "AppointmentRelationsResolver", { enumerable: true, get: function () { return AppointmentRelationsResolver_1.AppointmentRelationsResolver; } });
 var AvailabilitySlotRelationsResolver_1 = require("./AvailabilitySlot/AvailabilitySlotRelationsResolver");
@@ -9,5 +9,7 @@ var DoctorRelationsResolver_1 = require("./Doctor/DoctorRelationsResolver");
 Object.defineProperty(exports, "DoctorRelationsResolver", { enumerable: true, get: function () { return DoctorRelationsResolver_1.DoctorRelationsResolver; } });
 var PatientRelationsResolver_1 = require("./Patient/PatientRelationsResolver");
 Object.defineProperty(exports, "PatientRelationsResolver", { enumerable: true, get: function () { return PatientRelationsResolver_1.PatientRelationsResolver; } });
+var UnavailabilitySlotRelationsResolver_1 = require("./UnavailabilitySlot/UnavailabilitySlotRelationsResolver");
+Object.defineProperty(exports, "UnavailabilitySlotRelationsResolver", { enumerable: true, get: function () { return UnavailabilitySlotRelationsResolver_1.UnavailabilitySlotRelationsResolver; } });
 var UserRelationsResolver_1 = require("./User/UserRelationsResolver");
 Object.defineProperty(exports, "UserRelationsResolver", { enumerable: true, get: function () { return UserRelationsResolver_1.UserRelationsResolver; } });

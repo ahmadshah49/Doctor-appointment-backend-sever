@@ -6,6 +6,7 @@ import { AppointmentOrderByRelationAggregateInput } from "../inputs/AppointmentO
 import { AvailabilitySlotOrderByRelationAggregateInput } from "../inputs/AvailabilitySlotOrderByRelationAggregateInput";
 import { PatientOrderByRelationAggregateInput } from "../inputs/PatientOrderByRelationAggregateInput";
 import { SortOrderInput } from "../inputs/SortOrderInput";
+import { UnavailabilitySlotOrderByRelationAggregateInput } from "../inputs/UnavailabilitySlotOrderByRelationAggregateInput";
 import { UserOrderByWithRelationInput } from "../inputs/UserOrderByWithRelationInput";
 import { SortOrder } from "../../enums/SortOrder";
 
@@ -75,4 +76,9 @@ export class DoctorOrderByWithRelationInput {
     nullable: true
   })
   AvailabilitySlot?: AvailabilitySlotOrderByRelationAggregateInput | undefined;
+
+  @TypeGraphQL.Field(_type => UnavailabilitySlotOrderByRelationAggregateInput, {
+    nullable: true
+  })
+  UnavailabilitySlot?: UnavailabilitySlotOrderByRelationAggregateInput | undefined;
 }

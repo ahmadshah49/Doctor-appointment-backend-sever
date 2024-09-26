@@ -49,13 +49,13 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotCountOrderByAggregateInput.prototype, "doctorId", void 0);
+], AvailabilitySlotCountOrderByAggregateInput.prototype, "startDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotCountOrderByAggregateInput.prototype, "day", void 0);
+], AvailabilitySlotCountOrderByAggregateInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
@@ -74,6 +74,12 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AvailabilitySlotCountOrderByAggregateInput.prototype, "isBooked", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], AvailabilitySlotCountOrderByAggregateInput.prototype, "doctorId", void 0);
 exports.AvailabilitySlotCountOrderByAggregateInput = AvailabilitySlotCountOrderByAggregateInput = __decorate([
     TypeGraphQL.InputType("AvailabilitySlotCountOrderByAggregateInput", {})
 ], AvailabilitySlotCountOrderByAggregateInput);

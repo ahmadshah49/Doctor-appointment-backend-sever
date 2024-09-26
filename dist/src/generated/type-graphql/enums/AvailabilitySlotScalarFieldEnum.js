@@ -28,11 +28,12 @@ const TypeGraphQL = __importStar(require("type-graphql"));
 var AvailabilitySlotScalarFieldEnum;
 (function (AvailabilitySlotScalarFieldEnum) {
     AvailabilitySlotScalarFieldEnum["id"] = "id";
-    AvailabilitySlotScalarFieldEnum["doctorId"] = "doctorId";
-    AvailabilitySlotScalarFieldEnum["day"] = "day";
+    AvailabilitySlotScalarFieldEnum["startDate"] = "startDate";
+    AvailabilitySlotScalarFieldEnum["endDate"] = "endDate";
     AvailabilitySlotScalarFieldEnum["startTime"] = "startTime";
     AvailabilitySlotScalarFieldEnum["endTime"] = "endTime";
     AvailabilitySlotScalarFieldEnum["isBooked"] = "isBooked";
+    AvailabilitySlotScalarFieldEnum["doctorId"] = "doctorId";
 })(AvailabilitySlotScalarFieldEnum || (exports.AvailabilitySlotScalarFieldEnum = AvailabilitySlotScalarFieldEnum = {}));
 TypeGraphQL.registerEnumType(AvailabilitySlotScalarFieldEnum, {
     name: "AvailabilitySlotScalarFieldEnum",

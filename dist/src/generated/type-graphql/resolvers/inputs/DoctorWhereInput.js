@@ -42,6 +42,7 @@ const IntFilter_1 = require("../inputs/IntFilter");
 const PatientListRelationFilter_1 = require("../inputs/PatientListRelationFilter");
 const StringFilter_1 = require("../inputs/StringFilter");
 const StringNullableFilter_1 = require("../inputs/StringNullableFilter");
+const UnavailabilitySlotListRelationFilter_1 = require("../inputs/UnavailabilitySlotListRelationFilter");
 const UserRelationFilter_1 = require("../inputs/UserRelationFilter");
 let DoctorWhereInput = class DoctorWhereInput {
 };
@@ -142,6 +143,12 @@ __decorate([
     }),
     __metadata("design:type", AvailabilitySlotListRelationFilter_1.AvailabilitySlotListRelationFilter)
 ], DoctorWhereInput.prototype, "AvailabilitySlot", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => UnavailabilitySlotListRelationFilter_1.UnavailabilitySlotListRelationFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", UnavailabilitySlotListRelationFilter_1.UnavailabilitySlotListRelationFilter)
+], DoctorWhereInput.prototype, "UnavailabilitySlot", void 0);
 exports.DoctorWhereInput = DoctorWhereInput = __decorate([
     TypeGraphQL.InputType("DoctorWhereInput", {})
 ], DoctorWhereInput);

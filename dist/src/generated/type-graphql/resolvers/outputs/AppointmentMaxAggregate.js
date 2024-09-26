@@ -80,6 +80,12 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
+], AppointmentMaxAggregate.prototype, "email", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
 ], AppointmentMaxAggregate.prototype, "medicalHistory", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
@@ -99,6 +105,18 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AppointmentMaxAggregate.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: true
+    }),
+    __metadata("design:type", Date)
+], AppointmentMaxAggregate.prototype, "startTime", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: true
+    }),
+    __metadata("design:type", Date)
+], AppointmentMaxAggregate.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {
         nullable: true

@@ -34,13 +34,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentScalarWhereWithAggregatesInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
+const DateTimeNullableWithAggregatesFilter_1 = require("../inputs/DateTimeNullableWithAggregatesFilter");
 const DateTimeWithAggregatesFilter_1 = require("../inputs/DateTimeWithAggregatesFilter");
 const EnumAppointmentStatusNullableWithAggregatesFilter_1 = require("../inputs/EnumAppointmentStatusNullableWithAggregatesFilter");
-const EnumgenderNullableWithAggregatesFilter_1 = require("../inputs/EnumgenderNullableWithAggregatesFilter");
+const EnumgenderWithAggregatesFilter_1 = require("../inputs/EnumgenderWithAggregatesFilter");
 const IntNullableWithAggregatesFilter_1 = require("../inputs/IntNullableWithAggregatesFilter");
 const IntWithAggregatesFilter_1 = require("../inputs/IntWithAggregatesFilter");
 const StringNullableListFilter_1 = require("../inputs/StringNullableListFilter");
 const StringNullableWithAggregatesFilter_1 = require("../inputs/StringNullableWithAggregatesFilter");
+const StringWithAggregatesFilter_1 = require("../inputs/StringWithAggregatesFilter");
 let AppointmentScalarWhereWithAggregatesInput = class AppointmentScalarWhereWithAggregatesInput {
 };
 exports.AppointmentScalarWhereWithAggregatesInput = AppointmentScalarWhereWithAggregatesInput;
@@ -69,35 +71,41 @@ __decorate([
     __metadata("design:type", IntWithAggregatesFilter_1.IntWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "id", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => StringWithAggregatesFilter_1.StringWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter)
+    __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "fullName", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => StringWithAggregatesFilter_1.StringWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter)
+    __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "age", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => EnumgenderNullableWithAggregatesFilter_1.EnumgenderNullableWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => EnumgenderWithAggregatesFilter_1.EnumgenderWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", EnumgenderNullableWithAggregatesFilter_1.EnumgenderNullableWithAggregatesFilter)
+    __metadata("design:type", EnumgenderWithAggregatesFilter_1.EnumgenderWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "gender", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => StringWithAggregatesFilter_1.StringWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter)
+    __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "phoneNo", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => StringWithAggregatesFilter_1.StringWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter)
+    __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "address", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => StringWithAggregatesFilter_1.StringWithAggregatesFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
+], AppointmentScalarWhereWithAggregatesInput.prototype, "email", void 0);
 __decorate([
     TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter, {
         nullable: true
@@ -117,10 +125,10 @@ __decorate([
     __metadata("design:type", StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "details", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
+    TypeGraphQL.Field(_type => DateTimeNullableWithAggregatesFilter_1.DateTimeNullableWithAggregatesFilter, {
         nullable: true
     }),
-    __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
+    __metadata("design:type", DateTimeNullableWithAggregatesFilter_1.DateTimeNullableWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "scheduledDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => EnumAppointmentStatusNullableWithAggregatesFilter_1.EnumAppointmentStatusNullableWithAggregatesFilter, {
@@ -128,6 +136,18 @@ __decorate([
     }),
     __metadata("design:type", EnumAppointmentStatusNullableWithAggregatesFilter_1.EnumAppointmentStatusNullableWithAggregatesFilter)
 ], AppointmentScalarWhereWithAggregatesInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
+], AppointmentScalarWhereWithAggregatesInput.prototype, "startTime", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
+], AppointmentScalarWhereWithAggregatesInput.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => IntNullableWithAggregatesFilter_1.IntNullableWithAggregatesFilter, {
         nullable: true

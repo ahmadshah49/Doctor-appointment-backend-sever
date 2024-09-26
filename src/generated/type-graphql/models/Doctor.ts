@@ -5,6 +5,7 @@ import { DecimalJSScalar } from "../scalars";
 import { Appointment } from "../models/Appointment";
 import { AvailabilitySlot } from "../models/AvailabilitySlot";
 import { Patient } from "../models/Patient";
+import { UnavailabilitySlot } from "../models/UnavailabilitySlot";
 import { User } from "../models/User";
 import { gender } from "../enums/gender";
 import { DoctorCount } from "../resolvers/outputs/DoctorCount";
@@ -63,6 +64,8 @@ export class Doctor {
   appointments?: Appointment[];
 
   AvailabilitySlot?: AvailabilitySlot[];
+
+  UnavailabilitySlot?: UnavailabilitySlot[];
 
   @TypeGraphQL.Field(_type => DoctorCount, {
     nullable: true

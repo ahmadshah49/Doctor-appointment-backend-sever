@@ -75,42 +75,48 @@ model Patient {
 
 model Appointment {
   id             Int                @id @default(autoincrement())
-  fullName       String?
-  age            String?
-  gender         gender?
-  phoneNo        String?
-  address        String?
+  fullName       String
+  age            String
+  gender         gender
+  phoneNo        String
+  address        String
+  email          String
   medicalHistory String?
   presciptions   String[]
   details        String?
-  scheduledDate  DateTime
+  scheduledDate  DateTime?
   status         AppointmentStatus? @default(UPCOMING)
-
-  Doctor    Doctor?  @relation(fields: [doctorId], references: [id])
-  doctorId  Int?     @unique
-  Patient   Patient? @relation(fields: [patientId], references: [id])
-  patientId Int?     @unique
+  startTime      DateTime
+  endTime        DateTime
+  Doctor         Doctor?            @relation(fields: [doctorId], references: [userId])
+  doctorId       Int?               @unique
+  Patient        Patient?           @relation(fields: [patientId], references: [userId])
+  patientId      Int?               @unique
 }
 
 model AvailabilitySlot {
   id        Int      @id @default(autoincrement())
-  doctorId  Int      @unique
-  day       String
+  startDate DateTime
+  endDate   DateTime
   startTime DateTime
   endTime   DateTime
-  isBooked  Boolean  @default(false) // False by default (jab tak koi book na kare)
+  isBooked  Boolean? @default(false)
 
-  doctor Doctor @relation(fields: [doctorId], references: [id])
+  doctor   Doctor @relation(fields: [doctorId], references: [userId])
+  doctorId Int    @unique
 }
 
 model UnavailabilitySlot {
-  id          Int      @id @default(autoincrement())
-  doctorId    Int      @unique
-  startDate   DateTime // Doctor unavailable from
-  endDate     DateTime // Doctor unavailable till
-  reason      String? // Optional: Reason for unavailability
+  id          Int       @id @default(autoincrement())
+  doctorId    Int       @unique
+  day         DateTime?
+  startTime   DateTime
+  endTime     DateTime
+  startDate   DateTime?
+  endDate     DateTime?
+  reason      String?
   isAvailable Boolean?
-  doctor      Doctor   @relation(fields: [doctorId], references: [id])
+  doctor      Doctor    @relation(fields: [doctorId], references: [id])
 }
 
 enum AppointmentStatus {

@@ -1,0 +1,15 @@
+export { AggregateUnavailabilitySlotArgs } from "./AggregateUnavailabilitySlotArgs";
+export { CreateManyAndReturnUnavailabilitySlotArgs } from "./CreateManyAndReturnUnavailabilitySlotArgs";
+export { CreateManyUnavailabilitySlotArgs } from "./CreateManyUnavailabilitySlotArgs";
+export { CreateOneUnavailabilitySlotArgs } from "./CreateOneUnavailabilitySlotArgs";
+export { DeleteManyUnavailabilitySlotArgs } from "./DeleteManyUnavailabilitySlotArgs";
+export { DeleteOneUnavailabilitySlotArgs } from "./DeleteOneUnavailabilitySlotArgs";
+export { FindFirstUnavailabilitySlotArgs } from "./FindFirstUnavailabilitySlotArgs";
+export { FindFirstUnavailabilitySlotOrThrowArgs } from "./FindFirstUnavailabilitySlotOrThrowArgs";
+export { FindManyUnavailabilitySlotArgs } from "./FindManyUnavailabilitySlotArgs";
+export { FindUniqueUnavailabilitySlotArgs } from "./FindUniqueUnavailabilitySlotArgs";
+export { FindUniqueUnavailabilitySlotOrThrowArgs } from "./FindUniqueUnavailabilitySlotOrThrowArgs";
+export { GroupByUnavailabilitySlotArgs } from "./GroupByUnavailabilitySlotArgs";
+export { UpdateManyUnavailabilitySlotArgs } from "./UpdateManyUnavailabilitySlotArgs";
+export { UpdateOneUnavailabilitySlotArgs } from "./UpdateOneUnavailabilitySlotArgs";
+export { UpsertOneUnavailabilitySlotArgs } from "./UpsertOneUnavailabilitySlotArgs";

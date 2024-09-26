@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.Patient = exports.Doctor = exports.AvailabilitySlot = exports.Appointment = void 0;
+exports.User = exports.UnavailabilitySlot = exports.Patient = exports.Doctor = exports.AvailabilitySlot = exports.Appointment = void 0;
 var Appointment_1 = require("./Appointment");
 Object.defineProperty(exports, "Appointment", { enumerable: true, get: function () { return Appointment_1.Appointment; } });
 var AvailabilitySlot_1 = require("./AvailabilitySlot");
@@ -9,5 +9,7 @@ var Doctor_1 = require("./Doctor");
 Object.defineProperty(exports, "Doctor", { enumerable: true, get: function () { return Doctor_1.Doctor; } });
 var Patient_1 = require("./Patient");
 Object.defineProperty(exports, "Patient", { enumerable: true, get: function () { return Patient_1.Patient; } });
+var UnavailabilitySlot_1 = require("./UnavailabilitySlot");
+Object.defineProperty(exports, "UnavailabilitySlot", { enumerable: true, get: function () { return UnavailabilitySlot_1.UnavailabilitySlot; } });
 var User_1 = require("./User");
 Object.defineProperty(exports, "User", { enumerable: true, get: function () { return User_1.User; } });

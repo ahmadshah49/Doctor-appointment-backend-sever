@@ -60,34 +60,40 @@ __decorate([
 ], CreateManyAndReturnAppointment.prototype, "id", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], CreateManyAndReturnAppointment.prototype, "fullName", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], CreateManyAndReturnAppointment.prototype, "age", void 0);
 __decorate([
     TypeGraphQL.Field(_type => gender_1.gender, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], CreateManyAndReturnAppointment.prototype, "gender", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], CreateManyAndReturnAppointment.prototype, "phoneNo", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], CreateManyAndReturnAppointment.prototype, "address", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: false
+    }),
+    __metadata("design:type", String)
+], CreateManyAndReturnAppointment.prototype, "email", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
         nullable: true
@@ -108,7 +114,7 @@ __decorate([
 ], CreateManyAndReturnAppointment.prototype, "details", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
-        nullable: false
+        nullable: true
     }),
     __metadata("design:type", Date)
 ], CreateManyAndReturnAppointment.prototype, "scheduledDate", void 0);
@@ -118,6 +124,18 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], CreateManyAndReturnAppointment.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], CreateManyAndReturnAppointment.prototype, "startTime", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], CreateManyAndReturnAppointment.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {
         nullable: true

@@ -45,17 +45,17 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateManyAndReturnAvailabilitySlot.prototype, "id", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
-    __metadata("design:type", Number)
-], CreateManyAndReturnAvailabilitySlot.prototype, "doctorId", void 0);
+    __metadata("design:type", Date)
+], CreateManyAndReturnAvailabilitySlot.prototype, "startDate", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => String, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
-    __metadata("design:type", String)
-], CreateManyAndReturnAvailabilitySlot.prototype, "day", void 0);
+    __metadata("design:type", Date)
+], CreateManyAndReturnAvailabilitySlot.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
         nullable: false
@@ -70,10 +70,16 @@ __decorate([
 ], CreateManyAndReturnAvailabilitySlot.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Boolean, {
-        nullable: false
+        nullable: true
     }),
     __metadata("design:type", Boolean)
 ], CreateManyAndReturnAvailabilitySlot.prototype, "isBooked", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
+], CreateManyAndReturnAvailabilitySlot.prototype, "doctorId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Doctor_1.Doctor, {
         nullable: false

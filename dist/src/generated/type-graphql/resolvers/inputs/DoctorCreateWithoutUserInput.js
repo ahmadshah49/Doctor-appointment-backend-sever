@@ -37,6 +37,7 @@ const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentCreateNestedManyWithoutDoctorInput_1 = require("../inputs/AppointmentCreateNestedManyWithoutDoctorInput");
 const AvailabilitySlotCreateNestedManyWithoutDoctorInput_1 = require("../inputs/AvailabilitySlotCreateNestedManyWithoutDoctorInput");
 const PatientCreateNestedManyWithoutDoctorInput_1 = require("../inputs/PatientCreateNestedManyWithoutDoctorInput");
+const UnavailabilitySlotCreateNestedManyWithoutDoctorInput_1 = require("../inputs/UnavailabilitySlotCreateNestedManyWithoutDoctorInput");
 const gender_1 = require("../../enums/gender");
 let DoctorCreateWithoutUserInput = class DoctorCreateWithoutUserInput {
 };
@@ -101,6 +102,12 @@ __decorate([
     }),
     __metadata("design:type", AvailabilitySlotCreateNestedManyWithoutDoctorInput_1.AvailabilitySlotCreateNestedManyWithoutDoctorInput)
 ], DoctorCreateWithoutUserInput.prototype, "AvailabilitySlot", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => UnavailabilitySlotCreateNestedManyWithoutDoctorInput_1.UnavailabilitySlotCreateNestedManyWithoutDoctorInput, {
+        nullable: true
+    }),
+    __metadata("design:type", UnavailabilitySlotCreateNestedManyWithoutDoctorInput_1.UnavailabilitySlotCreateNestedManyWithoutDoctorInput)
+], DoctorCreateWithoutUserInput.prototype, "UnavailabilitySlot", void 0);
 exports.DoctorCreateWithoutUserInput = DoctorCreateWithoutUserInput = __decorate([
     TypeGraphQL.InputType("DoctorCreateWithoutUserInput", {})
 ], DoctorCreateWithoutUserInput);

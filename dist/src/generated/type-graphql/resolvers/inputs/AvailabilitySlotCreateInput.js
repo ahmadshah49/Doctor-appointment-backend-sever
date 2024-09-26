@@ -39,11 +39,17 @@ let AvailabilitySlotCreateInput = class AvailabilitySlotCreateInput {
 };
 exports.AvailabilitySlotCreateInput = AvailabilitySlotCreateInput;
 __decorate([
-    TypeGraphQL.Field(_type => String, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
-    __metadata("design:type", String)
-], AvailabilitySlotCreateInput.prototype, "day", void 0);
+    __metadata("design:type", Date)
+], AvailabilitySlotCreateInput.prototype, "startDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], AvailabilitySlotCreateInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
         nullable: false

@@ -10,6 +10,7 @@ import { EnumgenderFilter } from "../inputs/EnumgenderFilter";
 import { PatientListRelationFilter } from "../inputs/PatientListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
+import { UnavailabilitySlotListRelationFilter } from "../inputs/UnavailabilitySlotListRelationFilter";
 import { UserRelationFilter } from "../inputs/UserRelationFilter";
 
 @TypeGraphQL.InputType("DoctorWhereUniqueInput", {})
@@ -93,4 +94,9 @@ export class DoctorWhereUniqueInput {
     nullable: true
   })
   AvailabilitySlot?: AvailabilitySlotListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => UnavailabilitySlotListRelationFilter, {
+    nullable: true
+  })
+  UnavailabilitySlot?: UnavailabilitySlotListRelationFilter | undefined;
 }

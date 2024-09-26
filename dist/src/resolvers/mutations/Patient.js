@@ -80,6 +80,58 @@ let PatientResolver = class PatientResolver {
         });
         return "Patient Info Updated";
     }
+    async createAppointment(fullName, email, age, gender, phoneNo, address, medicalHistory, presciptions, details, scheduledDate, startTime, endTime, doctorId, context
+    // @Arg("patientId") patientId: number
+    ) {
+        if (!fullName ||
+            !email ||
+            !age ||
+            !gender ||
+            !phoneNo ||
+            !address ||
+            !presciptions ||
+            !scheduledDate ||
+            !startTime ||
+            !endTime) {
+            throw new graphql_1.GraphQLError("Please add all required Fields");
+        }
+        if (context.payload.role !== "PATIENT") {
+            throw new graphql_1.GraphQLError("You are not patient so you can't di this action");
+        }
+        console.log("User Role", context.payload.role);
+        const currentUserId = context.payload.userId;
+        if (!currentUserId) {
+            throw new graphql_1.GraphQLError("User not found");
+        }
+        console.log("Doctor id", doctorId);
+        console.log("Current User Id", currentUserId);
+        const checkDoctorId = await prisma_1.default.doctor.findUnique({
+            where: { userId: doctorId },
+        });
+        console.log("Doctor Id", checkDoctorId.id);
+        console.log("Doctor", checkDoctorId);
+        if (!checkDoctorId) {
+            throw new graphql_1.GraphQLError("Doctor not found!");
+        }
+        await prisma_1.default.appointment.create({
+            data: {
+                address,
+                age,
+                email,
+                fullName,
+                gender,
+                phoneNo,
+                details,
+                presciptions,
+                startTime,
+                endTime,
+                scheduledDate,
+                patientId: currentUserId,
+                doctorId,
+            },
+        });
+        return "Appointment Added";
+    }
 };
 exports.PatientResolver = PatientResolver;
 __decorate([
@@ -110,6 +162,29 @@ __decorate([
     __metadata("design:paramtypes", [String, String, String, String, String, String, Object]),
     __metadata("design:returntype", Promise)
 ], PatientResolver.prototype, "updatePatientInfo", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => String),
+    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
+    __param(0, (0, type_graphql_1.Arg)("fullName")),
+    __param(1, (0, type_graphql_1.Arg)("email")),
+    __param(2, (0, type_graphql_1.Arg)("age")),
+    __param(3, (0, type_graphql_1.Arg)("gender", () => type_graphql_2.gender)),
+    __param(4, (0, type_graphql_1.Arg)("phoneNo")),
+    __param(5, (0, type_graphql_1.Arg)("address")),
+    __param(6, (0, type_graphql_1.Arg)("medicalHistory", { nullable: true })),
+    __param(7, (0, type_graphql_1.Arg)("presciptions", () => [String], { nullable: true })),
+    __param(8, (0, type_graphql_1.Arg)("details", { nullable: true })),
+    __param(9, (0, type_graphql_1.Arg)("scheduledDate")),
+    __param(10, (0, type_graphql_1.Arg)("startTime")),
+    __param(11, (0, type_graphql_1.Arg)("endTime")),
+    __param(12, (0, type_graphql_1.Arg)("doctorId")),
+    __param(13, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String, String, String, String, String, Array, String, Date,
+        Date,
+        Date, Number, Object]),
+    __metadata("design:returntype", Promise)
+], PatientResolver.prototype, "createAppointment", null);
 exports.PatientResolver = PatientResolver = __decorate([
     (0, type_graphql_1.Resolver)(() => type_graphql_2.Patient)
 ], PatientResolver);

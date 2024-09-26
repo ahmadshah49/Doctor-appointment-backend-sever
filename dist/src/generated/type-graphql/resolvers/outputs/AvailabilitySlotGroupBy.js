@@ -49,17 +49,17 @@ __decorate([
     __metadata("design:type", Number)
 ], AvailabilitySlotGroupBy.prototype, "id", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
-    __metadata("design:type", Number)
-], AvailabilitySlotGroupBy.prototype, "doctorId", void 0);
+    __metadata("design:type", Date)
+], AvailabilitySlotGroupBy.prototype, "startDate", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => String, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
-    __metadata("design:type", String)
-], AvailabilitySlotGroupBy.prototype, "day", void 0);
+    __metadata("design:type", Date)
+], AvailabilitySlotGroupBy.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
         nullable: false
@@ -74,10 +74,16 @@ __decorate([
 ], AvailabilitySlotGroupBy.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Boolean, {
-        nullable: false
+        nullable: true
     }),
     __metadata("design:type", Boolean)
 ], AvailabilitySlotGroupBy.prototype, "isBooked", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
+], AvailabilitySlotGroupBy.prototype, "doctorId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => AvailabilitySlotCountAggregate_1.AvailabilitySlotCountAggregate, {
         nullable: true

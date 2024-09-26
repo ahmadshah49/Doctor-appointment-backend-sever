@@ -37,42 +37,50 @@ const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentUpdatepresciptionsInput_1 = require("../inputs/AppointmentUpdatepresciptionsInput");
 const DateTimeFieldUpdateOperationsInput_1 = require("../inputs/DateTimeFieldUpdateOperationsInput");
 const DoctorUpdateOneWithoutAppointmentsNestedInput_1 = require("../inputs/DoctorUpdateOneWithoutAppointmentsNestedInput");
+const EnumgenderFieldUpdateOperationsInput_1 = require("../inputs/EnumgenderFieldUpdateOperationsInput");
+const NullableDateTimeFieldUpdateOperationsInput_1 = require("../inputs/NullableDateTimeFieldUpdateOperationsInput");
 const NullableEnumAppointmentStatusFieldUpdateOperationsInput_1 = require("../inputs/NullableEnumAppointmentStatusFieldUpdateOperationsInput");
-const NullableEnumgenderFieldUpdateOperationsInput_1 = require("../inputs/NullableEnumgenderFieldUpdateOperationsInput");
 const NullableStringFieldUpdateOperationsInput_1 = require("../inputs/NullableStringFieldUpdateOperationsInput");
+const StringFieldUpdateOperationsInput_1 = require("../inputs/StringFieldUpdateOperationsInput");
 let AppointmentUpdateWithoutPatientInput = class AppointmentUpdateWithoutPatientInput {
 };
 exports.AppointmentUpdateWithoutPatientInput = AppointmentUpdateWithoutPatientInput;
 __decorate([
-    TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput, {
+    TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput, {
         nullable: true
     }),
-    __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
+    __metadata("design:type", StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput)
 ], AppointmentUpdateWithoutPatientInput.prototype, "fullName", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput, {
+    TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput, {
         nullable: true
     }),
-    __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
+    __metadata("design:type", StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput)
 ], AppointmentUpdateWithoutPatientInput.prototype, "age", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => NullableEnumgenderFieldUpdateOperationsInput_1.NullableEnumgenderFieldUpdateOperationsInput, {
+    TypeGraphQL.Field(_type => EnumgenderFieldUpdateOperationsInput_1.EnumgenderFieldUpdateOperationsInput, {
         nullable: true
     }),
-    __metadata("design:type", NullableEnumgenderFieldUpdateOperationsInput_1.NullableEnumgenderFieldUpdateOperationsInput)
+    __metadata("design:type", EnumgenderFieldUpdateOperationsInput_1.EnumgenderFieldUpdateOperationsInput)
 ], AppointmentUpdateWithoutPatientInput.prototype, "gender", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput, {
+    TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput, {
         nullable: true
     }),
-    __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
+    __metadata("design:type", StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput)
 ], AppointmentUpdateWithoutPatientInput.prototype, "phoneNo", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput, {
+    TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput, {
         nullable: true
     }),
-    __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
+    __metadata("design:type", StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput)
 ], AppointmentUpdateWithoutPatientInput.prototype, "address", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput)
+], AppointmentUpdateWithoutPatientInput.prototype, "email", void 0);
 __decorate([
     TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput, {
         nullable: true
@@ -92,10 +100,10 @@ __decorate([
     __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
 ], AppointmentUpdateWithoutPatientInput.prototype, "details", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
+    TypeGraphQL.Field(_type => NullableDateTimeFieldUpdateOperationsInput_1.NullableDateTimeFieldUpdateOperationsInput, {
         nullable: true
     }),
-    __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
+    __metadata("design:type", NullableDateTimeFieldUpdateOperationsInput_1.NullableDateTimeFieldUpdateOperationsInput)
 ], AppointmentUpdateWithoutPatientInput.prototype, "scheduledDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => NullableEnumAppointmentStatusFieldUpdateOperationsInput_1.NullableEnumAppointmentStatusFieldUpdateOperationsInput, {
@@ -103,6 +111,18 @@ __decorate([
     }),
     __metadata("design:type", NullableEnumAppointmentStatusFieldUpdateOperationsInput_1.NullableEnumAppointmentStatusFieldUpdateOperationsInput)
 ], AppointmentUpdateWithoutPatientInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
+], AppointmentUpdateWithoutPatientInput.prototype, "startTime", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
+], AppointmentUpdateWithoutPatientInput.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DoctorUpdateOneWithoutAppointmentsNestedInput_1.DoctorUpdateOneWithoutAppointmentsNestedInput, {
         nullable: true

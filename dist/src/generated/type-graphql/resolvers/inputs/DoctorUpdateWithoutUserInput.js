@@ -41,6 +41,7 @@ const NullableBoolFieldUpdateOperationsInput_1 = require("../inputs/NullableBool
 const NullableStringFieldUpdateOperationsInput_1 = require("../inputs/NullableStringFieldUpdateOperationsInput");
 const PatientUpdateManyWithoutDoctorNestedInput_1 = require("../inputs/PatientUpdateManyWithoutDoctorNestedInput");
 const StringFieldUpdateOperationsInput_1 = require("../inputs/StringFieldUpdateOperationsInput");
+const UnavailabilitySlotUpdateManyWithoutDoctorNestedInput_1 = require("../inputs/UnavailabilitySlotUpdateManyWithoutDoctorNestedInput");
 let DoctorUpdateWithoutUserInput = class DoctorUpdateWithoutUserInput {
 };
 exports.DoctorUpdateWithoutUserInput = DoctorUpdateWithoutUserInput;
@@ -104,6 +105,12 @@ __decorate([
     }),
     __metadata("design:type", AvailabilitySlotUpdateManyWithoutDoctorNestedInput_1.AvailabilitySlotUpdateManyWithoutDoctorNestedInput)
 ], DoctorUpdateWithoutUserInput.prototype, "AvailabilitySlot", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => UnavailabilitySlotUpdateManyWithoutDoctorNestedInput_1.UnavailabilitySlotUpdateManyWithoutDoctorNestedInput, {
+        nullable: true
+    }),
+    __metadata("design:type", UnavailabilitySlotUpdateManyWithoutDoctorNestedInput_1.UnavailabilitySlotUpdateManyWithoutDoctorNestedInput)
+], DoctorUpdateWithoutUserInput.prototype, "UnavailabilitySlot", void 0);
 exports.DoctorUpdateWithoutUserInput = DoctorUpdateWithoutUserInput = __decorate([
     TypeGraphQL.InputType("DoctorUpdateWithoutUserInput", {})
 ], DoctorUpdateWithoutUserInput);

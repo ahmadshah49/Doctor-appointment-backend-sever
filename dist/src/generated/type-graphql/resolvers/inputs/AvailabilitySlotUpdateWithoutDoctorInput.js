@@ -34,18 +34,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AvailabilitySlotUpdateWithoutDoctorInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const BoolFieldUpdateOperationsInput_1 = require("../inputs/BoolFieldUpdateOperationsInput");
 const DateTimeFieldUpdateOperationsInput_1 = require("../inputs/DateTimeFieldUpdateOperationsInput");
-const StringFieldUpdateOperationsInput_1 = require("../inputs/StringFieldUpdateOperationsInput");
+const NullableBoolFieldUpdateOperationsInput_1 = require("../inputs/NullableBoolFieldUpdateOperationsInput");
 let AvailabilitySlotUpdateWithoutDoctorInput = class AvailabilitySlotUpdateWithoutDoctorInput {
 };
 exports.AvailabilitySlotUpdateWithoutDoctorInput = AvailabilitySlotUpdateWithoutDoctorInput;
 __decorate([
-    TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput, {
+    TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
         nullable: true
     }),
-    __metadata("design:type", StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput)
-], AvailabilitySlotUpdateWithoutDoctorInput.prototype, "day", void 0);
+    __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
+], AvailabilitySlotUpdateWithoutDoctorInput.prototype, "startDate", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
+], AvailabilitySlotUpdateWithoutDoctorInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
         nullable: true
@@ -59,10 +64,10 @@ __decorate([
     __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
 ], AvailabilitySlotUpdateWithoutDoctorInput.prototype, "endTime", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput_1.BoolFieldUpdateOperationsInput, {
+    TypeGraphQL.Field(_type => NullableBoolFieldUpdateOperationsInput_1.NullableBoolFieldUpdateOperationsInput, {
         nullable: true
     }),
-    __metadata("design:type", BoolFieldUpdateOperationsInput_1.BoolFieldUpdateOperationsInput)
+    __metadata("design:type", NullableBoolFieldUpdateOperationsInput_1.NullableBoolFieldUpdateOperationsInput)
 ], AvailabilitySlotUpdateWithoutDoctorInput.prototype, "isBooked", void 0);
 exports.AvailabilitySlotUpdateWithoutDoctorInput = AvailabilitySlotUpdateWithoutDoctorInput = __decorate([
     TypeGraphQL.InputType("AvailabilitySlotUpdateWithoutDoctorInput", {})

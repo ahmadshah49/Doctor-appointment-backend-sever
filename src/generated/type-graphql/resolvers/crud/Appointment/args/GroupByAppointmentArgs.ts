@@ -20,7 +20,7 @@ export class GroupByAppointmentArgs {
   @TypeGraphQL.Field(_type => [AppointmentScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "fullName" | "age" | "gender" | "phoneNo" | "address" | "medicalHistory" | "presciptions" | "details" | "scheduledDate" | "status" | "doctorId" | "patientId">;
+  by!: Array<"id" | "fullName" | "age" | "gender" | "phoneNo" | "address" | "email" | "medicalHistory" | "presciptions" | "details" | "scheduledDate" | "status" | "startTime" | "endTime" | "doctorId" | "patientId">;
 
   @TypeGraphQL.Field(_type => AppointmentScalarWhereWithAggregatesInput, {
     nullable: true

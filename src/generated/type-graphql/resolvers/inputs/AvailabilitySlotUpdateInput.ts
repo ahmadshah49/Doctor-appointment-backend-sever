@@ -2,17 +2,21 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput } from "../inputs/DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput";
-import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
+import { NullableBoolFieldUpdateOperationsInput } from "../inputs/NullableBoolFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType("AvailabilitySlotUpdateInput", {})
 export class AvailabilitySlotUpdateInput {
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
-  day?: StringFieldUpdateOperationsInput | undefined;
+  startDate?: DateTimeFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  endDate?: DateTimeFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
@@ -24,10 +28,10 @@ export class AvailabilitySlotUpdateInput {
   })
   endTime?: DateTimeFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableBoolFieldUpdateOperationsInput, {
     nullable: true
   })
-  isBooked?: BoolFieldUpdateOperationsInput | undefined;
+  isBooked?: NullableBoolFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput, {
     nullable: true

@@ -39,6 +39,7 @@ const AvailabilitySlotCountOrderByAggregateInput_1 = require("../inputs/Availabi
 const AvailabilitySlotMaxOrderByAggregateInput_1 = require("../inputs/AvailabilitySlotMaxOrderByAggregateInput");
 const AvailabilitySlotMinOrderByAggregateInput_1 = require("../inputs/AvailabilitySlotMinOrderByAggregateInput");
 const AvailabilitySlotSumOrderByAggregateInput_1 = require("../inputs/AvailabilitySlotSumOrderByAggregateInput");
+const SortOrderInput_1 = require("../inputs/SortOrderInput");
 const SortOrder_1 = require("../../enums/SortOrder");
 let AvailabilitySlotOrderByWithAggregationInput = class AvailabilitySlotOrderByWithAggregationInput {
 };
@@ -54,13 +55,13 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotOrderByWithAggregationInput.prototype, "doctorId", void 0);
+], AvailabilitySlotOrderByWithAggregationInput.prototype, "startDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotOrderByWithAggregationInput.prototype, "day", void 0);
+], AvailabilitySlotOrderByWithAggregationInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
@@ -74,11 +75,17 @@ __decorate([
     __metadata("design:type", String)
 ], AvailabilitySlotOrderByWithAggregationInput.prototype, "endTime", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], AvailabilitySlotOrderByWithAggregationInput.prototype, "isBooked", void 0);
+__decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotOrderByWithAggregationInput.prototype, "isBooked", void 0);
+], AvailabilitySlotOrderByWithAggregationInput.prototype, "doctorId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => AvailabilitySlotCountOrderByAggregateInput_1.AvailabilitySlotCountOrderByAggregateInput, {
         nullable: true

@@ -35,5 +35,5 @@ export class FindManyAvailabilitySlotArgs {
   @TypeGraphQL.Field(_type => [AvailabilitySlotScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "doctorId" | "day" | "startTime" | "endTime" | "isBooked"> | undefined;
+  distinct?: Array<"id" | "startDate" | "endDate" | "startTime" | "endTime" | "isBooked" | "doctorId"> | undefined;
 }

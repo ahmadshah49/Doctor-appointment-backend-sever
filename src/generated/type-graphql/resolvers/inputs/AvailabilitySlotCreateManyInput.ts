@@ -10,15 +10,15 @@ export class AvailabilitySlotCreateManyInput {
   })
   id?: number | undefined;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
-  doctorId!: number;
+  startDate!: Date;
 
-  @TypeGraphQL.Field(_type => String, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
-  day!: string;
+  endDate!: Date;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -34,4 +34,9 @@ export class AvailabilitySlotCreateManyInput {
     nullable: true
   })
   isBooked?: boolean | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  doctorId!: number;
 }

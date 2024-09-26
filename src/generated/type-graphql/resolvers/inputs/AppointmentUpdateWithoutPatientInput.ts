@@ -5,36 +5,43 @@ import { DecimalJSScalar } from "../../scalars";
 import { AppointmentUpdatepresciptionsInput } from "../inputs/AppointmentUpdatepresciptionsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { DoctorUpdateOneWithoutAppointmentsNestedInput } from "../inputs/DoctorUpdateOneWithoutAppointmentsNestedInput";
+import { EnumgenderFieldUpdateOperationsInput } from "../inputs/EnumgenderFieldUpdateOperationsInput";
+import { NullableDateTimeFieldUpdateOperationsInput } from "../inputs/NullableDateTimeFieldUpdateOperationsInput";
 import { NullableEnumAppointmentStatusFieldUpdateOperationsInput } from "../inputs/NullableEnumAppointmentStatusFieldUpdateOperationsInput";
-import { NullableEnumgenderFieldUpdateOperationsInput } from "../inputs/NullableEnumgenderFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType("AppointmentUpdateWithoutPatientInput", {})
 export class AppointmentUpdateWithoutPatientInput {
-  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  fullName?: NullableStringFieldUpdateOperationsInput | undefined;
+  fullName?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  age?: NullableStringFieldUpdateOperationsInput | undefined;
+  age?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => NullableEnumgenderFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => EnumgenderFieldUpdateOperationsInput, {
     nullable: true
   })
-  gender?: NullableEnumgenderFieldUpdateOperationsInput | undefined;
+  gender?: EnumgenderFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  phoneNo?: NullableStringFieldUpdateOperationsInput | undefined;
+  phoneNo?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  address?: NullableStringFieldUpdateOperationsInput | undefined;
+  address?: StringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  email?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
@@ -51,15 +58,25 @@ export class AppointmentUpdateWithoutPatientInput {
   })
   details?: NullableStringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableDateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
-  scheduledDate?: DateTimeFieldUpdateOperationsInput | undefined;
+  scheduledDate?: NullableDateTimeFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => NullableEnumAppointmentStatusFieldUpdateOperationsInput, {
     nullable: true
   })
   status?: NullableEnumAppointmentStatusFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  startTime?: DateTimeFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  endTime?: DateTimeFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => DoctorUpdateOneWithoutAppointmentsNestedInput, {
     nullable: true

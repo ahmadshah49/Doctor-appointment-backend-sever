@@ -35,11 +35,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AvailabilitySlotWhereUniqueInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AvailabilitySlotWhereInput_1 = require("../inputs/AvailabilitySlotWhereInput");
-const BoolFilter_1 = require("../inputs/BoolFilter");
+const BoolNullableFilter_1 = require("../inputs/BoolNullableFilter");
 const DateTimeFilter_1 = require("../inputs/DateTimeFilter");
 const DoctorRelationFilter_1 = require("../inputs/DoctorRelationFilter");
-const IntFilter_1 = require("../inputs/IntFilter");
-const StringFilter_1 = require("../inputs/StringFilter");
 let AvailabilitySlotWhereUniqueInput = class AvailabilitySlotWhereUniqueInput {
 };
 exports.AvailabilitySlotWhereUniqueInput = AvailabilitySlotWhereUniqueInput;
@@ -49,6 +47,12 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], AvailabilitySlotWhereUniqueInput.prototype, "id", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AvailabilitySlotWhereUniqueInput.prototype, "doctorId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => [AvailabilitySlotWhereInput_1.AvailabilitySlotWhereInput], {
         nullable: true
@@ -68,17 +72,17 @@ __decorate([
     __metadata("design:type", Array)
 ], AvailabilitySlotWhereUniqueInput.prototype, "NOT", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => IntFilter_1.IntFilter, {
+    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
         nullable: true
     }),
-    __metadata("design:type", IntFilter_1.IntFilter)
-], AvailabilitySlotWhereUniqueInput.prototype, "doctorId", void 0);
+    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
+], AvailabilitySlotWhereUniqueInput.prototype, "startDate", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringFilter_1.StringFilter, {
+    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringFilter_1.StringFilter)
-], AvailabilitySlotWhereUniqueInput.prototype, "day", void 0);
+    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
+], AvailabilitySlotWhereUniqueInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
         nullable: true
@@ -92,10 +96,10 @@ __decorate([
     __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
 ], AvailabilitySlotWhereUniqueInput.prototype, "endTime", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => BoolFilter_1.BoolFilter, {
+    TypeGraphQL.Field(_type => BoolNullableFilter_1.BoolNullableFilter, {
         nullable: true
     }),
-    __metadata("design:type", BoolFilter_1.BoolFilter)
+    __metadata("design:type", BoolNullableFilter_1.BoolNullableFilter)
 ], AvailabilitySlotWhereUniqueInput.prototype, "isBooked", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DoctorRelationFilter_1.DoctorRelationFilter, {

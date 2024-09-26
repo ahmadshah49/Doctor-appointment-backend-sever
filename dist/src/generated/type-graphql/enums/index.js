@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.role = exports.gender = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.SortOrder = exports.QueryMode = exports.PatientScalarFieldEnum = exports.NullsOrder = exports.DoctorScalarFieldEnum = exports.AvailabilitySlotScalarFieldEnum = exports.AppointmentStatus = exports.AppointmentScalarFieldEnum = void 0;
+exports.role = exports.gender = exports.UserScalarFieldEnum = exports.UnavailabilitySlotScalarFieldEnum = exports.TransactionIsolationLevel = exports.SortOrder = exports.QueryMode = exports.PatientScalarFieldEnum = exports.NullsOrder = exports.DoctorScalarFieldEnum = exports.AvailabilitySlotScalarFieldEnum = exports.AppointmentStatus = exports.AppointmentScalarFieldEnum = void 0;
 var AppointmentScalarFieldEnum_1 = require("./AppointmentScalarFieldEnum");
 Object.defineProperty(exports, "AppointmentScalarFieldEnum", { enumerable: true, get: function () { return AppointmentScalarFieldEnum_1.AppointmentScalarFieldEnum; } });
 var AppointmentStatus_1 = require("./AppointmentStatus");
@@ -19,6 +19,8 @@ var SortOrder_1 = require("./SortOrder");
 Object.defineProperty(exports, "SortOrder", { enumerable: true, get: function () { return SortOrder_1.SortOrder; } });
 var TransactionIsolationLevel_1 = require("./TransactionIsolationLevel");
 Object.defineProperty(exports, "TransactionIsolationLevel", { enumerable: true, get: function () { return TransactionIsolationLevel_1.TransactionIsolationLevel; } });
+var UnavailabilitySlotScalarFieldEnum_1 = require("./UnavailabilitySlotScalarFieldEnum");
+Object.defineProperty(exports, "UnavailabilitySlotScalarFieldEnum", { enumerable: true, get: function () { return UnavailabilitySlotScalarFieldEnum_1.UnavailabilitySlotScalarFieldEnum; } });
 var UserScalarFieldEnum_1 = require("./UserScalarFieldEnum");
 Object.defineProperty(exports, "UserScalarFieldEnum", { enumerable: true, get: function () { return UserScalarFieldEnum_1.UserScalarFieldEnum; } });
 var gender_1 = require("./gender");

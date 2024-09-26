@@ -2,11 +2,12 @@ import * as TypeGraphQL from "type-graphql";
 
 export enum AvailabilitySlotScalarFieldEnum {
   id = "id",
-  doctorId = "doctorId",
-  day = "day",
+  startDate = "startDate",
+  endDate = "endDate",
   startTime = "startTime",
   endTime = "endTime",
-  isBooked = "isBooked"
+  isBooked = "isBooked",
+  doctorId = "doctorId"
 }
 TypeGraphQL.registerEnumType(AvailabilitySlotScalarFieldEnum, {
   name: "AvailabilitySlotScalarFieldEnum",

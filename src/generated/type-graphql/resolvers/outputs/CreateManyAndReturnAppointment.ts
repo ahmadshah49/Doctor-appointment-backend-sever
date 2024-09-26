@@ -17,29 +17,34 @@ export class CreateManyAndReturnAppointment {
   id!: number;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  fullName!: string | null;
+  fullName!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  age!: string | null;
+  age!: string;
 
   @TypeGraphQL.Field(_type => gender, {
-    nullable: true
+    nullable: false
   })
-  gender!: "MAlE" | "FEMALE" | "OTHERS" | null;
+  gender!: "MAlE" | "FEMALE" | "OTHERS";
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  phoneNo!: string | null;
+  phoneNo!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  address!: string | null;
+  address!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  email!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -57,14 +62,24 @@ export class CreateManyAndReturnAppointment {
   details!: string | null;
 
   @TypeGraphQL.Field(_type => Date, {
-    nullable: false
+    nullable: true
   })
-  scheduledDate!: Date;
+  scheduledDate!: Date | null;
 
   @TypeGraphQL.Field(_type => AppointmentStatus, {
     nullable: true
   })
   status!: "UPCOMING" | "IN_PROGRESS" | "MISSED" | "COMPLETED" | "CANCELLED" | null;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  startTime!: Date;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  endTime!: Date;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true

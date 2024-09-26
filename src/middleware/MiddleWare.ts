@@ -2,8 +2,9 @@ import { MiddlewareFn } from "type-graphql";
 import Jwt from "jsonwebtoken";
 import { Context } from "../context/Context";
 import { GraphQLError } from "graphql";
+import { role } from "../generated/type-graphql";
 interface JwtPayloadWithRole extends Jwt.JwtPayload {
-  role: string;
+  role: role;
   userId: number;
 }
 

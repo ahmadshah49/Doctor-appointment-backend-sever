@@ -18,4 +18,5 @@ __exportStar(require("./Appointment/args"), exports);
 __exportStar(require("./AvailabilitySlot/args"), exports);
 __exportStar(require("./Doctor/args"), exports);
 __exportStar(require("./Patient/args"), exports);
+__exportStar(require("./UnavailabilitySlot/args"), exports);
 __exportStar(require("./User/args"), exports);

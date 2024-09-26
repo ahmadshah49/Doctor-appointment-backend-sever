@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DoctorOrderByWithRelationInput } from "../inputs/DoctorOrderByWithRelationInput";
+import { SortOrderInput } from "../inputs/SortOrderInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("AvailabilitySlotOrderByWithRelationInput", {})
@@ -15,12 +16,12 @@ export class AvailabilitySlotOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  doctorId?: "asc" | "desc" | undefined;
+  startDate?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  day?: "asc" | "desc" | undefined;
+  endDate?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
@@ -32,10 +33,15 @@ export class AvailabilitySlotOrderByWithRelationInput {
   })
   endTime?: "asc" | "desc" | undefined;
 
+  @TypeGraphQL.Field(_type => SortOrderInput, {
+    nullable: true
+  })
+  isBooked?: SortOrderInput | undefined;
+
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  isBooked?: "asc" | "desc" | undefined;
+  doctorId?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => DoctorOrderByWithRelationInput, {
     nullable: true

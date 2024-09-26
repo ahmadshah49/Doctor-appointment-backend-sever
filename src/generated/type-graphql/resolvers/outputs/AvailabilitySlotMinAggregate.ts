@@ -10,15 +10,15 @@ export class AvailabilitySlotMinAggregate {
   })
   id!: number | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
-  doctorId!: number | null;
+  startDate!: Date | null;
 
-  @TypeGraphQL.Field(_type => String, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
-  day!: string | null;
+  endDate!: Date | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
@@ -34,4 +34,9 @@ export class AvailabilitySlotMinAggregate {
     nullable: true
   })
   isBooked!: boolean | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  doctorId!: number | null;
 }

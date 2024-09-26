@@ -38,6 +38,11 @@ export class AppointmentCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
+  email!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
   medicalHistory!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
@@ -59,6 +64,16 @@ export class AppointmentCountAggregate {
     nullable: false
   })
   status!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  startTime!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  endTime!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false

@@ -5,6 +5,7 @@ import { DecimalJSScalar } from "../../scalars";
 import { AppointmentCreateNestedManyWithoutDoctorInput } from "../inputs/AppointmentCreateNestedManyWithoutDoctorInput";
 import { AvailabilitySlotCreateNestedManyWithoutDoctorInput } from "../inputs/AvailabilitySlotCreateNestedManyWithoutDoctorInput";
 import { PatientCreateNestedManyWithoutDoctorInput } from "../inputs/PatientCreateNestedManyWithoutDoctorInput";
+import { UnavailabilitySlotCreateNestedManyWithoutDoctorInput } from "../inputs/UnavailabilitySlotCreateNestedManyWithoutDoctorInput";
 import { gender } from "../../enums/gender";
 
 @TypeGraphQL.InputType("DoctorCreateWithoutUserInput", {})
@@ -58,4 +59,9 @@ export class DoctorCreateWithoutUserInput {
     nullable: true
   })
   AvailabilitySlot?: AvailabilitySlotCreateNestedManyWithoutDoctorInput | undefined;
+
+  @TypeGraphQL.Field(_type => UnavailabilitySlotCreateNestedManyWithoutDoctorInput, {
+    nullable: true
+  })
+  UnavailabilitySlot?: UnavailabilitySlotCreateNestedManyWithoutDoctorInput | undefined;
 }

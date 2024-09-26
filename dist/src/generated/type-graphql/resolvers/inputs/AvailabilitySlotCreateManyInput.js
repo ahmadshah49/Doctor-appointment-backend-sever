@@ -44,17 +44,17 @@ __decorate([
     __metadata("design:type", Number)
 ], AvailabilitySlotCreateManyInput.prototype, "id", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
-    __metadata("design:type", Number)
-], AvailabilitySlotCreateManyInput.prototype, "doctorId", void 0);
+    __metadata("design:type", Date)
+], AvailabilitySlotCreateManyInput.prototype, "startDate", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => String, {
+    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
-    __metadata("design:type", String)
-], AvailabilitySlotCreateManyInput.prototype, "day", void 0);
+    __metadata("design:type", Date)
+], AvailabilitySlotCreateManyInput.prototype, "endDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
         nullable: false
@@ -73,6 +73,12 @@ __decorate([
     }),
     __metadata("design:type", Boolean)
 ], AvailabilitySlotCreateManyInput.prototype, "isBooked", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
+], AvailabilitySlotCreateManyInput.prototype, "doctorId", void 0);
 exports.AvailabilitySlotCreateManyInput = AvailabilitySlotCreateManyInput = __decorate([
     TypeGraphQL.InputType("AvailabilitySlotCreateManyInput", {})
 ], AvailabilitySlotCreateManyInput);

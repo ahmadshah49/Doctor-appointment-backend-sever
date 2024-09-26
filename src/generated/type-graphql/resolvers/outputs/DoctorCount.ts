@@ -5,12 +5,14 @@ import { DecimalJSScalar } from "../../scalars";
 import { DoctorCountAppointmentsArgs } from "./args/DoctorCountAppointmentsArgs";
 import { DoctorCountAvailabilitySlotArgs } from "./args/DoctorCountAvailabilitySlotArgs";
 import { DoctorCountPatientsArgs } from "./args/DoctorCountPatientsArgs";
+import { DoctorCountUnavailabilitySlotArgs } from "./args/DoctorCountUnavailabilitySlotArgs";
 
 @TypeGraphQL.ObjectType("DoctorCount", {})
 export class DoctorCount {
   patients!: number;
   appointments!: number;
   AvailabilitySlot!: number;
+  UnavailabilitySlot!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     name: "patients",
@@ -34,5 +36,13 @@ export class DoctorCount {
   })
   getAvailabilitySlot(@TypeGraphQL.Root() root: DoctorCount, @TypeGraphQL.Args() args: DoctorCountAvailabilitySlotArgs): number {
     return root.AvailabilitySlot;
+  }
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    name: "UnavailabilitySlot",
+    nullable: false
+  })
+  getUnavailabilitySlot(@TypeGraphQL.Root() root: DoctorCount, @TypeGraphQL.Args() args: DoctorCountUnavailabilitySlotArgs): number {
+    return root.UnavailabilitySlot;
   }
 }

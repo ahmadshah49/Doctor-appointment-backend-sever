@@ -4,10 +4,12 @@ import { Appointment } from "../../../models/Appointment";
 import { AvailabilitySlot } from "../../../models/AvailabilitySlot";
 import { Doctor } from "../../../models/Doctor";
 import { Patient } from "../../../models/Patient";
+import { UnavailabilitySlot } from "../../../models/UnavailabilitySlot";
 import { User } from "../../../models/User";
 import { DoctorAppointmentsArgs } from "./args/DoctorAppointmentsArgs";
 import { DoctorAvailabilitySlotArgs } from "./args/DoctorAvailabilitySlotArgs";
 import { DoctorPatientsArgs } from "./args/DoctorPatientsArgs";
+import { DoctorUnavailabilitySlotArgs } from "./args/DoctorUnavailabilitySlotArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
 @TypeGraphQL.Resolver(_of => Doctor)
@@ -66,6 +68,21 @@ export class DoctorRelationsResolver {
         id: doctor.id,
       },
     }).AvailabilitySlot({
+      ...args,
+      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
+    });
+  }
+
+  @TypeGraphQL.FieldResolver(_type => [UnavailabilitySlot], {
+    nullable: false
+  })
+  async UnavailabilitySlot(@TypeGraphQL.Root() doctor: Doctor, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DoctorUnavailabilitySlotArgs): Promise<UnavailabilitySlot[]> {
+    const { _count } = transformInfoIntoPrismaArgs(info);
+    return getPrismaFromContext(ctx).doctor.findUniqueOrThrow({
+      where: {
+        id: doctor.id,
+      },
+    }).UnavailabilitySlot({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

@@ -36,11 +36,12 @@ exports.AppointmentWhereUniqueInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentWhereInput_1 = require("../inputs/AppointmentWhereInput");
 const DateTimeFilter_1 = require("../inputs/DateTimeFilter");
+const DateTimeNullableFilter_1 = require("../inputs/DateTimeNullableFilter");
 const DoctorNullableRelationFilter_1 = require("../inputs/DoctorNullableRelationFilter");
 const EnumAppointmentStatusNullableFilter_1 = require("../inputs/EnumAppointmentStatusNullableFilter");
-const EnumgenderNullableFilter_1 = require("../inputs/EnumgenderNullableFilter");
-const IntNullableFilter_1 = require("../inputs/IntNullableFilter");
+const EnumgenderFilter_1 = require("../inputs/EnumgenderFilter");
 const PatientNullableRelationFilter_1 = require("../inputs/PatientNullableRelationFilter");
+const StringFilter_1 = require("../inputs/StringFilter");
 const StringNullableFilter_1 = require("../inputs/StringNullableFilter");
 const StringNullableListFilter_1 = require("../inputs/StringNullableListFilter");
 let AppointmentWhereUniqueInput = class AppointmentWhereUniqueInput {
@@ -52,6 +53,18 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], AppointmentWhereUniqueInput.prototype, "id", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentWhereUniqueInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: true
+    }),
+    __metadata("design:type", Number)
+], AppointmentWhereUniqueInput.prototype, "patientId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => [AppointmentWhereInput_1.AppointmentWhereInput], {
         nullable: true
@@ -71,35 +84,41 @@ __decorate([
     __metadata("design:type", Array)
 ], AppointmentWhereUniqueInput.prototype, "NOT", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
+    TypeGraphQL.Field(_type => StringFilter_1.StringFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
+    __metadata("design:type", StringFilter_1.StringFilter)
 ], AppointmentWhereUniqueInput.prototype, "fullName", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
+    TypeGraphQL.Field(_type => StringFilter_1.StringFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
+    __metadata("design:type", StringFilter_1.StringFilter)
 ], AppointmentWhereUniqueInput.prototype, "age", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => EnumgenderNullableFilter_1.EnumgenderNullableFilter, {
+    TypeGraphQL.Field(_type => EnumgenderFilter_1.EnumgenderFilter, {
         nullable: true
     }),
-    __metadata("design:type", EnumgenderNullableFilter_1.EnumgenderNullableFilter)
+    __metadata("design:type", EnumgenderFilter_1.EnumgenderFilter)
 ], AppointmentWhereUniqueInput.prototype, "gender", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
+    TypeGraphQL.Field(_type => StringFilter_1.StringFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
+    __metadata("design:type", StringFilter_1.StringFilter)
 ], AppointmentWhereUniqueInput.prototype, "phoneNo", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
+    TypeGraphQL.Field(_type => StringFilter_1.StringFilter, {
         nullable: true
     }),
-    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
+    __metadata("design:type", StringFilter_1.StringFilter)
 ], AppointmentWhereUniqueInput.prototype, "address", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => StringFilter_1.StringFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", StringFilter_1.StringFilter)
+], AppointmentWhereUniqueInput.prototype, "email", void 0);
 __decorate([
     TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
         nullable: true
@@ -119,10 +138,10 @@ __decorate([
     __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
 ], AppointmentWhereUniqueInput.prototype, "details", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
+    TypeGraphQL.Field(_type => DateTimeNullableFilter_1.DateTimeNullableFilter, {
         nullable: true
     }),
-    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
+    __metadata("design:type", DateTimeNullableFilter_1.DateTimeNullableFilter)
 ], AppointmentWhereUniqueInput.prototype, "scheduledDate", void 0);
 __decorate([
     TypeGraphQL.Field(_type => EnumAppointmentStatusNullableFilter_1.EnumAppointmentStatusNullableFilter, {
@@ -131,17 +150,17 @@ __decorate([
     __metadata("design:type", EnumAppointmentStatusNullableFilter_1.EnumAppointmentStatusNullableFilter)
 ], AppointmentWhereUniqueInput.prototype, "status", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
+    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
         nullable: true
     }),
-    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
-], AppointmentWhereUniqueInput.prototype, "doctorId", void 0);
+    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
+], AppointmentWhereUniqueInput.prototype, "startTime", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
+    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
         nullable: true
     }),
-    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
-], AppointmentWhereUniqueInput.prototype, "patientId", void 0);
+    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
+], AppointmentWhereUniqueInput.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DoctorNullableRelationFilter_1.DoctorNullableRelationFilter, {
         nullable: true

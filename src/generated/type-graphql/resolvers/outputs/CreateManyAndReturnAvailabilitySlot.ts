@@ -11,15 +11,15 @@ export class CreateManyAndReturnAvailabilitySlot {
   })
   id!: number;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
-  doctorId!: number;
+  startDate!: Date;
 
-  @TypeGraphQL.Field(_type => String, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
-  day!: string;
+  endDate!: Date;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -32,9 +32,14 @@ export class CreateManyAndReturnAvailabilitySlot {
   endTime!: Date;
 
   @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  isBooked!: boolean | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  isBooked!: boolean;
+  doctorId!: number;
 
   @TypeGraphQL.Field(_type => Doctor, {
     nullable: false

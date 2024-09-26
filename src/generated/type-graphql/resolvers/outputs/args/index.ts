@@ -4,4 +4,5 @@ export { CreateManyAndReturnPatientDoctorArgs } from "./CreateManyAndReturnPatie
 export { DoctorCountAppointmentsArgs } from "./DoctorCountAppointmentsArgs";
 export { DoctorCountAvailabilitySlotArgs } from "./DoctorCountAvailabilitySlotArgs";
 export { DoctorCountPatientsArgs } from "./DoctorCountPatientsArgs";
+export { DoctorCountUnavailabilitySlotArgs } from "./DoctorCountUnavailabilitySlotArgs";
 export { PatientCountAppointmentsArgs } from "./PatientCountAppointmentsArgs";

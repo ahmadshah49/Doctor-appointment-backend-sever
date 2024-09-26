@@ -8,6 +8,7 @@ import { EnumgenderFieldUpdateOperationsInput } from "../inputs/EnumgenderFieldU
 import { NullableBoolFieldUpdateOperationsInput } from "../inputs/NullableBoolFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
+import { UnavailabilitySlotUpdateManyWithoutDoctorNestedInput } from "../inputs/UnavailabilitySlotUpdateManyWithoutDoctorNestedInput";
 import { UserUpdateOneRequiredWithoutDoctorNestedInput } from "../inputs/UserUpdateOneRequiredWithoutDoctorNestedInput";
 
 @TypeGraphQL.InputType("DoctorUpdateWithoutPatientsInput", {})
@@ -61,4 +62,9 @@ export class DoctorUpdateWithoutPatientsInput {
     nullable: true
   })
   AvailabilitySlot?: AvailabilitySlotUpdateManyWithoutDoctorNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => UnavailabilitySlotUpdateManyWithoutDoctorNestedInput, {
+    nullable: true
+  })
+  UnavailabilitySlot?: UnavailabilitySlotUpdateManyWithoutDoctorNestedInput | undefined;
 }

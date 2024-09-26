@@ -43,34 +43,40 @@ let AppointmentCreateWithoutPatientInput = class AppointmentCreateWithoutPatient
 exports.AppointmentCreateWithoutPatientInput = AppointmentCreateWithoutPatientInput;
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], AppointmentCreateWithoutPatientInput.prototype, "fullName", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], AppointmentCreateWithoutPatientInput.prototype, "age", void 0);
 __decorate([
     TypeGraphQL.Field(_type => gender_1.gender, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], AppointmentCreateWithoutPatientInput.prototype, "gender", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], AppointmentCreateWithoutPatientInput.prototype, "phoneNo", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
+        nullable: false
     }),
     __metadata("design:type", String)
 ], AppointmentCreateWithoutPatientInput.prototype, "address", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: false
+    }),
+    __metadata("design:type", String)
+], AppointmentCreateWithoutPatientInput.prototype, "email", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
         nullable: true
@@ -91,7 +97,7 @@ __decorate([
 ], AppointmentCreateWithoutPatientInput.prototype, "details", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
-        nullable: false
+        nullable: true
     }),
     __metadata("design:type", Date)
 ], AppointmentCreateWithoutPatientInput.prototype, "scheduledDate", void 0);
@@ -101,6 +107,18 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], AppointmentCreateWithoutPatientInput.prototype, "status", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], AppointmentCreateWithoutPatientInput.prototype, "startTime", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => Date, {
+        nullable: false
+    }),
+    __metadata("design:type", Date)
+], AppointmentCreateWithoutPatientInput.prototype, "endTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DoctorCreateNestedOneWithoutAppointmentsInput_1.DoctorCreateNestedOneWithoutAppointmentsInput, {
         nullable: true

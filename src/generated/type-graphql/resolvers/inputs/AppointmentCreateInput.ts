@@ -11,29 +11,34 @@ import { gender } from "../../enums/gender";
 @TypeGraphQL.InputType("AppointmentCreateInput", {})
 export class AppointmentCreateInput {
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  fullName?: string | undefined;
+  fullName!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  age?: string | undefined;
+  age!: string;
 
   @TypeGraphQL.Field(_type => gender, {
-    nullable: true
+    nullable: false
   })
-  gender?: "MAlE" | "FEMALE" | "OTHERS" | undefined;
+  gender!: "MAlE" | "FEMALE" | "OTHERS";
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  phoneNo?: string | undefined;
+  phoneNo!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  address?: string | undefined;
+  address!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  email!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -51,14 +56,24 @@ export class AppointmentCreateInput {
   details?: string | undefined;
 
   @TypeGraphQL.Field(_type => Date, {
-    nullable: false
+    nullable: true
   })
-  scheduledDate!: Date;
+  scheduledDate?: Date | undefined;
 
   @TypeGraphQL.Field(_type => AppointmentStatus, {
     nullable: true
   })
   status?: "UPCOMING" | "IN_PROGRESS" | "MISSED" | "COMPLETED" | "CANCELLED" | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  startTime!: Date;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  endTime!: Date;
 
   @TypeGraphQL.Field(_type => DoctorCreateNestedOneWithoutAppointmentsInput, {
     nullable: true

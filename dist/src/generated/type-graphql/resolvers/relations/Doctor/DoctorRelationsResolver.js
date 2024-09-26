@@ -41,10 +41,12 @@ const Appointment_1 = require("../../../models/Appointment");
 const AvailabilitySlot_1 = require("../../../models/AvailabilitySlot");
 const Doctor_1 = require("../../../models/Doctor");
 const Patient_1 = require("../../../models/Patient");
+const UnavailabilitySlot_1 = require("../../../models/UnavailabilitySlot");
 const User_1 = require("../../../models/User");
 const DoctorAppointmentsArgs_1 = require("./args/DoctorAppointmentsArgs");
 const DoctorAvailabilitySlotArgs_1 = require("./args/DoctorAvailabilitySlotArgs");
 const DoctorPatientsArgs_1 = require("./args/DoctorPatientsArgs");
+const DoctorUnavailabilitySlotArgs_1 = require("./args/DoctorUnavailabilitySlotArgs");
 const helpers_1 = require("../../../helpers");
 let DoctorRelationsResolver = class DoctorRelationsResolver {
     async User(doctor, ctx, info) {
@@ -86,6 +88,17 @@ let DoctorRelationsResolver = class DoctorRelationsResolver {
                 id: doctor.id,
             },
         }).AvailabilitySlot({
+            ...args,
+            ...(_count && (0, helpers_1.transformCountFieldIntoSelectRelationsCount)(_count)),
+        });
+    }
+    async UnavailabilitySlot(doctor, ctx, info, args) {
+        const { _count } = (0, helpers_1.transformInfoIntoPrismaArgs)(info);
+        return (0, helpers_1.getPrismaFromContext)(ctx).doctor.findUniqueOrThrow({
+            where: {
+                id: doctor.id,
+            },
+        }).UnavailabilitySlot({
             ...args,
             ...(_count && (0, helpers_1.transformCountFieldIntoSelectRelationsCount)(_count)),
         });
@@ -139,6 +152,18 @@ __decorate([
     __metadata("design:paramtypes", [Doctor_1.Doctor, Object, Object, DoctorAvailabilitySlotArgs_1.DoctorAvailabilitySlotArgs]),
     __metadata("design:returntype", Promise)
 ], DoctorRelationsResolver.prototype, "AvailabilitySlot", null);
+__decorate([
+    TypeGraphQL.FieldResolver(_type => [UnavailabilitySlot_1.UnavailabilitySlot], {
+        nullable: false
+    }),
+    __param(0, TypeGraphQL.Root()),
+    __param(1, TypeGraphQL.Ctx()),
+    __param(2, TypeGraphQL.Info()),
+    __param(3, TypeGraphQL.Args()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Doctor_1.Doctor, Object, Object, DoctorUnavailabilitySlotArgs_1.DoctorUnavailabilitySlotArgs]),
+    __metadata("design:returntype", Promise)
+], DoctorRelationsResolver.prototype, "UnavailabilitySlot", null);
 exports.DoctorRelationsResolver = DoctorRelationsResolver = __decorate([
     TypeGraphQL.Resolver(_of => Doctor_1.Doctor)
 ], DoctorRelationsResolver);

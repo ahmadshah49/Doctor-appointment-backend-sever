@@ -40,6 +40,11 @@ export class AppointmentMinAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
+  email!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
   medicalHistory!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
@@ -56,6 +61,16 @@ export class AppointmentMinAggregate {
     nullable: true
   })
   status!: "UPCOMING" | "IN_PROGRESS" | "MISSED" | "COMPLETED" | "CANCELLED" | null;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  startTime!: Date | null;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  endTime!: Date | null;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
