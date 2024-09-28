@@ -35,5 +35,5 @@ export class FindFirstPatientArgs {
   @TypeGraphQL.Field(_type => [PatientScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "age" | "fullName" | "gender" | "address" | "profilePicture" | "phoneNo" | "doctorId" | "userId"> | undefined;
+  distinct?: Array<"id" | "age" | "fullName" | "gender" | "address" | "email" | "profilePicture" | "phoneNo" | "doctorId" | "userId"> | undefined;
 }

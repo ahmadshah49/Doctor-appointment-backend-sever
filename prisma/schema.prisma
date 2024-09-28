@@ -18,7 +18,7 @@ enum role {
 }
 
 enum gender {
-  MAlE
+  MALE
   FEMALE
   OTHERS
 }
@@ -64,6 +64,7 @@ model Patient {
   fullName       String
   gender         gender
   address        String
+  email          String
   profilePicture String?
   phoneNo        String
   Doctor         Doctor?       @relation(fields: [doctorId], references: [id])
@@ -89,15 +90,15 @@ model Appointment {
   startTime      DateTime
   endTime        DateTime
   Doctor         Doctor?            @relation(fields: [doctorId], references: [userId])
-  doctorId       Int?               @unique
+  doctorId       Int?
   Patient        Patient?           @relation(fields: [patientId], references: [userId])
-  patientId      Int?               @unique
+  patientId      Int?
 }
 
 model AvailabilitySlot {
   id        Int      @id @default(autoincrement())
-  startDate DateTime
-  endDate   DateTime
+  // startDate DateTime
+  // endDate   DateTime
   startTime DateTime
   endTime   DateTime
   isBooked  Boolean? @default(false)

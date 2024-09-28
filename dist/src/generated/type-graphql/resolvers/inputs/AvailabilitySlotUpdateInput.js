@@ -45,18 +45,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
-], AvailabilitySlotUpdateInput.prototype, "startDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
-        nullable: true
-    }),
-    __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
-], AvailabilitySlotUpdateInput.prototype, "endDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
-        nullable: true
-    }),
-    __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
 ], AvailabilitySlotUpdateInput.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {

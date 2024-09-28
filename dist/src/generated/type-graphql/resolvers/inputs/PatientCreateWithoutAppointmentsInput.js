@@ -66,6 +66,12 @@ __decorate([
 ], PatientCreateWithoutAppointmentsInput.prototype, "address", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
+        nullable: false
+    }),
+    __metadata("design:type", String)
+], PatientCreateWithoutAppointmentsInput.prototype, "email", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
         nullable: true
     }),
     __metadata("design:type", String)

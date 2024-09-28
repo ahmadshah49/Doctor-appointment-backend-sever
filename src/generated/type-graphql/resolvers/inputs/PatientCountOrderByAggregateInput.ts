@@ -34,6 +34,11 @@ export class PatientCountOrderByAggregateInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
+  email?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
   profilePicture?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {

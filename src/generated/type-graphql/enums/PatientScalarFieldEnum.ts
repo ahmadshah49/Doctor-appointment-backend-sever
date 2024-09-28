@@ -6,6 +6,7 @@ export enum PatientScalarFieldEnum {
   fullName = "fullName",
   gender = "gender",
   address = "address",
+  email = "email",
   profilePicture = "profilePicture",
   phoneNo = "phoneNo",
   doctorId = "doctorId",

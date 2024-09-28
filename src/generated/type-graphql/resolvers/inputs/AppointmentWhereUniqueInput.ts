@@ -8,6 +8,7 @@ import { DateTimeNullableFilter } from "../inputs/DateTimeNullableFilter";
 import { DoctorNullableRelationFilter } from "../inputs/DoctorNullableRelationFilter";
 import { EnumAppointmentStatusNullableFilter } from "../inputs/EnumAppointmentStatusNullableFilter";
 import { EnumgenderFilter } from "../inputs/EnumgenderFilter";
+import { IntNullableFilter } from "../inputs/IntNullableFilter";
 import { PatientNullableRelationFilter } from "../inputs/PatientNullableRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
@@ -19,16 +20,6 @@ export class AppointmentWhereUniqueInput {
     nullable: true
   })
   id?: number | undefined;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
-  })
-  doctorId?: number | undefined;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
-  })
-  patientId?: number | undefined;
 
   @TypeGraphQL.Field(_type => [AppointmentWhereInput], {
     nullable: true
@@ -109,6 +100,16 @@ export class AppointmentWhereUniqueInput {
     nullable: true
   })
   endTime?: DateTimeFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntNullableFilter, {
+    nullable: true
+  })
+  doctorId?: IntNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntNullableFilter, {
+    nullable: true
+  })
+  patientId?: IntNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => DoctorNullableRelationFilter, {
     nullable: true

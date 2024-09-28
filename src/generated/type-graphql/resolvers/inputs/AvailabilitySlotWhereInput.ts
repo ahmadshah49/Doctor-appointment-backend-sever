@@ -32,16 +32,6 @@ export class AvailabilitySlotWhereInput {
   @TypeGraphQL.Field(_type => DateTimeFilter, {
     nullable: true
   })
-  startDate?: DateTimeFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFilter, {
-    nullable: true
-  })
-  endDate?: DateTimeFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFilter, {
-    nullable: true
-  })
   startTime?: DateTimeFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeFilter, {

@@ -48,18 +48,6 @@ __decorate([
         nullable: false
     }),
     __metadata("design:type", Number)
-], AvailabilitySlotCountAggregate.prototype, "startDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: false
-    }),
-    __metadata("design:type", Number)
-], AvailabilitySlotCountAggregate.prototype, "endDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: false
-    }),
-    __metadata("design:type", Number)
 ], AvailabilitySlotCountAggregate.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {

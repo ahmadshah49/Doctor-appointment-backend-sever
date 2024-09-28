@@ -44,7 +44,7 @@ export class DoctorCreateInput {
   @TypeGraphQL.Field(_type => gender, {
     nullable: false
   })
-  gender!: "MAlE" | "FEMALE" | "OTHERS";
+  gender!: "MALE" | "FEMALE" | "OTHERS";
 
   @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutDoctorInput, {
     nullable: false

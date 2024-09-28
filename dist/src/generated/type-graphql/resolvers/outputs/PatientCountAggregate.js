@@ -72,6 +72,12 @@ __decorate([
         nullable: false
     }),
     __metadata("design:type", Number)
+], PatientCountAggregate.prototype, "email", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+        nullable: false
+    }),
+    __metadata("design:type", Number)
 ], PatientCountAggregate.prototype, "profilePicture", void 0);
 __decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {

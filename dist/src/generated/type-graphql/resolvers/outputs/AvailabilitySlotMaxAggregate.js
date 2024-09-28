@@ -48,18 +48,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", Date)
-], AvailabilitySlotMaxAggregate.prototype, "startDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Date, {
-        nullable: true
-    }),
-    __metadata("design:type", Date)
-], AvailabilitySlotMaxAggregate.prototype, "endDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Date, {
-        nullable: true
-    }),
-    __metadata("design:type", Date)
 ], AvailabilitySlotMaxAggregate.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {

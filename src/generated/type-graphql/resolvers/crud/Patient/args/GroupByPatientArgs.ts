@@ -20,7 +20,7 @@ export class GroupByPatientArgs {
   @TypeGraphQL.Field(_type => [PatientScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "age" | "fullName" | "gender" | "address" | "profilePicture" | "phoneNo" | "doctorId" | "userId">;
+  by!: Array<"id" | "age" | "fullName" | "gender" | "address" | "email" | "profilePicture" | "phoneNo" | "doctorId" | "userId">;
 
   @TypeGraphQL.Field(_type => PatientScalarWhereWithAggregatesInput, {
     nullable: true

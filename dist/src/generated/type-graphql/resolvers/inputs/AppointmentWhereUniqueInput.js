@@ -40,6 +40,7 @@ const DateTimeNullableFilter_1 = require("../inputs/DateTimeNullableFilter");
 const DoctorNullableRelationFilter_1 = require("../inputs/DoctorNullableRelationFilter");
 const EnumAppointmentStatusNullableFilter_1 = require("../inputs/EnumAppointmentStatusNullableFilter");
 const EnumgenderFilter_1 = require("../inputs/EnumgenderFilter");
+const IntNullableFilter_1 = require("../inputs/IntNullableFilter");
 const PatientNullableRelationFilter_1 = require("../inputs/PatientNullableRelationFilter");
 const StringFilter_1 = require("../inputs/StringFilter");
 const StringNullableFilter_1 = require("../inputs/StringNullableFilter");
@@ -53,18 +54,6 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], AppointmentWhereUniqueInput.prototype, "id", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: true
-    }),
-    __metadata("design:type", Number)
-], AppointmentWhereUniqueInput.prototype, "doctorId", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: true
-    }),
-    __metadata("design:type", Number)
-], AppointmentWhereUniqueInput.prototype, "patientId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => [AppointmentWhereInput_1.AppointmentWhereInput], {
         nullable: true
@@ -161,6 +150,18 @@ __decorate([
     }),
     __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
 ], AppointmentWhereUniqueInput.prototype, "endTime", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
+], AppointmentWhereUniqueInput.prototype, "doctorId", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => IntNullableFilter_1.IntNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", IntNullableFilter_1.IntNullableFilter)
+], AppointmentWhereUniqueInput.prototype, "patientId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DoctorNullableRelationFilter_1.DoctorNullableRelationFilter, {
         nullable: true

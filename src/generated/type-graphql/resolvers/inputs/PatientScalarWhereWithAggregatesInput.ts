@@ -50,6 +50,11 @@ export class PatientScalarWhereWithAggregatesInput {
   })
   address?: StringWithAggregatesFilter | undefined;
 
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
+    nullable: true
+  })
+  email?: StringWithAggregatesFilter | undefined;
+
   @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })

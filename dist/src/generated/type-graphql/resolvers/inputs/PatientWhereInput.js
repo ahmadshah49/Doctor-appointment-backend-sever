@@ -94,6 +94,12 @@ __decorate([
     __metadata("design:type", StringFilter_1.StringFilter)
 ], PatientWhereInput.prototype, "address", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => StringFilter_1.StringFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", StringFilter_1.StringFilter)
+], PatientWhereInput.prototype, "email", void 0);
+__decorate([
     TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
         nullable: true
     }),

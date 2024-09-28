@@ -24,12 +24,17 @@ export class PatientMaxAggregate {
   @TypeGraphQL.Field(_type => gender, {
     nullable: true
   })
-  gender!: "MAlE" | "FEMALE" | "OTHERS" | null;
+  gender!: "MALE" | "FEMALE" | "OTHERS" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   address!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  email!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

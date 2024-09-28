@@ -50,6 +50,11 @@ export class PatientScalarWhereInput {
   })
   address?: StringFilter | undefined;
 
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true
+  })
+  email?: StringFilter | undefined;
+
   @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })

@@ -1,7 +1,7 @@
 import * as TypeGraphQL from "type-graphql";
 
 export enum gender {
-  MAlE = "MAlE",
+  MALE = "MALE",
   FEMALE = "FEMALE",
   OTHERS = "OTHERS"
 }

@@ -35,6 +35,11 @@ export class PatientOrderByWithRelationInput {
   })
   address?: "asc" | "desc" | undefined;
 
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  email?: "asc" | "desc" | undefined;
+
   @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })

@@ -43,18 +43,6 @@ __decorate([
         nullable: false
     }),
     __metadata("design:type", Date)
-], AvailabilitySlotCreateInput.prototype, "startDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Date, {
-        nullable: false
-    }),
-    __metadata("design:type", Date)
-], AvailabilitySlotCreateInput.prototype, "endDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Date, {
-        nullable: false
-    }),
-    __metadata("design:type", Date)
 ], AvailabilitySlotCreateInput.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {

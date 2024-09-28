@@ -30,7 +30,7 @@ export class AppointmentGroupBy {
   @TypeGraphQL.Field(_type => gender, {
     nullable: false
   })
-  gender!: "MAlE" | "FEMALE" | "OTHERS";
+  gender!: "MALE" | "FEMALE" | "OTHERS";
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

@@ -33,6 +33,11 @@ export class PatientCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
+  email!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
   profilePicture!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

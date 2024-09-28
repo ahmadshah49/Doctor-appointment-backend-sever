@@ -13,16 +13,6 @@ export class AvailabilitySlotCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  startDate!: number;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
-  endDate!: number;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
   startTime!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

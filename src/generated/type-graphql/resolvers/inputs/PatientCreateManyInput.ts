@@ -24,12 +24,17 @@ export class PatientCreateManyInput {
   @TypeGraphQL.Field(_type => gender, {
     nullable: false
   })
-  gender!: "MAlE" | "FEMALE" | "OTHERS";
+  gender!: "MALE" | "FEMALE" | "OTHERS";
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   address!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  email!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

@@ -32,6 +32,7 @@ var PatientScalarFieldEnum;
     PatientScalarFieldEnum["fullName"] = "fullName";
     PatientScalarFieldEnum["gender"] = "gender";
     PatientScalarFieldEnum["address"] = "address";
+    PatientScalarFieldEnum["email"] = "email";
     PatientScalarFieldEnum["profilePicture"] = "profilePicture";
     PatientScalarFieldEnum["phoneNo"] = "phoneNo";
     PatientScalarFieldEnum["doctorId"] = "doctorId";

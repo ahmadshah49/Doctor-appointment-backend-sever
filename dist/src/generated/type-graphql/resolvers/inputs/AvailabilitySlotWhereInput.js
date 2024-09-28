@@ -70,18 +70,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
-], AvailabilitySlotWhereInput.prototype, "startDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
-], AvailabilitySlotWhereInput.prototype, "endDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
 ], AvailabilitySlotWhereInput.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DateTimeFilter_1.DateTimeFilter, {

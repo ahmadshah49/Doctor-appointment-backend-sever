@@ -9,6 +9,8 @@ import { createContext } from "./context/Context";
 import { ExampleResolver } from "./resolvers/mutations/Example";
 import { PatientResolver } from "./resolvers/mutations/Patient";
 import { DoctorResolver } from "./resolvers/mutations/Doctor";
+import { DoctorAvailabilityResvolver } from "./resolvers/mutations/DoctorAvailability";
+import { AppointmentResolver } from "./resolvers/mutations/Appointment";
 const index = async () => {
   const schema = buildSchemaSync({
     resolvers: [
@@ -17,6 +19,8 @@ const index = async () => {
       ExampleResolver,
       PatientResolver,
       DoctorResolver,
+      DoctorAvailabilityResvolver,
+      AppointmentResolver,
     ],
 
     validate: false,

@@ -57,7 +57,7 @@ export class Doctor {
   @TypeGraphQL.Field(_type => gender, {
     nullable: false
   })
-  gender!: "MAlE" | "FEMALE" | "OTHERS";
+  gender!: "MALE" | "FEMALE" | "OTHERS";
 
   patients?: Patient[];
 

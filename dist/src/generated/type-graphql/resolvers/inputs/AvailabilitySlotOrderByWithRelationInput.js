@@ -51,18 +51,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotOrderByWithRelationInput.prototype, "startDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
-        nullable: true
-    }),
-    __metadata("design:type", String)
-], AvailabilitySlotOrderByWithRelationInput.prototype, "endDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
-        nullable: true
-    }),
-    __metadata("design:type", String)
 ], AvailabilitySlotOrderByWithRelationInput.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {

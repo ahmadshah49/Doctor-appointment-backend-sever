@@ -14,16 +14,6 @@ export class CreateManyAndReturnAvailabilitySlot {
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
-  startDate!: Date;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: false
-  })
-  endDate!: Date;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: false
-  })
   startTime!: Date;
 
   @TypeGraphQL.Field(_type => Date, {

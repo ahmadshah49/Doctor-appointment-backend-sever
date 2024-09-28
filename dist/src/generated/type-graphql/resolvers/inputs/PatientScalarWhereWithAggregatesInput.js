@@ -91,6 +91,12 @@ __decorate([
     __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
 ], PatientScalarWhereWithAggregatesInput.prototype, "address", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => StringWithAggregatesFilter_1.StringWithAggregatesFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
+], PatientScalarWhereWithAggregatesInput.prototype, "email", void 0);
+__decorate([
     TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter, {
         nullable: true
     }),

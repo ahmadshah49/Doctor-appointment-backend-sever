@@ -20,16 +20,6 @@ export class AvailabilitySlotOrderByWithAggregationInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  startDate?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  endDate?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
   startTime?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {

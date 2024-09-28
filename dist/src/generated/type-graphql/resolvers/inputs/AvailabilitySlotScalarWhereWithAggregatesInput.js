@@ -69,18 +69,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
-], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "startDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
-], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "endDate", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
 ], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {

@@ -30,6 +30,11 @@ export class PatientUpdateWithoutAppointmentsInput {
   })
   address?: StringFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  email?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })

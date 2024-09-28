@@ -25,7 +25,7 @@ export class AppointmentMaxAggregate {
   @TypeGraphQL.Field(_type => gender, {
     nullable: true
   })
-  gender!: "MAlE" | "FEMALE" | "OTHERS" | null;
+  gender!: "MALE" | "FEMALE" | "OTHERS" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

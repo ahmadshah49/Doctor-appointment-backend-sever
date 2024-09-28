@@ -35,5 +35,5 @@ export class DoctorAvailabilitySlotArgs {
   @TypeGraphQL.Field(_type => [AvailabilitySlotScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "startDate" | "endDate" | "startTime" | "endTime" | "isBooked" | "doctorId"> | undefined;
+  distinct?: Array<"id" | "startTime" | "endTime" | "isBooked" | "doctorId"> | undefined;
 }

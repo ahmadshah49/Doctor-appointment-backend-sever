@@ -70,6 +70,12 @@ __decorate([
 ], PatientCreateManyDoctorInput.prototype, "address", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
+        nullable: false
+    }),
+    __metadata("design:type", String)
+], PatientCreateManyDoctorInput.prototype, "email", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
         nullable: true
     }),
     __metadata("design:type", String)

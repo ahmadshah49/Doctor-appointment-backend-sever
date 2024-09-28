@@ -27,7 +27,7 @@ exports.gender = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 var gender;
 (function (gender) {
-    gender["MAlE"] = "MAlE";
+    gender["MALE"] = "MALE";
     gender["FEMALE"] = "FEMALE";
     gender["OTHERS"] = "OTHERS";
 })(gender || (exports.gender = gender = {}));

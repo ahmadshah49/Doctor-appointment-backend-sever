@@ -22,7 +22,6 @@ const MiddleWare_1 = require("../../middleware/MiddleWare");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
 const graphql_1 = require("graphql");
 const ImageUploader_1 = require("../../utils/ImageUploader");
-const date_fns_1 = require("date-fns");
 let DoctorResolver = class DoctorResolver {
     async allDoctor() {
         try {
@@ -49,6 +48,15 @@ let DoctorResolver = class DoctorResolver {
         if (dbUser) {
             throw new graphql_1.GraphQLError("It looks like you’ve already set up your Doctor information. You can update your details instead of creating new ones.");
         }
+        let imageUrl = null;
+        if (profilePhoto) {
+            try {
+                imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePhoto);
+            }
+            catch (error) {
+                throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
+            }
+        }
         await prisma_1.default.doctor.create({
             data: {
                 address,
@@ -57,7 +65,7 @@ let DoctorResolver = class DoctorResolver {
                 name,
                 availability,
                 isAvailable,
-                profilePhoto,
+                profilePhoto: imageUrl || null,
                 userId: currentUserId,
             },
         });
@@ -82,139 +90,6 @@ let DoctorResolver = class DoctorResolver {
             },
         });
         return "Data Updated";
-    }
-    async AddDoctorAvailability(context, startDate, endDate, startTime, endTime, isBooked) {
-        if (!startDate) {
-            throw new graphql_1.GraphQLError("Please add an availability start day");
-        }
-        if (!endDate) {
-            throw new graphql_1.GraphQLError("Please add an availability end day");
-        }
-        if (!startTime) {
-            throw new graphql_1.GraphQLError("Please add availability start time");
-        }
-        if (!endTime) {
-            throw new graphql_1.GraphQLError("Please add availability end time");
-        }
-        if (new Date(startDate) >= new Date(endDate)) {
-            throw new graphql_1.GraphQLError("Start date must be before end date");
-        }
-        if (new Date(startTime) >= new Date(endTime)) {
-            throw new graphql_1.GraphQLError("Start time must be before end time");
-        }
-        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startDate))) {
-            throw new graphql_1.GraphQLError("Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
-        }
-        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endDate))) {
-            throw new graphql_1.GraphQLError("Invalid endDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
-        }
-        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startTime))) {
-            throw new graphql_1.GraphQLError("Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
-        }
-        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endTime))) {
-            throw new graphql_1.GraphQLError("Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
-        }
-        const parsedStartDate = (0, date_fns_1.parseISO)(startDate);
-        const parsedEndDate = (0, date_fns_1.parseISO)(endDate);
-        const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
-        const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
-        // Check that startDate is not after endDate
-        if (parsedStartDate > parsedEndDate) {
-            throw new graphql_1.GraphQLError("Start date must be before or equal to end date.");
-        }
-        // Check that startTime is not after endTime on the same day
-        if (parsedStartDate.getTime() === parsedEndDate.getTime() &&
-            parsedStartTime >= parsedEndTime) {
-            throw new graphql_1.GraphQLError("Start time must be before end time on the same day.");
-        }
-        const currentUserId = context.payload.userId;
-        console.log("currentUserId", currentUserId);
-        const doctor = await prisma_1.default.doctor.findUnique({
-            where: { userId: currentUserId },
-        });
-        console.log("Doctor Id", doctor.userId);
-        if (!doctor) {
-            throw new graphql_1.GraphQLError("Doctor not found");
-        }
-        await prisma_1.default.availabilitySlot.create({
-            data: {
-                startDate: parsedStartDate,
-                endDate: parsedEndDate,
-                startTime: parsedStartTime,
-                endTime: parsedEndTime,
-                isBooked: isBooked ?? false,
-                doctorId: currentUserId,
-            },
-        });
-        return "availabilitySlot Added";
-    }
-    async updateDoctorAvailability(context, startDate, endDate, startTime, endTime, isBooked) {
-        if (!startDate) {
-            throw new graphql_1.GraphQLError("Please add an availability start day");
-        }
-        if (!endDate) {
-            throw new graphql_1.GraphQLError("Please add an availability end day");
-        }
-        if (!startTime) {
-            throw new graphql_1.GraphQLError("Please add availability start time");
-        }
-        if (!endTime) {
-            throw new graphql_1.GraphQLError("Please add availability end time");
-        }
-        if (new Date(startDate) >= new Date(endDate)) {
-            throw new graphql_1.GraphQLError("Start date must be before end date");
-        }
-        if (new Date(startTime) >= new Date(endTime)) {
-            throw new graphql_1.GraphQLError("Start time must be before end time");
-        }
-        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startDate))) {
-            throw new graphql_1.GraphQLError("Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
-        }
-        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endDate))) {
-            throw new graphql_1.GraphQLError("Invalid endDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
-        }
-        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startTime))) {
-            throw new graphql_1.GraphQLError("Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
-        }
-        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endTime))) {
-            throw new graphql_1.GraphQLError("Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
-        }
-        const parsedStartDate = (0, date_fns_1.parseISO)(startDate);
-        const parsedEndDate = (0, date_fns_1.parseISO)(endDate);
-        const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
-        const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
-        // Check that startDate is not after endDate
-        if (parsedStartDate > parsedEndDate) {
-            throw new graphql_1.GraphQLError("Start date must be before or equal to end date.");
-        }
-        // Check that startTime is not after endTime on the same day
-        if (parsedStartDate.getTime() === parsedEndDate.getTime() &&
-            parsedStartTime >= parsedEndTime) {
-            throw new graphql_1.GraphQLError("Start time must be before end time on the same day.");
-        }
-        const currentUserId = context.payload.userId;
-        console.log("currentUserId", currentUserId);
-        const doctor = await prisma_1.default.doctor.findUnique({
-            where: { userId: currentUserId },
-        });
-        console.log("Doctor Id", doctor.userId);
-        if (!doctor) {
-            throw new graphql_1.GraphQLError("Doctor not found");
-        }
-        await prisma_1.default.availabilitySlot.update({
-            where: {
-                doctorId: currentUserId,
-            },
-            data: {
-                startDate: parsedStartDate,
-                endDate: parsedEndDate,
-                startTime: parsedStartTime,
-                endTime: parsedEndTime,
-                isBooked: isBooked ?? false,
-                doctorId: currentUserId,
-            },
-        });
-        return "availabilitySlot Added";
     }
 };
 exports.DoctorResolver = DoctorResolver;
@@ -255,32 +130,6 @@ __decorate([
     __metadata("design:paramtypes", [String, String, String, String, String, Boolean, String, Object]),
     __metadata("design:returntype", Promise)
 ], DoctorResolver.prototype, "updateDoctor", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => String),
-    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth, MiddleWare_1.isDoctor),
-    __param(0, (0, type_graphql_1.Ctx)()),
-    __param(1, (0, type_graphql_1.Arg)("startDate")),
-    __param(2, (0, type_graphql_1.Arg)("endDate")),
-    __param(3, (0, type_graphql_1.Arg)("startTime")),
-    __param(4, (0, type_graphql_1.Arg)("endTime")),
-    __param(5, (0, type_graphql_1.Arg)("isBooked", { nullable: true })),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String, String, String, String, Boolean]),
-    __metadata("design:returntype", Promise)
-], DoctorResolver.prototype, "AddDoctorAvailability", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => String),
-    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth, MiddleWare_1.isDoctor),
-    __param(0, (0, type_graphql_1.Ctx)()),
-    __param(1, (0, type_graphql_1.Arg)("startDate")),
-    __param(2, (0, type_graphql_1.Arg)("endDate")),
-    __param(3, (0, type_graphql_1.Arg)("startTime")),
-    __param(4, (0, type_graphql_1.Arg)("endTime")),
-    __param(5, (0, type_graphql_1.Arg)("isBooked", { nullable: true })),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String, String, String, String, Boolean]),
-    __metadata("design:returntype", Promise)
-], DoctorResolver.prototype, "updateDoctorAvailability", null);
 exports.DoctorResolver = DoctorResolver = __decorate([
     (0, type_graphql_1.Resolver)(() => type_graphql_2.Doctor)
 ], DoctorResolver);

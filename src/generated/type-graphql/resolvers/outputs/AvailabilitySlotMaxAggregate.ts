@@ -13,16 +13,6 @@ export class AvailabilitySlotMaxAggregate {
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
-  startDate!: Date | null;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  endDate!: Date | null;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
   startTime!: Date | null;
 
   @TypeGraphQL.Field(_type => Date, {

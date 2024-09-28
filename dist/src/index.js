@@ -10,6 +10,8 @@ const Context_1 = require("./context/Context");
 const Example_1 = require("./resolvers/mutations/Example");
 const Patient_1 = require("./resolvers/mutations/Patient");
 const Doctor_1 = require("./resolvers/mutations/Doctor");
+const DoctorAvailability_1 = require("./resolvers/mutations/DoctorAvailability");
+const Appointment_1 = require("./resolvers/mutations/Appointment");
 const index = async () => {
     const schema = (0, type_graphql_1.buildSchemaSync)({
         resolvers: [
@@ -18,6 +20,8 @@ const index = async () => {
             Example_1.ExampleResolver,
             Patient_1.PatientResolver,
             Doctor_1.DoctorResolver,
+            DoctorAvailability_1.DoctorAvailabilityResvolver,
+            Appointment_1.AppointmentResolver,
         ],
         validate: false,
     });

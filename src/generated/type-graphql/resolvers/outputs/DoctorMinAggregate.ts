@@ -49,5 +49,5 @@ export class DoctorMinAggregate {
   @TypeGraphQL.Field(_type => gender, {
     nullable: true
   })
-  gender!: "MAlE" | "FEMALE" | "OTHERS" | null;
+  gender!: "MALE" | "FEMALE" | "OTHERS" | null;
 }

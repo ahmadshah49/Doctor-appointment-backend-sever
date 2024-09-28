@@ -31,16 +31,6 @@ export class AvailabilitySlotScalarWhereWithAggregatesInput {
   @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
     nullable: true
   })
-  startDate?: DateTimeWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
-    nullable: true
-  })
-  endDate?: DateTimeWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
-    nullable: true
-  })
   startTime?: DateTimeWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
