@@ -29,7 +29,6 @@ var UnavailabilitySlotScalarFieldEnum;
 (function (UnavailabilitySlotScalarFieldEnum) {
     UnavailabilitySlotScalarFieldEnum["id"] = "id";
     UnavailabilitySlotScalarFieldEnum["doctorId"] = "doctorId";
-    UnavailabilitySlotScalarFieldEnum["day"] = "day";
     UnavailabilitySlotScalarFieldEnum["startTime"] = "startTime";
     UnavailabilitySlotScalarFieldEnum["endTime"] = "endTime";
     UnavailabilitySlotScalarFieldEnum["startDate"] = "startDate";

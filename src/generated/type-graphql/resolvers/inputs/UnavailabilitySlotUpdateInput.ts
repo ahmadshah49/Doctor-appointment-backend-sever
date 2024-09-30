@@ -10,11 +10,6 @@ import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStri
 
 @TypeGraphQL.InputType("UnavailabilitySlotUpdateInput", {})
 export class UnavailabilitySlotUpdateInput {
-  @TypeGraphQL.Field(_type => NullableDateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  day?: NullableDateTimeFieldUpdateOperationsInput | undefined;
-
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })

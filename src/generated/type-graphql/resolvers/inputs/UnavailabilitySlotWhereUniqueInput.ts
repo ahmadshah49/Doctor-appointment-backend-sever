@@ -36,11 +36,6 @@ export class UnavailabilitySlotWhereUniqueInput {
   })
   NOT?: UnavailabilitySlotWhereInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeNullableFilter, {
-    nullable: true
-  })
-  day?: DateTimeNullableFilter | undefined;
-
   @TypeGraphQL.Field(_type => DateTimeFilter, {
     nullable: true
   })

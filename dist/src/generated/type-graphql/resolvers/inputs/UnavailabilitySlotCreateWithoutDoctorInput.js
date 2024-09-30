@@ -39,12 +39,6 @@ let UnavailabilitySlotCreateWithoutDoctorInput = class UnavailabilitySlotCreateW
 exports.UnavailabilitySlotCreateWithoutDoctorInput = UnavailabilitySlotCreateWithoutDoctorInput;
 __decorate([
     TypeGraphQL.Field(_type => Date, {
-        nullable: true
-    }),
-    __metadata("design:type", Date)
-], UnavailabilitySlotCreateWithoutDoctorInput.prototype, "day", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
     __metadata("design:type", Date)

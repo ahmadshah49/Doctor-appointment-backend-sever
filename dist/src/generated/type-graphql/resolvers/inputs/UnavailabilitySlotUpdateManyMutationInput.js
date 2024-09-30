@@ -42,12 +42,6 @@ let UnavailabilitySlotUpdateManyMutationInput = class UnavailabilitySlotUpdateMa
 };
 exports.UnavailabilitySlotUpdateManyMutationInput = UnavailabilitySlotUpdateManyMutationInput;
 __decorate([
-    TypeGraphQL.Field(_type => NullableDateTimeFieldUpdateOperationsInput_1.NullableDateTimeFieldUpdateOperationsInput, {
-        nullable: true
-    }),
-    __metadata("design:type", NullableDateTimeFieldUpdateOperationsInput_1.NullableDateTimeFieldUpdateOperationsInput)
-], UnavailabilitySlotUpdateManyMutationInput.prototype, "day", void 0);
-__decorate([
     TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput, {
         nullable: true
     }),

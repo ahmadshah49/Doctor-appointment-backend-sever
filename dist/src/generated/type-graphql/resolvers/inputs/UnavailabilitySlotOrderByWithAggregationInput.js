@@ -57,12 +57,6 @@ __decorate([
     __metadata("design:type", String)
 ], UnavailabilitySlotOrderByWithAggregationInput.prototype, "doctorId", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
-        nullable: true
-    }),
-    __metadata("design:type", SortOrderInput_1.SortOrderInput)
-], UnavailabilitySlotOrderByWithAggregationInput.prototype, "day", void 0);
-__decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
     }),

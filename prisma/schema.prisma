@@ -110,14 +110,13 @@ model AvailabilitySlot {
 model UnavailabilitySlot {
   id          Int       @id @default(autoincrement())
   doctorId    Int       @unique
-  day         DateTime?
   startTime   DateTime
   endTime     DateTime
   startDate   DateTime?
   endDate     DateTime?
   reason      String?
   isAvailable Boolean?
-  doctor      Doctor    @relation(fields: [doctorId], references: [id])
+  doctor      Doctor    @relation(fields: [doctorId], references: [userId])
 }
 
 enum AppointmentStatus {

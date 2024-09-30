@@ -35,11 +35,6 @@ export class UnavailabilitySlotScalarWhereWithAggregatesInput {
   })
   doctorId?: IntWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeNullableWithAggregatesFilter, {
-    nullable: true
-  })
-  day?: DateTimeNullableWithAggregatesFilter | undefined;
-
   @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
     nullable: true
   })

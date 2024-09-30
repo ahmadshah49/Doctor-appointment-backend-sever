@@ -55,12 +55,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], UnavailabilitySlotMaxOrderByAggregateInput.prototype, "day", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
-        nullable: true
-    }),
-    __metadata("design:type", String)
 ], UnavailabilitySlotMaxOrderByAggregateInput.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {

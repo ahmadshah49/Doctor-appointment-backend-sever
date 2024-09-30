@@ -1,7 +1,11 @@
 import { GraphQLError } from "graphql";
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import { Context } from "../../context/Context";
-import { gender, Patient } from "../../generated/type-graphql";
+import {
+  gender,
+  Patient,
+  UnavailabilitySlot,
+} from "../../generated/type-graphql";
 import Prisma from "../../lib/prisma";
 import { isAuth } from "../../middleware/MiddleWare";
 import { ImageUploader } from "../../utils/ImageUploader";
@@ -84,6 +88,25 @@ export class AppointmentResolver {
         doctorId: doctorId,
       },
     });
+    const checkDoctorUnAvailability = await Prisma.unavailabilitySlot.findFirst(
+      {
+        where: {
+          doctorId,
+        },
+      }
+    );
+    const unavailableDoctorStartDate = moment(
+      checkDoctorUnAvailability?.startDate
+    ).format("YYYY-MM-DD");
+    const unavailableDoctorEndDate = moment(
+      checkDoctorUnAvailability?.endDate
+    ).format("YYYY-MM-DD");
+    const unavailableDoctorStartTime = moment(
+      checkDoctorUnAvailability?.startTime
+    ).format("HH:mm:ss");
+    const unavailableDoctorEndTime = moment(
+      checkDoctorUnAvailability?.endTime
+    ).format("HH:mm:ss");
 
     if (!checkDoctorAvailability) {
       throw new GraphQLError("Doctor availability not found!");
@@ -107,6 +130,25 @@ export class AppointmentResolver {
     ) {
       throw new GraphQLError("Doctor is not available at this time");
     }
+    if (unavailableDoctorStartDate && unavailableDoctorEndDate) {
+      if (
+        appointmentScheduleDate >= unavailableDoctorStartDate &&
+        appointmentScheduleDate <= unavailableDoctorEndDate
+      ) {
+        if (
+          (appointmentStartTime >= unavailableDoctorStartTime &&
+            appointmentStartTime < unavailableDoctorEndTime) ||
+          (appointmentEndTime > unavailableDoctorStartTime &&
+            appointmentEndTime <= unavailableDoctorEndTime) ||
+          (appointmentStartTime <= unavailableDoctorStartTime &&
+            appointmentEndTime >= unavailableDoctorEndTime)
+        ) {
+          throw new GraphQLError(
+            "Doctor is unavailable during this time. Please choose another time slot."
+          );
+        }
+      }
+    }
     console.log("appointmentScheduleDate", appointmentScheduleDate);
 
     const doctorAppointments = await Prisma.appointment.findMany({
@@ -114,22 +156,21 @@ export class AppointmentResolver {
         doctorId,
         scheduledDate,
         OR: [
-          // Case 1: New appointment starts during an existing appointment
           {
             startTime: {
-              lte: endTime, // Existing appointment starts before or when the new one ends.
+              lte: endTime,
             },
             endTime: {
-              gte: startTime, // Existing appointment ends after or when the new one starts.
+              gte: startTime,
             },
           },
-          // Case 2: New appointment completely surrounds an existing one
+
           {
             startTime: {
-              gte: startTime, // Existing appointment starts after or when the new one starts.
+              gte: startTime,
             },
             endTime: {
-              lte: endTime, // Existing appointment ends before or when the new one ends.
+              lte: endTime,
             },
           },
         ],
@@ -299,22 +340,21 @@ export class AppointmentResolver {
           not: appointmentIdForUpdate,
         },
         OR: [
-          // Case 1: New appointment starts during an existing appointment
           {
             startTime: {
-              lte: endTime, // Existing appointment starts before or when the new one ends.
+              lte: endTime,
             },
             endTime: {
-              gte: startTime, // Existing appointment ends after or when the new one starts.
+              gte: startTime,
             },
           },
-          // Case 2: New appointment completely surrounds an existing one
+
           {
             startTime: {
-              gte: startTime, // Existing appointment starts after or when the new one starts.
+              gte: startTime,
             },
             endTime: {
-              lte: endTime, // Existing appointment ends before or when the new one ends.
+              lte: endTime,
             },
           },
         ],

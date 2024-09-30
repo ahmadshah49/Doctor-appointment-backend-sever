@@ -6,11 +6,6 @@ import { DecimalJSScalar } from "../../scalars";
 @TypeGraphQL.InputType("UnavailabilitySlotCreateWithoutDoctorInput", {})
 export class UnavailabilitySlotCreateWithoutDoctorInput {
   @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  day?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
   startTime!: Date;

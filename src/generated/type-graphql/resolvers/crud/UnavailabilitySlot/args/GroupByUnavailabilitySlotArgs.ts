@@ -20,7 +20,7 @@ export class GroupByUnavailabilitySlotArgs {
   @TypeGraphQL.Field(_type => [UnavailabilitySlotScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "doctorId" | "day" | "startTime" | "endTime" | "startDate" | "endDate" | "reason" | "isAvailable">;
+  by!: Array<"id" | "doctorId" | "startTime" | "endTime" | "startDate" | "endDate" | "reason" | "isAvailable">;
 
   @TypeGraphQL.Field(_type => UnavailabilitySlotScalarWhereWithAggregatesInput, {
     nullable: true

@@ -3,7 +3,6 @@ import * as TypeGraphQL from "type-graphql";
 export enum UnavailabilitySlotScalarFieldEnum {
   id = "id",
   doctorId = "doctorId",
-  day = "day",
   startTime = "startTime",
   endTime = "endTime",
   startDate = "startDate",

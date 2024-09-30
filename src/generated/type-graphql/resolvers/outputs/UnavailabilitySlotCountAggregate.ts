@@ -18,11 +18,6 @@ export class UnavailabilitySlotCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  day!: number;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
   startTime!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

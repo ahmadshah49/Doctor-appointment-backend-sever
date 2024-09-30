@@ -54,12 +54,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", Date)
-], UnavailabilitySlotMinAggregate.prototype, "day", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Date, {
-        nullable: true
-    }),
-    __metadata("design:type", Date)
 ], UnavailabilitySlotMinAggregate.prototype, "startTime", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {

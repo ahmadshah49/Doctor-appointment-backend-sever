@@ -17,11 +17,6 @@ export class CreateManyAndReturnUnavailabilitySlot {
   doctorId!: number;
 
   @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  day!: Date | null;
-
-  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
   startTime!: Date;

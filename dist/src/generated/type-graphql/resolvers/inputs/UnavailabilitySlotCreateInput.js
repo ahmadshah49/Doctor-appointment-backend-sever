@@ -40,12 +40,6 @@ let UnavailabilitySlotCreateInput = class UnavailabilitySlotCreateInput {
 exports.UnavailabilitySlotCreateInput = UnavailabilitySlotCreateInput;
 __decorate([
     TypeGraphQL.Field(_type => Date, {
-        nullable: true
-    }),
-    __metadata("design:type", Date)
-], UnavailabilitySlotCreateInput.prototype, "day", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
     __metadata("design:type", Date)

@@ -7,11 +7,6 @@ import { DoctorCreateNestedOneWithoutUnavailabilitySlotInput } from "../inputs/D
 @TypeGraphQL.InputType("UnavailabilitySlotCreateInput", {})
 export class UnavailabilitySlotCreateInput {
   @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  day?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
   startTime!: Date;

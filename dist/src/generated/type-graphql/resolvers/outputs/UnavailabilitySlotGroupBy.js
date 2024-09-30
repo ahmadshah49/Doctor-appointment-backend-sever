@@ -56,12 +56,6 @@ __decorate([
 ], UnavailabilitySlotGroupBy.prototype, "doctorId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => Date, {
-        nullable: true
-    }),
-    __metadata("design:type", Date)
-], UnavailabilitySlotGroupBy.prototype, "day", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Date, {
         nullable: false
     }),
     __metadata("design:type", Date)

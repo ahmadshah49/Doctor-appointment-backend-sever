@@ -18,11 +18,6 @@ export class UnavailabilitySlotMaxAggregate {
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
-  day!: Date | null;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
   startTime!: Date | null;
 
   @TypeGraphQL.Field(_type => Date, {

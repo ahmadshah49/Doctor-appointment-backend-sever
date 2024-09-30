@@ -11,11 +11,6 @@ export class UnavailabilitySlotCreateManyDoctorInput {
   id?: number | undefined;
 
   @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  day?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
   startTime!: Date;

@@ -73,12 +73,6 @@ __decorate([
     __metadata("design:type", IntWithAggregatesFilter_1.IntWithAggregatesFilter)
 ], UnavailabilitySlotScalarWhereWithAggregatesInput.prototype, "doctorId", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => DateTimeNullableWithAggregatesFilter_1.DateTimeNullableWithAggregatesFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", DateTimeNullableWithAggregatesFilter_1.DateTimeNullableWithAggregatesFilter)
-], UnavailabilitySlotScalarWhereWithAggregatesInput.prototype, "day", void 0);
-__decorate([
     TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter, {
         nullable: true
     }),

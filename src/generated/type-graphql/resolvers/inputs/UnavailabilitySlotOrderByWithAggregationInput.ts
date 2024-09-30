@@ -22,11 +22,6 @@ export class UnavailabilitySlotOrderByWithAggregationInput {
   })
   doctorId?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrderInput, {
-    nullable: true
-  })
-  day?: SortOrderInput | undefined;
-
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
