@@ -11,6 +11,9 @@ import { PatientResolver } from "./resolvers/mutations/Patient";
 import { DoctorResolver } from "./resolvers/mutations/Doctor";
 import { DoctorAvailabilityResvolver } from "./resolvers/mutations/DoctorAvailability";
 import { AppointmentResolver } from "./resolvers/mutations/Appointment";
+import { GetAppointmentsResolver } from "./resolvers/querys/Appointments";
+import { Patients } from "./resolvers/querys/Patients";
+import { Doctors } from "./resolvers/querys/Doctor";
 const index = async () => {
   const schema = buildSchemaSync({
     resolvers: [
@@ -21,6 +24,9 @@ const index = async () => {
       DoctorResolver,
       DoctorAvailabilityResvolver,
       AppointmentResolver,
+      GetAppointmentsResolver,
+      Patients,
+      Doctors,
     ],
 
     validate: false,

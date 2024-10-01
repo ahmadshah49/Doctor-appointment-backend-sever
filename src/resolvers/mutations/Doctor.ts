@@ -1,3 +1,4 @@
+import { GraphQLError } from "graphql";
 import {
   Arg,
   Ctx,
@@ -6,34 +7,14 @@ import {
   Resolver,
   UseMiddleware,
 } from "type-graphql";
-import { AvailabilitySlot, Doctor, gender } from "../../generated/type-graphql";
-import { isAuth, isDoctor } from "../../middleware/MiddleWare";
-import Prisma from "../../lib/prisma";
-import { GraphQLError } from "graphql";
 import { Context } from "../../context/Context";
-import { DoctorTypes } from "../../types/ResolverTypes";
+import { Doctor, gender } from "../../generated/type-graphql";
+import Prisma from "../../lib/prisma";
+import { isAuth, isDoctor } from "../../middleware/MiddleWare";
 import { ImageUploader } from "../../utils/ImageUploader";
-import { isValid, parseISO } from "date-fns";
 
 @Resolver(() => Doctor)
 export class DoctorResolver {
-  @Query(() => [Doctor])
-  @UseMiddleware(isAuth)
-  async allDoctor() {
-    try {
-      const doctor = await Prisma.doctor.findMany({
-        include: {
-          AvailabilitySlot: true,
-        },
-      });
-      console.log("Doctor", doctor);
-      return doctor;
-    } catch (error) {
-      console.log("Error While Getting doctors", error);
-
-      throw new GraphQLError("Error While Getting doctors");
-    }
-  }
   @Mutation(() => String)
   @UseMiddleware(isAuth, isDoctor)
   async createDoctor(
@@ -114,5 +95,4 @@ export class DoctorResolver {
     });
     return "Data Updated";
   }
- 
 }

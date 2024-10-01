@@ -5,6 +5,7 @@ import { Context } from "../../context/Context";
 import { AvailabilitySlot } from "../../generated/type-graphql";
 import Prisma from "../../lib/prisma";
 import { isAuth, isDoctor } from "../../middleware/MiddleWare";
+import { sendAppointmentCancelEmail } from "../../utils/SendAppointmentCancelEmail";
 
 @Resolver(() => AvailabilitySlot)
 export class DoctorAvailabilityResvolver {
@@ -215,6 +216,9 @@ export class DoctorAvailabilityResvolver {
     if (new Date(startDate) >= new Date(endDate)) {
       throw new GraphQLError("Start date must be before end date");
     }
+    if (new Date(startTime) >= new Date(endTime)) {
+      throw new GraphQLError("Start time must be before end date");
+    }
     if (!isValid(parseISO(startDate))) {
       throw new GraphQLError(
         "Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
@@ -255,7 +259,28 @@ export class DoctorAvailabilityResvolver {
         reason,
       },
     });
-    return "Unavailability Added";
+    const affectedAppointments = await Prisma.appointment.findMany({
+      where: {
+        doctorId,
+        scheduledDate: {
+          gte: parsedStartDate,
+          lte: parsedEndDate,
+        },
+        status: "UPCOMING",
+      },
+    });
+    for (const appointment of affectedAppointments) {
+      await Prisma.appointment.update({
+        where: { id: appointment.id },
+        data: { status: "CANCELLED" },
+      });
+      sendAppointmentCancelEmail(
+        appointment.email,
+        appointment.scheduledDate,
+        appointment.fullName
+      );
+      return "Unavailability Added";
+    }
   }
   @Mutation(() => String)
   @UseMiddleware(isAuth, isDoctor)
@@ -274,6 +299,9 @@ export class DoctorAvailabilityResvolver {
     }
     if (new Date(startDate) >= new Date(endDate)) {
       throw new GraphQLError("Start date must be before end date");
+    }
+    if (new Date(startTime) >= new Date(endTime)) {
+      throw new GraphQLError("Start time must be before end date");
     }
     if (!isValid(parseISO(startDate))) {
       throw new GraphQLError(
@@ -319,6 +347,28 @@ export class DoctorAvailabilityResvolver {
         reason,
       },
     });
+    const affectedAppointments = await Prisma.appointment.findMany({
+      where: {
+        doctorId,
+        scheduledDate: {
+          gte: parsedStartDate,
+          lte: parsedEndDate,
+        },
+        status: "UPCOMING",
+      },
+    });
+    for (const appointment of affectedAppointments) {
+      console.log("Doctor Email", appointment.email);
+      await Prisma.appointment.update({
+        where: { id: appointment.id },
+        data: { status: "CANCELLED" },
+      });
+      sendAppointmentCancelEmail(
+        appointment.email,
+        appointment.scheduledDate,
+        appointment.fullName
+      );
+    }
     return "Unavailability Updated";
   }
 }

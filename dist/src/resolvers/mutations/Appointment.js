@@ -16,13 +16,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentResolver = void 0;
+const date_fns_1 = require("date-fns");
 const graphql_1 = require("graphql");
+const moment_1 = __importDefault(require("moment"));
 const type_graphql_1 = require("type-graphql");
+const cron_1 = require("../../cron");
 const type_graphql_2 = require("../../generated/type-graphql");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
 const MiddleWare_1 = require("../../middleware/MiddleWare");
-const moment_1 = __importDefault(require("moment"));
-const date_fns_1 = require("date-fns");
 let AppointmentResolver = class AppointmentResolver {
     async createAppointment(fullName, email, age, gender, phoneNo, address, medicalHistory, presciptions, details, scheduledDate, startTime, endTime, doctorId, context
     // @Arg("patientId") patientId: number
@@ -69,17 +70,79 @@ let AppointmentResolver = class AppointmentResolver {
                 doctorId: doctorId,
             },
         });
+        const checkDoctorUnAvailability = await prisma_1.default.unavailabilitySlot.findFirst({
+            where: {
+                doctorId,
+            },
+        });
+        const unavailableDoctorStartDate = (0, moment_1.default)(checkDoctorUnAvailability?.startDate).format("YYYY-MM-DD");
+        const unavailableDoctorEndDate = (0, moment_1.default)(checkDoctorUnAvailability?.endDate).format("YYYY-MM-DD");
+        const unavailableDoctorStartTime = moment_1.default
+            .utc(checkDoctorUnAvailability?.startTime)
+            .format("HH:mm:ss");
+        const unavailableDoctorEndTime = moment_1.default
+            .utc(checkDoctorUnAvailability?.endTime)
+            .format("HH:mm:ss");
+        const unavailableDoctorOneDay = moment_1.default
+            .utc(checkDoctorUnAvailability?.startTime)
+            .format("YYYY-MM-DD");
         if (!checkDoctorAvailability) {
             throw new graphql_1.GraphQLError("Doctor availability not found!");
         }
-        const doctorStartTime = (0, moment_1.default)(checkDoctorAvailability?.startTime).format("HH:mm:ss");
-        const doctorEndTime = (0, moment_1.default)(checkDoctorAvailability?.endTime).format("HH:mm:ss");
+        const doctorStartTime = moment_1.default
+            .utc(checkDoctorAvailability?.startTime)
+            .format("HH:mm:ss");
+        const doctorEndTime = moment_1.default
+            .utc(checkDoctorAvailability?.endTime)
+            .format("HH:mm:ss");
         const appointmentScheduleDate = (0, moment_1.default)(scheduledDate).format("YYYY-MM-DD");
-        const appointmentStartTime = (0, moment_1.default)(startTime).format("HH:mm:ss");
-        const appointmentEndTime = (0, moment_1.default)(endTime).format("HH:mm:ss");
+        const appointmentStartTime = moment_1.default.utc(startTime).format("HH:mm:ss");
+        const appointmentEndTime = moment_1.default.utc(endTime).format("HH:mm:ss");
+        const LocalappointmentStartTime = moment_1.default
+            .utc(startTime)
+            .format("HH:mm:ss");
+        const LocalappointmentEndTime = moment_1.default
+            .utc(endTime)
+            .format("HH:mm:ss");
+        // console.log("LocalappointmentStartTime:", LocalappointmentStartTime); // Will log based on your system's time zone
+        // console.log("LocalappointmentEndTime:", LocalappointmentEndTime);
+        console.log("parsedStartTime:", moment_1.default.utc(parsedStartTime).format("HH:mm:ss"));
+        console.log("parsedEndTime:", moment_1.default.utc(parsedEndTime).format("HH:mm:ss"));
+        console.log("appointmentStartTime", appointmentStartTime);
+        console.log("appointmentEndTime", appointmentEndTime);
+        console.log("unavailableDoctorOneDay", unavailableDoctorOneDay);
+        console.log("appointmentStartTime", appointmentStartTime);
+        console.log("unavailableDoctorStartTime", unavailableDoctorStartTime);
+        console.log("unavailableDoctorEndTime", unavailableDoctorEndTime);
+        console.log("appointmentEndTime", appointmentEndTime);
+        console.log("Doctor Start Time", doctorStartTime);
+        console.log("Doctor End Time", doctorEndTime);
         if (!(doctorStartTime <= appointmentStartTime &&
             doctorEndTime >= appointmentEndTime)) {
             throw new graphql_1.GraphQLError("Doctor is not available at this time");
+        }
+        if (unavailableDoctorStartDate && unavailableDoctorEndDate) {
+            if (appointmentScheduleDate >= unavailableDoctorStartDate &&
+                appointmentScheduleDate <= unavailableDoctorEndDate) {
+                if ((appointmentStartTime >= unavailableDoctorStartTime &&
+                    appointmentStartTime < unavailableDoctorEndTime) ||
+                    (appointmentEndTime > unavailableDoctorStartTime &&
+                        appointmentEndTime <= unavailableDoctorEndTime) ||
+                    (appointmentStartTime <= unavailableDoctorStartTime &&
+                        appointmentEndTime >= unavailableDoctorEndTime)) {
+                    throw new graphql_1.GraphQLError("Doctor is unavailable during this time. Please choose another time slot.");
+                }
+            }
+        }
+        if (appointmentScheduleDate === unavailableDoctorOneDay) {
+            if ((appointmentStartTime >= unavailableDoctorStartTime &&
+                appointmentStartTime < unavailableDoctorEndTime) ||
+                (appointmentEndTime > unavailableDoctorStartTime &&
+                    appointmentEndTime <= unavailableDoctorEndTime) ||
+                (appointmentStartTime <= unavailableDoctorStartTime &&
+                    appointmentEndTime >= unavailableDoctorEndTime)) {
+                throw new graphql_1.GraphQLError("Doctor is unavailable during this time. Please choose another time slot.");
+            }
         }
         console.log("appointmentScheduleDate", appointmentScheduleDate);
         const doctorAppointments = await prisma_1.default.appointment.findMany({
@@ -87,22 +150,20 @@ let AppointmentResolver = class AppointmentResolver {
                 doctorId,
                 scheduledDate,
                 OR: [
-                    // Case 1: New appointment starts during an existing appointment
                     {
                         startTime: {
-                            lte: endTime, // Existing appointment starts before or when the new one ends.
+                            lte: endTime,
                         },
                         endTime: {
-                            gte: startTime, // Existing appointment ends after or when the new one starts.
+                            gte: startTime,
                         },
                     },
-                    // Case 2: New appointment completely surrounds an existing one
                     {
                         startTime: {
-                            gte: startTime, // Existing appointment starts after or when the new one starts.
+                            gte: startTime,
                         },
                         endTime: {
-                            lte: endTime, // Existing appointment ends before or when the new one ends.
+                            lte: endTime,
                         },
                     },
                 ],
@@ -111,32 +172,6 @@ let AppointmentResolver = class AppointmentResolver {
         if (doctorAppointments.length > 0) {
             throw new graphql_1.GraphQLError(" The selected time slot is already booked by another patient. Please select a different time.");
         }
-        // for (const appointment of doctorAppointments) {
-        //   const existingAppointmentDate = moment(
-        //     doctorAppointments?.scheduledDate
-        //   ).format("YYYY-MM-DD");
-        //   const existingAppointmentStartTime = moment(
-        //     doctorAppointments?.startTime
-        //   ).format("HH:mm:ss");
-        //   const existingAppointmentEndTime = moment(
-        //     doctorAppointments?.endTime
-        //   ).format("HH:mm:ss");
-        // }
-        // console.log("existingAppointmentDate", existingAppointmentDate);
-        // if (appointmentScheduleDate === existingAppointmentDate) {
-        //   if (
-        //     (appointmentStartTime >= existingAppointmentStartTime &&
-        //       appointmentStartTime < existingAppointmentEndTime) ||
-        //     (appointmentEndTime > existingAppointmentStartTime &&
-        //       appointmentEndTime <= existingAppointmentEndTime) ||
-        //     (appointmentStartTime <= existingAppointmentStartTime &&
-        //       appointmentEndTime >= existingAppointmentEndTime)
-        //   ) {
-        //     throw new GraphQLError(
-        //       "The selected time slot is already booked by another patient. Please select a different time."
-        //     );
-        //   }
-        // }
         // const ImageUrl = await ImageUploader(presciptions);
         await prisma_1.default.appointment.create({
             data: {
@@ -203,17 +238,84 @@ let AppointmentResolver = class AppointmentResolver {
                 doctorId: doctorId,
             },
         });
+        const checkDoctorUnAvailability = await prisma_1.default.unavailabilitySlot.findFirst({
+            where: {
+                doctorId,
+            },
+        });
+        const unavailableDoctorStartDate = (0, moment_1.default)(checkDoctorUnAvailability?.startDate).format("YYYY-MM-DD");
+        const unavailableDoctorEndDate = (0, moment_1.default)(checkDoctorUnAvailability?.endDate).format("YYYY-MM-DD");
+        const unavailableDoctorStartTime = moment_1.default
+            .utc(checkDoctorUnAvailability?.startTime)
+            .format("HH:mm:ss");
+        const unavailableDoctorEndTime = moment_1.default
+            .utc(checkDoctorUnAvailability?.endTime)
+            .format("HH:mm:ss");
+        const unavailableDoctorOneDay = moment_1.default
+            .utc(checkDoctorUnAvailability?.startTime)
+            .format("YYYY-MM-DD");
         if (!checkDoctorAvailability) {
             throw new graphql_1.GraphQLError("Doctor availability not found!");
         }
-        const doctorStartTime = (0, moment_1.default)(checkDoctorAvailability?.startTime).format("HH:mm:ss");
-        const doctorEndTime = (0, moment_1.default)(checkDoctorAvailability?.endTime).format("HH:mm:ss");
+        if (!checkDoctorAvailability) {
+            throw new graphql_1.GraphQLError("Doctor availability not found!");
+        }
+        const doctorStartTime = moment_1.default
+            .utc(checkDoctorAvailability?.startTime)
+            .format("HH:mm:ss");
+        const doctorEndTime = moment_1.default
+            .utc(checkDoctorAvailability?.endTime)
+            .format("HH:mm:ss");
         const appointmentScheduleDate = (0, moment_1.default)(scheduledDate).format("YYYY-MM-DD");
-        const appointmentStartTime = (0, moment_1.default)(startTime).format("HH:mm:ss");
-        const appointmentEndTime = (0, moment_1.default)(endTime).format("HH:mm:ss");
+        const appointmentStartTime = moment_1.default.utc(startTime).format("HH:mm:ss");
+        const appointmentEndTime = moment_1.default.utc(endTime).format("HH:mm:ss");
+        const LocalappointmentStartTime = moment_1.default
+            .utc(startTime)
+            .format("HH:mm:ss");
+        const LocalappointmentEndTime = moment_1.default
+            .utc(endTime)
+            .format("HH:mm:ss");
+        console.log("parsedStartTime:", moment_1.default.utc(parsedStartTime).format("HH:mm:ss"));
+        console.log("parsedEndTime:", moment_1.default.utc(parsedEndTime).format("HH:mm:ss"));
+        console.log("appointmentStartTime", appointmentStartTime);
+        console.log("appointmentEndTime", appointmentEndTime);
+        console.log("unavailableDoctorOneDay", unavailableDoctorOneDay);
+        console.log("appointmentStartTime", appointmentStartTime);
+        console.log("unavailableDoctorStartTime", unavailableDoctorStartTime);
+        console.log("unavailableDoctorEndTime", unavailableDoctorEndTime);
+        console.log("appointmentEndTime", appointmentEndTime);
+        console.log("Doctor Start Time", doctorStartTime);
+        console.log("Doctor End Time", doctorEndTime);
         if (!(doctorStartTime <= appointmentStartTime &&
             doctorEndTime >= appointmentEndTime)) {
             throw new graphql_1.GraphQLError("Doctor is not available at this time");
+        }
+        if (!(doctorStartTime <= appointmentStartTime &&
+            doctorEndTime >= appointmentEndTime)) {
+            throw new graphql_1.GraphQLError("Doctor is not available at this time");
+        }
+        if (unavailableDoctorStartDate && unavailableDoctorEndDate) {
+            if (appointmentScheduleDate >= unavailableDoctorStartDate &&
+                appointmentScheduleDate <= unavailableDoctorEndDate) {
+                if ((appointmentStartTime >= unavailableDoctorStartTime &&
+                    appointmentStartTime < unavailableDoctorEndTime) ||
+                    (appointmentEndTime > unavailableDoctorStartTime &&
+                        appointmentEndTime <= unavailableDoctorEndTime) ||
+                    (appointmentStartTime <= unavailableDoctorStartTime &&
+                        appointmentEndTime >= unavailableDoctorEndTime)) {
+                    throw new graphql_1.GraphQLError("Doctor is unavailable during this time. Please choose another time slot.");
+                }
+            }
+        }
+        if (appointmentScheduleDate === unavailableDoctorOneDay) {
+            if ((appointmentStartTime >= unavailableDoctorStartTime &&
+                appointmentStartTime < unavailableDoctorEndTime) ||
+                (appointmentEndTime > unavailableDoctorStartTime &&
+                    appointmentEndTime <= unavailableDoctorEndTime) ||
+                (appointmentStartTime <= unavailableDoctorStartTime &&
+                    appointmentEndTime >= unavailableDoctorEndTime)) {
+                throw new graphql_1.GraphQLError("Doctor is unavailable during this time. Please choose another time slot.");
+            }
         }
         console.log("appointmentScheduleDate", appointmentScheduleDate);
         const doctorAppointments = await prisma_1.default.appointment.findMany({
@@ -224,22 +326,20 @@ let AppointmentResolver = class AppointmentResolver {
                     not: appointmentIdForUpdate,
                 },
                 OR: [
-                    // Case 1: New appointment starts during an existing appointment
                     {
                         startTime: {
-                            lte: endTime, // Existing appointment starts before or when the new one ends.
+                            lte: endTime,
                         },
                         endTime: {
-                            gte: startTime, // Existing appointment ends after or when the new one starts.
+                            gte: startTime,
                         },
                     },
-                    // Case 2: New appointment completely surrounds an existing one
                     {
                         startTime: {
-                            gte: startTime, // Existing appointment starts after or when the new one starts.
+                            gte: startTime,
                         },
                         endTime: {
-                            lte: endTime, // Existing appointment ends before or when the new one ends.
+                            lte: endTime,
                         },
                     },
                 ],
@@ -270,6 +370,167 @@ let AppointmentResolver = class AppointmentResolver {
             },
         });
         return "Appointment updated";
+    }
+    async cancelAppointment(patientId) {
+        await prisma_1.default.appointment.update({
+            where: {
+                id: patientId,
+            },
+            data: {
+                status: "CANCELLED",
+            },
+        });
+        return "Appointment Cancel";
+    }
+    async completeAppointment(patientId) {
+        await prisma_1.default.appointment.update({
+            where: {
+                id: patientId,
+            },
+            data: {
+                status: "COMPLETED",
+            },
+        });
+        return "Appointment Completed";
+    }
+    async rescheduleAppointment(patientId, scheduledDate, startTime, endTime, context) {
+        if (context.payload.role !== "PATIENT") {
+            throw new graphql_1.GraphQLError("You have not access to reschedule this appointment");
+        }
+        if (!context.payload.userId) {
+            throw new graphql_1.GraphQLError("User not found!");
+        }
+        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startTime))) {
+            throw new graphql_1.GraphQLError("Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
+        }
+        if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endTime))) {
+            throw new graphql_1.GraphQLError("Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
+        }
+        const doctor = await prisma_1.default.appointment.findUnique({
+            where: { id: patientId },
+        });
+        const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
+        const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
+        if (parsedStartTime >= parsedEndTime) {
+            throw new graphql_1.GraphQLError("Start time must be before end time on the same day.");
+        }
+        const checkDoctorAvailability = await prisma_1.default.availabilitySlot.findFirst({
+            where: {
+                doctorId: doctor.doctorId,
+            },
+        });
+        const checkDoctorUnAvailability = await prisma_1.default.unavailabilitySlot.findFirst({
+            where: {
+                doctorId: doctor.doctorId,
+            },
+        });
+        const unavailableDoctorStartDate = (0, moment_1.default)(checkDoctorUnAvailability?.startDate).format("YYYY-MM-DD");
+        const unavailableDoctorEndDate = (0, moment_1.default)(checkDoctorUnAvailability?.endDate).format("YYYY-MM-DD");
+        const unavailableDoctorStartTime = moment_1.default
+            .utc(checkDoctorUnAvailability?.startTime)
+            .format("HH:mm:ss");
+        const unavailableDoctorEndTime = moment_1.default
+            .utc(checkDoctorUnAvailability?.endTime)
+            .format("HH:mm:ss");
+        const unavailableDoctorOneDay = moment_1.default
+            .utc(checkDoctorUnAvailability?.startTime)
+            .format("YYYY-MM-DD");
+        if (!checkDoctorAvailability) {
+            console.log("Doctor ID ", doctor.doctorId);
+            throw new graphql_1.GraphQLError("Doctor availability not found!");
+        }
+        const doctorStartTime = moment_1.default
+            .utc(checkDoctorAvailability?.startTime)
+            .format("HH:mm:ss");
+        const doctorEndTime = moment_1.default
+            .utc(checkDoctorAvailability?.endTime)
+            .format("HH:mm:ss");
+        const appointmentScheduleDate = (0, moment_1.default)(scheduledDate).format("YYYY-MM-DD");
+        const appointmentStartTime = moment_1.default.utc(startTime).format("HH:mm:ss");
+        const appointmentEndTime = moment_1.default.utc(endTime).format("HH:mm:ss");
+        const LocalappointmentStartTime = moment_1.default.utc(startTime).format("HH:mm:ss");
+        const LocalappointmentEndTime = moment_1.default.utc(endTime).format("HH:mm:ss");
+        // console.log("LocalappointmentStartTime:", LocalappointmentStartTime); // Will log based on your system's time zone
+        // console.log("LocalappointmentEndTime:", LocalappointmentEndTime);
+        console.log("parsedStartTime:", moment_1.default.utc(parsedStartTime).format("HH:mm:ss"));
+        console.log("parsedEndTime:", moment_1.default.utc(parsedEndTime).format("HH:mm:ss"));
+        console.log("appointmentStartTime", appointmentStartTime);
+        console.log("appointmentEndTime", appointmentEndTime);
+        console.log("unavailableDoctorOneDay", unavailableDoctorOneDay);
+        console.log("appointmentStartTime", appointmentStartTime);
+        console.log("unavailableDoctorStartTime", unavailableDoctorStartTime);
+        console.log("unavailableDoctorEndTime", unavailableDoctorEndTime);
+        console.log("appointmentEndTime", appointmentEndTime);
+        console.log("Doctor Start Time", doctorStartTime);
+        console.log("Doctor End Time", doctorEndTime);
+        if (!(doctorStartTime <= appointmentStartTime &&
+            doctorEndTime >= appointmentEndTime)) {
+            throw new graphql_1.GraphQLError("Doctor is not available at this time");
+        }
+        if (unavailableDoctorStartDate && unavailableDoctorEndDate) {
+            if (appointmentScheduleDate >= unavailableDoctorStartDate &&
+                appointmentScheduleDate <= unavailableDoctorEndDate) {
+                if ((appointmentStartTime >= unavailableDoctorStartTime &&
+                    appointmentStartTime < unavailableDoctorEndTime) ||
+                    (appointmentEndTime > unavailableDoctorStartTime &&
+                        appointmentEndTime <= unavailableDoctorEndTime) ||
+                    (appointmentStartTime <= unavailableDoctorStartTime &&
+                        appointmentEndTime >= unavailableDoctorEndTime)) {
+                    throw new graphql_1.GraphQLError("Doctor is unavailable during this time. Please choose another time slot.");
+                }
+            }
+        }
+        if (appointmentScheduleDate === unavailableDoctorOneDay) {
+            if ((appointmentStartTime >= unavailableDoctorStartTime &&
+                appointmentStartTime < unavailableDoctorEndTime) ||
+                (appointmentEndTime > unavailableDoctorStartTime &&
+                    appointmentEndTime <= unavailableDoctorEndTime) ||
+                (appointmentStartTime <= unavailableDoctorStartTime &&
+                    appointmentEndTime >= unavailableDoctorEndTime)) {
+                throw new graphql_1.GraphQLError("Doctor is unavailable during this time. Please choose another time slot.");
+            }
+        }
+        console.log("appointmentScheduleDate", appointmentScheduleDate);
+        const doctorAppointments = await prisma_1.default.appointment.findMany({
+            where: {
+                doctorId: doctor.doctorId,
+                scheduledDate,
+                id: {
+                    not: patientId,
+                },
+                OR: [
+                    {
+                        startTime: {
+                            lte: endTime,
+                        },
+                        endTime: {
+                            gte: startTime,
+                        },
+                    },
+                    {
+                        startTime: {
+                            gte: startTime,
+                        },
+                        endTime: {
+                            lte: endTime,
+                        },
+                    },
+                ],
+            },
+        });
+        if (doctorAppointments.length > 0) {
+            throw new graphql_1.GraphQLError(" The selected time slot is already booked by another patient. Please select a different time.");
+        }
+        await prisma_1.default.appointment.update({
+            where: { id: patientId },
+            data: {
+                scheduledDate,
+                startTime: parsedStartTime,
+                endTime: parsedEndTime,
+                status: "UPCOMING",
+            },
+        });
+        return "Appointment reschedule ";
     }
 };
 exports.AppointmentResolver = AppointmentResolver;
@@ -316,6 +577,35 @@ __decorate([
     __metadata("design:paramtypes", [String, String, String, String, String, String, String, Array, String, Date, String, String, Number, Number, Object]),
     __metadata("design:returntype", Promise)
 ], AppointmentResolver.prototype, "updateAppointment", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => String),
+    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
+    __param(0, (0, type_graphql_1.Arg)("PatientId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], AppointmentResolver.prototype, "cancelAppointment", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => String),
+    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth, MiddleWare_1.isDoctor),
+    __param(0, (0, type_graphql_1.Arg)("PatientId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], AppointmentResolver.prototype, "completeAppointment", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => String),
+    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
+    __param(0, (0, type_graphql_1.Arg)("PatientId")),
+    __param(1, (0, type_graphql_1.Arg)("scheduledDate")),
+    __param(2, (0, type_graphql_1.Arg)("startTime")),
+    __param(3, (0, type_graphql_1.Arg)("endTime")),
+    __param(4, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, String, String, String, Object]),
+    __metadata("design:returntype", Promise)
+], AppointmentResolver.prototype, "rescheduleAppointment", null);
 exports.AppointmentResolver = AppointmentResolver = __decorate([
     (0, type_graphql_1.Resolver)(() => type_graphql_2.Patient)
 ], AppointmentResolver);
+cron_1.cronAppointments;

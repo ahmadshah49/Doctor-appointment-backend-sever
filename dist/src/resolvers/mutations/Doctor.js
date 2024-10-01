@@ -16,28 +16,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorResolver = void 0;
+const graphql_1 = require("graphql");
 const type_graphql_1 = require("type-graphql");
 const type_graphql_2 = require("../../generated/type-graphql");
-const MiddleWare_1 = require("../../middleware/MiddleWare");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-const graphql_1 = require("graphql");
+const MiddleWare_1 = require("../../middleware/MiddleWare");
 const ImageUploader_1 = require("../../utils/ImageUploader");
 let DoctorResolver = class DoctorResolver {
-    async allDoctor() {
-        try {
-            const doctor = await prisma_1.default.doctor.findMany({
-                include: {
-                    AvailabilitySlot: true,
-                },
-            });
-            console.log("Doctor", doctor);
-            return doctor;
-        }
-        catch (error) {
-            console.log("Error While Getting doctors", error);
-            throw new graphql_1.GraphQLError("Error While Getting doctors");
-        }
-    }
     async createDoctor(name, profilePhoto, address, availability, email, isAvailable, gender, context) {
         const currentUserId = context.payload?.userId;
         const dbUser = await prisma_1.default.doctor.findUnique({
@@ -93,13 +78,6 @@ let DoctorResolver = class DoctorResolver {
     }
 };
 exports.DoctorResolver = DoctorResolver;
-__decorate([
-    (0, type_graphql_1.Query)(() => [type_graphql_2.Doctor]),
-    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], DoctorResolver.prototype, "allDoctor", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
     (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth, MiddleWare_1.isDoctor),

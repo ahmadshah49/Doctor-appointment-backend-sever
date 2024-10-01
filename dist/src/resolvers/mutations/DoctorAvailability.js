@@ -22,6 +22,7 @@ const type_graphql_1 = require("type-graphql");
 const type_graphql_2 = require("../../generated/type-graphql");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
 const MiddleWare_1 = require("../../middleware/MiddleWare");
+const SendAppointmentCancelEmail_1 = require("../../utils/SendAppointmentCancelEmail");
 let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
     async AddDoctorAvailability(context, startTime, endTime, isBooked) {
         // if (!startDate) {
@@ -168,6 +169,9 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
         if (new Date(startDate) >= new Date(endDate)) {
             throw new graphql_1.GraphQLError("Start date must be before end date");
         }
+        if (new Date(startTime) >= new Date(endTime)) {
+            throw new graphql_1.GraphQLError("Start time must be before end date");
+        }
         if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startDate))) {
             throw new graphql_1.GraphQLError("Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
         }
@@ -199,7 +203,24 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
                 reason,
             },
         });
-        return "Unavailability Added";
+        const affectedAppointments = await prisma_1.default.appointment.findMany({
+            where: {
+                doctorId,
+                scheduledDate: {
+                    gte: parsedStartDate,
+                    lte: parsedEndDate,
+                },
+                status: "UPCOMING",
+            },
+        });
+        for (const appointment of affectedAppointments) {
+            await prisma_1.default.appointment.update({
+                where: { id: appointment.id },
+                data: { status: "CANCELLED" },
+            });
+            (0, SendAppointmentCancelEmail_1.sendAppointmentCancelEmail)(appointment.email, appointment.scheduledDate, appointment.fullName);
+            return "Unavailability Added";
+        }
     }
     async updateDoctorUnavailability(context, doctorId, startTime, endTime, startDate, endDate, reason, isAvailable) {
         if (!doctorId || !startTime || !endTime) {
@@ -207,6 +228,9 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
         }
         if (new Date(startDate) >= new Date(endDate)) {
             throw new graphql_1.GraphQLError("Start date must be before end date");
+        }
+        if (new Date(startTime) >= new Date(endTime)) {
+            throw new graphql_1.GraphQLError("Start time must be before end date");
         }
         if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startDate))) {
             throw new graphql_1.GraphQLError("Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
@@ -242,6 +266,24 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
                 reason,
             },
         });
+        const affectedAppointments = await prisma_1.default.appointment.findMany({
+            where: {
+                doctorId,
+                scheduledDate: {
+                    gte: parsedStartDate,
+                    lte: parsedEndDate,
+                },
+                status: "UPCOMING",
+            },
+        });
+        for (const appointment of affectedAppointments) {
+            console.log("Doctor Email", appointment.email);
+            await prisma_1.default.appointment.update({
+                where: { id: appointment.id },
+                data: { status: "CANCELLED" },
+            });
+            (0, SendAppointmentCancelEmail_1.sendAppointmentCancelEmail)(appointment.email, appointment.scheduledDate, appointment.fullName);
+        }
         return "Unavailability Updated";
     }
 };
