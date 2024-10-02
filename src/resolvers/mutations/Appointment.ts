@@ -7,6 +7,9 @@ import { cronAppointments } from "../../cron";
 import { gender, Patient } from "../../generated/type-graphql";
 import Prisma from "../../lib/prisma";
 import { isAuth, isDoctor } from "../../middleware/MiddleWare";
+import { DateNotinPast, InvalidDateTime } from "../../validations/Validation";
+import { MultipleImagesUploader } from "../../utils/MultipleImagesUploader";
+
 @Resolver(() => Patient)
 export class AppointmentResolver {
   @Mutation(() => String)
@@ -27,7 +30,6 @@ export class AppointmentResolver {
     @Arg("endTime") endTime: string,
     @Arg("doctorId") doctorId: number,
     @Ctx() context: Context
-    // @Arg("patientId") patientId: number
   ) {
     if (
       !fullName ||
@@ -43,19 +45,15 @@ export class AppointmentResolver {
     ) {
       throw new GraphQLError("Please add all required Fields");
     }
-    if (!isValid(parseISO(startTime))) {
-      throw new GraphQLError(
-        "Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-      );
-    }
+    InvalidDateTime({ startTime, endTime });
 
-    if (!isValid(parseISO(endTime))) {
-      throw new GraphQLError(
-        "Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-      );
-    }
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
+    DateNotinPast({
+      startTime: parsedStartTime,
+      datescheduleDate: scheduledDate,
+      endTime: parsedEndTime,
+    });
     if (parsedStartTime >= parsedEndTime) {
       throw new GraphQLError(
         "Start time must be before end time on the same day."
@@ -123,26 +121,12 @@ export class AppointmentResolver {
       .utc(startTime)
 
       .format("HH:mm:ss");
-    const LocalappointmentEndTime = moment
-      .utc(endTime)
+    const LocalappointmentEndTime = moment.utc(endTime).format("HH:mm:ss");
 
-      .format("HH:mm:ss");
-    // console.log("LocalappointmentStartTime:", LocalappointmentStartTime); // Will log based on your system's time zone
-    // console.log("LocalappointmentEndTime:", LocalappointmentEndTime);
     console.log(
       "parsedStartTime:",
       moment.utc(parsedStartTime).format("HH:mm:ss")
     );
-    console.log("parsedEndTime:", moment.utc(parsedEndTime).format("HH:mm:ss"));
-    console.log("appointmentStartTime", appointmentStartTime);
-    console.log("appointmentEndTime", appointmentEndTime);
-    console.log("unavailableDoctorOneDay", unavailableDoctorOneDay);
-    console.log("appointmentStartTime", appointmentStartTime);
-    console.log("unavailableDoctorStartTime", unavailableDoctorStartTime);
-    console.log("unavailableDoctorEndTime", unavailableDoctorEndTime);
-    console.log("appointmentEndTime", appointmentEndTime);
-    console.log("Doctor Start Time", doctorStartTime);
-    console.log("Doctor End Time", doctorEndTime);
 
     if (
       !(
@@ -185,7 +169,6 @@ export class AppointmentResolver {
         );
       }
     }
-    console.log("appointmentScheduleDate", appointmentScheduleDate);
 
     const doctorAppointments = await Prisma.appointment.findMany({
       where: {
@@ -218,7 +201,6 @@ export class AppointmentResolver {
       );
     }
 
-    // const ImageUrl = await ImageUploader(presciptions);
     await Prisma.appointment.create({
       data: {
         address,
@@ -257,7 +239,6 @@ export class AppointmentResolver {
     @Arg("doctorId") doctorId: number,
     @Arg("appointmentIdForUpdate") appointmentIdForUpdate: number,
     @Ctx() context: Context
-    // @Arg("patientId") patientId: number
   ) {
     if (
       !fullName ||
@@ -275,20 +256,15 @@ export class AppointmentResolver {
       throw new GraphQLError("Please add all required Fields");
     }
 
-    if (!isValid(parseISO(startTime))) {
-      throw new GraphQLError(
-        "Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-      );
-    }
+    InvalidDateTime({ startTime, endTime });
 
-    if (!isValid(parseISO(endTime))) {
-      throw new GraphQLError(
-        "Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-      );
-    }
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
-
+    DateNotinPast({
+      startTime: parsedStartTime,
+      datescheduleDate: scheduledDate,
+      endTime: parsedEndTime,
+    });
     if (parsedStartTime >= parsedEndTime) {
       throw new GraphQLError(
         "Start time must be before end time on the same day."
@@ -298,7 +274,7 @@ export class AppointmentResolver {
     if (context.payload.role !== "PATIENT") {
       throw new GraphQLError("You are not patient so you can't di this action");
     }
-    console.log("User Role", context.payload?.role);
+
     const currentUserId = context.payload?.userId;
     if (!currentUserId) {
       throw new GraphQLError("User not found");
@@ -342,9 +318,6 @@ export class AppointmentResolver {
     if (!checkDoctorAvailability) {
       throw new GraphQLError("Doctor availability not found!");
     }
-    if (!checkDoctorAvailability) {
-      throw new GraphQLError("Doctor availability not found!");
-    }
 
     const doctorStartTime = moment
       .utc(checkDoctorAvailability?.startTime)
@@ -355,28 +328,6 @@ export class AppointmentResolver {
     const appointmentScheduleDate = moment(scheduledDate).format("YYYY-MM-DD");
     const appointmentStartTime = moment.utc(startTime).format("HH:mm:ss");
     const appointmentEndTime = moment.utc(endTime).format("HH:mm:ss");
-    const LocalappointmentStartTime = moment
-      .utc(startTime)
-
-      .format("HH:mm:ss");
-    const LocalappointmentEndTime = moment
-      .utc(endTime)
-
-      .format("HH:mm:ss");
-    console.log(
-      "parsedStartTime:",
-      moment.utc(parsedStartTime).format("HH:mm:ss")
-    );
-    console.log("parsedEndTime:", moment.utc(parsedEndTime).format("HH:mm:ss"));
-    console.log("appointmentStartTime", appointmentStartTime);
-    console.log("appointmentEndTime", appointmentEndTime);
-    console.log("unavailableDoctorOneDay", unavailableDoctorOneDay);
-    console.log("appointmentStartTime", appointmentStartTime);
-    console.log("unavailableDoctorStartTime", unavailableDoctorStartTime);
-    console.log("unavailableDoctorEndTime", unavailableDoctorEndTime);
-    console.log("appointmentEndTime", appointmentEndTime);
-    console.log("Doctor Start Time", doctorStartTime);
-    console.log("Doctor End Time", doctorEndTime);
 
     if (
       !(
@@ -463,6 +414,17 @@ export class AppointmentResolver {
         " The selected time slot is already booked by another patient. Please select a different time."
       );
     }
+    let imageUrl = null;
+    if (presciptions) {
+      try {
+        imageUrl = await MultipleImagesUploader(presciptions);
+      } catch (error) {
+        throw new GraphQLError(
+          "Error uploading profile picture: ",
+          error.message
+        );
+      }
+    }
 
     await Prisma.appointment.update({
       where: {
@@ -476,13 +438,14 @@ export class AppointmentResolver {
         gender,
         phoneNo,
         details,
-        presciptions,
+        presciptions: imageUrl,
         startTime,
         endTime,
         scheduledDate,
         patientId: currentUserId,
         doctorId,
         medicalHistory,
+        status: "UPCOMING",
       },
     });
     return "Appointment updated";
@@ -545,13 +508,20 @@ export class AppointmentResolver {
     const doctor = await Prisma.appointment.findUnique({
       where: { id: patientId },
     });
+
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
+
     if (parsedStartTime >= parsedEndTime) {
       throw new GraphQLError(
         "Start time must be before end time on the same day."
       );
     }
+    DateNotinPast({
+      startTime: parsedStartTime,
+      stringscheduleDate: scheduledDate,
+      endTime: parsedEndTime,
+    });
     const checkDoctorAvailability = await Prisma.availabilitySlot.findFirst({
       where: {
         doctorId: doctor.doctorId,
@@ -595,24 +565,6 @@ export class AppointmentResolver {
     const appointmentScheduleDate = moment(scheduledDate).format("YYYY-MM-DD");
     const appointmentStartTime = moment.utc(startTime).format("HH:mm:ss");
     const appointmentEndTime = moment.utc(endTime).format("HH:mm:ss");
-    const LocalappointmentStartTime = moment.utc(startTime).format("HH:mm:ss");
-    const LocalappointmentEndTime = moment.utc(endTime).format("HH:mm:ss");
-    // console.log("LocalappointmentStartTime:", LocalappointmentStartTime); // Will log based on your system's time zone
-    // console.log("LocalappointmentEndTime:", LocalappointmentEndTime);
-    console.log(
-      "parsedStartTime:",
-      moment.utc(parsedStartTime).format("HH:mm:ss")
-    );
-    console.log("parsedEndTime:", moment.utc(parsedEndTime).format("HH:mm:ss"));
-    console.log("appointmentStartTime", appointmentStartTime);
-    console.log("appointmentEndTime", appointmentEndTime);
-    console.log("unavailableDoctorOneDay", unavailableDoctorOneDay);
-    console.log("appointmentStartTime", appointmentStartTime);
-    console.log("unavailableDoctorStartTime", unavailableDoctorStartTime);
-    console.log("unavailableDoctorEndTime", unavailableDoctorEndTime);
-    console.log("appointmentEndTime", appointmentEndTime);
-    console.log("Doctor Start Time", doctorStartTime);
-    console.log("Doctor End Time", doctorEndTime);
 
     if (
       !(
@@ -702,6 +654,5 @@ export class AppointmentResolver {
     });
     return "Appointment reschedule ";
   }
-  
 }
 cronAppointments;

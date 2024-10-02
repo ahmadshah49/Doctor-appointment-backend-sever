@@ -6,6 +6,7 @@ import { AvailabilitySlot } from "../../generated/type-graphql";
 import Prisma from "../../lib/prisma";
 import { isAuth, isDoctor } from "../../middleware/MiddleWare";
 import { sendAppointmentCancelEmail } from "../../utils/SendAppointmentCancelEmail";
+import { DateNotinPastforDoctor } from "../../validations/Validation";
 
 @Resolver(() => AvailabilitySlot)
 export class DoctorAvailabilityResvolver {
@@ -13,42 +14,20 @@ export class DoctorAvailabilityResvolver {
   @UseMiddleware(isAuth, isDoctor)
   async AddDoctorAvailability(
     @Ctx() context: Context,
-
-    // @Arg("startDate") startDate: string,
-    // @Arg("endDate") endDate: string,
     @Arg("startTime") startTime: string,
     @Arg("endTime") endTime: string,
     @Arg("isBooked", { nullable: true }) isBooked: boolean
   ) {
-    // if (!startDate) {
-    //   throw new GraphQLError("Please add an availability start day");
-    // }
-    // if (!endDate) {
-    //   throw new GraphQLError("Please add an availability end day");
-    // }
     if (!startTime) {
       throw new GraphQLError("Please add availability start time");
     }
     if (!endTime) {
       throw new GraphQLError("Please add availability end time");
     }
-    // if (new Date(startDate) >= new Date(endDate)) {
-    //   throw new GraphQLError("Start date must be before end date");
-    // }
+
     if (new Date(startTime) >= new Date(endTime)) {
       throw new GraphQLError("Start time must be before end time");
     }
-    // if (!isValid(parseISO(startDate))) {
-    //   throw new GraphQLError(
-    //     "Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-    //   );
-    // }
-
-    // if (!isValid(parseISO(endDate))) {
-    //   throw new GraphQLError(
-    //     "Invalid endDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-    //   );
-    // }
 
     if (!isValid(parseISO(startTime))) {
       throw new GraphQLError(
@@ -62,26 +41,9 @@ export class DoctorAvailabilityResvolver {
       );
     }
 
-    // const parsedStartDate = parseISO(startDate);
-    // const parsedEndDate = parseISO(endDate);
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
 
-    // const startHour = parsedStartTime.getUTCHours();
-    // const startMinutes = parsedStartTime.getMinutes();
-
-    // const endHour = parsedEndTime.getUTCHours();
-    // const endMinutes = parsedEndTime.getMinutes();
-
-    // const formattedStartTime = `${startHour}:${startMinutes}`;
-    // const formattedEndTime = `${endHour}:${endMinutes}`;
-
-    // Check that startDate is not after endDate
-    // if (parsedStartDate > parsedEndDate) {
-    //   throw new GraphQLError("Start date must be before or equal to end date.");
-    // }
-
-    // Check that startTime is not after endTime on the same day
     if (
       parsedStartTime.getTime() === parsedEndTime.getTime() &&
       parsedStartTime >= parsedEndTime
@@ -102,10 +64,18 @@ export class DoctorAvailabilityResvolver {
     if (!doctor) {
       throw new GraphQLError("Doctor not found");
     }
+    const existingAvailabilitySlot = await Prisma.availabilitySlot.findUnique({
+      where: {
+        doctorId: currentUserId,
+      },
+    });
+    if (existingAvailabilitySlot) {
+      throw new GraphQLError(
+        "Availability slot already exists for this doctor. Please update the existing slot instead of creating a new one."
+      );
+    }
     await Prisma.availabilitySlot.create({
       data: {
-        // startDate: parsedStartDate,
-        // endDate: parsedEndDate,
         startTime: parsedStartTime,
         endTime: parsedEndTime,
         isBooked: isBooked ?? false,
@@ -119,41 +89,20 @@ export class DoctorAvailabilityResvolver {
   async updateDoctorAvailability(
     @Ctx() context: Context,
 
-    // @Arg("startDate") startDate: string,
-    // @Arg("endDate") endDate: string,
     @Arg("startTime") startTime: string,
     @Arg("endTime") endTime: string,
     @Arg("isBooked", { nullable: true }) isBooked: boolean
   ) {
-    // if (!startDate) {
-    //   throw new GraphQLError("Please add an availability start day");
-    // }
-    // if (!endDate) {
-    //   throw new GraphQLError("Please add an availability end day");
-    // }
     if (!startTime) {
       throw new GraphQLError("Please add availability start time");
     }
     if (!endTime) {
       throw new GraphQLError("Please add availability end time");
     }
-    // if (new Date(startDate) >= new Date(endDate)) {
-    //   throw new GraphQLError("Start date must be before end date");
-    // }
+
     if (new Date(startTime) >= new Date(endTime)) {
       throw new GraphQLError("Start time must be before end time");
     }
-    // if (!isValid(parseISO(startDate))) {
-    //   throw new GraphQLError(
-    //     "Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-    //   );
-    // }
-
-    // if (!isValid(parseISO(endDate))) {
-    //   throw new GraphQLError(
-    //     "Invalid endDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-    //   );
-    // }
 
     if (!isValid(parseISO(startTime))) {
       throw new GraphQLError(
@@ -167,8 +116,6 @@ export class DoctorAvailabilityResvolver {
       );
     }
 
-    // const parsedStartDate = parseISO(startDate);
-    // const parsedEndDate = parseISO(endDate);
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
 
@@ -188,8 +135,6 @@ export class DoctorAvailabilityResvolver {
         doctorId: currentUserId,
       },
       data: {
-        // startDate: parsedStartDate,
-        // endDate: parsedEndDate,
         startTime: parsedStartTime,
         endTime: parsedEndTime,
         isBooked: isBooked ?? false,
@@ -217,7 +162,7 @@ export class DoctorAvailabilityResvolver {
       throw new GraphQLError("Start date must be before end date");
     }
     if (new Date(startTime) >= new Date(endTime)) {
-      throw new GraphQLError("Start time must be before end date");
+      throw new GraphQLError("Start time must be before end time");
     }
     if (!isValid(parseISO(startDate))) {
       throw new GraphQLError(
@@ -244,10 +189,27 @@ export class DoctorAvailabilityResvolver {
     if (!currentUserId) {
       throw new GraphQLError("User not found");
     }
+    const existingUnavailabilitySlot =
+      await Prisma.unavailabilitySlot.findUnique({
+        where: {
+          doctorId: currentUserId,
+        },
+      });
+    if (existingUnavailabilitySlot) {
+      throw new GraphQLError(
+        "Unavailability slot already exists for this doctor. Please update the existing slot instead of creating a new one."
+      );
+    }
     const parsedStartDate = parseISO(startDate);
     const parsedEndDate = parseISO(endDate);
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
+    DateNotinPastforDoctor({
+      startTime: parsedStartTime,
+      startDate: parsedStartDate,
+      endDate: parsedEndDate,
+      endTime: parsedEndTime,
+    });
     await Prisma.unavailabilitySlot.create({
       data: {
         endTime: parsedEndTime,
@@ -298,11 +260,12 @@ export class DoctorAvailabilityResvolver {
       throw new GraphQLError("Please Add doctor id ,start time and end time");
     }
     if (new Date(startDate) >= new Date(endDate)) {
-      throw new GraphQLError("Start date must be before end date");
+      throw new GraphQLError("Start date must be before end time");
     }
     if (new Date(startTime) >= new Date(endTime)) {
       throw new GraphQLError("Start time must be before end date");
     }
+
     if (!isValid(parseISO(startDate))) {
       throw new GraphQLError(
         "Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
@@ -329,7 +292,14 @@ export class DoctorAvailabilityResvolver {
     const parsedEndDate = parseISO(endDate);
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
+    DateNotinPastforDoctor({
+      startTime: parsedStartTime,
+      startDate: parsedStartDate,
+      endDate: parsedEndDate,
+      endTime: parsedEndTime,
+    });
     const currentUserId = context.payload.userId;
+
     if (!currentUserId) {
       throw new GraphQLError("User not found");
     }

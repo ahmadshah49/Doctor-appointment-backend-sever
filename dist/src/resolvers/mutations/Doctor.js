@@ -58,7 +58,15 @@ let DoctorResolver = class DoctorResolver {
     }
     async updateDoctor(name, profilePhoto, address, availability, email, isAvailable, gender, context) {
         const currentUserId = context.payload?.userId;
-        const addProfileImage = await (0, ImageUploader_1.ImageUploader)(profilePhoto);
+        let imageUrl = null;
+        if (profilePhoto) {
+            try {
+                imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePhoto);
+            }
+            catch (error) {
+                throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
+            }
+        }
         await prisma_1.default.doctor.update({
             where: {
                 userId: currentUserId,
@@ -70,7 +78,7 @@ let DoctorResolver = class DoctorResolver {
                 name,
                 availability,
                 isAvailable,
-                profilePhoto: addProfileImage || null,
+                profilePhoto: imageUrl || null,
                 userId: currentUserId,
             },
         });

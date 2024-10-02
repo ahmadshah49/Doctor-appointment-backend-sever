@@ -1,7 +1,7 @@
 import cron from "node-cron";
 import Prisma from "./lib/prisma";
 import moment from "moment";
-export const cronAppointments = cron.schedule("*/5 * * * *", async () => {
+export const cronAppointments = cron.schedule("*/1 * * * *", async () => {
   const upcomingAppointments = await Prisma.appointment.findMany({
     where: {
       status: {
@@ -10,25 +10,17 @@ export const cronAppointments = cron.schedule("*/5 * * * *", async () => {
     },
   });
   upcomingAppointments.forEach(async (appointment) => {
-    const currentDate = moment(); // Current Date and Time
+    const currentDate = moment();
 
-    // Assuming appointment.scheduledDate is the date you want to combine with time
     const appointmentDate = moment(appointment.scheduledDate).format(
       "YYYY-MM-DD"
     );
 
-    // Extract only the time from start and end time
     const startTime = moment.utc(appointment.startTime).format("HH:mm:ss");
     const endTime = moment.utc(appointment.endTime).format("HH:mm:ss");
 
-    // Combine appointment date with start and end times
     const startDateTime = moment(`${appointmentDate} ${startTime}`).utc();
     const endDateTime = moment(`${appointmentDate} ${endTime}`).utc();
-    console.log("startDateTime", startDateTime);
-    console.log("endDateTime", endDateTime);
-    console.log("Current Date", currentDate.format());
-    console.log("Start DateTime", startDateTime.format());
-    console.log("End DateTime", endDateTime.format());
 
     if (currentDate.isBetween(startDateTime, endDateTime)) {
       await Prisma.appointment.update({
@@ -39,8 +31,7 @@ export const cronAppointments = cron.schedule("*/5 * * * *", async () => {
           status: "IN_PROGRESS",
         },
       });
-      console.log("Appointment is in progress");
-    } else if (currentDate.isAfter(endDateTime)) {
+    } else if (currentDate.isAfter(endDateTime.add(30, "minutes"))) {
       await Prisma.appointment.update({
         where: {
           id: appointment.id,
@@ -49,7 +40,6 @@ export const cronAppointments = cron.schedule("*/5 * * * *", async () => {
           status: "MISSED",
         },
       });
-      console.log("Appointment is missed");
     }
   });
 });

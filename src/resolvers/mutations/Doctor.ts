@@ -76,7 +76,17 @@ export class DoctorResolver {
     @Ctx() context: Context
   ) {
     const currentUserId = context.payload?.userId;
-    const addProfileImage = await ImageUploader(profilePhoto);
+    let imageUrl = null;
+    if (profilePhoto) {
+      try {
+        imageUrl = await ImageUploader(profilePhoto);
+      } catch (error) {
+        throw new GraphQLError(
+          "Error uploading profile picture: ",
+          error.message
+        );
+      }
+    }
     await Prisma.doctor.update({
       where: {
         userId: currentUserId,
@@ -89,7 +99,7 @@ export class DoctorResolver {
         name,
         availability,
         isAvailable,
-        profilePhoto: addProfileImage || null,
+        profilePhoto: imageUrl || null,
         userId: currentUserId,
       },
     });

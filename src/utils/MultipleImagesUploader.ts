@@ -9,20 +9,26 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-export const ImageUploader = async (imagePath: string) => {
+// Function to upload multiple images to Cloudinary
+export const MultipleImagesUploader = async (imagePaths: string[]) => {
   try {
     const mainDir = path.resolve(__dirname, "..", "assets", "uploads");
 
-    const fileName = path.join(mainDir, imagePath);
-    console.log("FileName", fileName);
+    const uploadedImages: string[] = [];
 
-    if (!fs.existsSync(fileName)) {
-      throw new GraphQLError(`File not found: ${fileName}`);
+    for (const imagePath of imagePaths) {
+      const fileName = path.join(mainDir, imagePath);
+      console.log("Uploading File:", fileName);
+
+      if (!fs.existsSync(fileName)) {
+        throw new GraphQLError(`File not found: ${fileName}`);
+      }
+
+      const result = await cloudinary.uploader.upload(fileName);
+      uploadedImages.push(result.secure_url);
     }
 
-    const result = await cloudinary.uploader.upload(fileName);
-
-    return result.secure_url;
+    return uploadedImages;
   } catch (error: any) {
     if (error.message.includes("Invalid")) {
       console.error("Cloudinary configuration error:", error);
@@ -31,11 +37,11 @@ export const ImageUploader = async (imagePath: string) => {
       );
     } else if (error.message.includes("File not found")) {
       console.error("File not found:", error);
-      throw new GraphQLError(`The file at path ${imagePath} does not exist.`);
+      throw new GraphQLError(`One or more files in the array do not exist.`);
     } else {
-      console.error("Error uploading image:", error);
+      console.error("Error uploading image(s):", error);
       throw new GraphQLError(
-        "Failed to upload image to Cloudinary. Please try again."
+        "Failed to upload one or more images to Cloudinary. Please try again."
       );
     }
   }

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ImageUploader = void 0;
+exports.MultipleImagesUploader = void 0;
 const cloudinary_1 = require("cloudinary");
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
@@ -13,16 +13,21 @@ cloudinary_1.v2.config({
     api_key: process.env.API_KEY,
     api_secret: process.env.API_SECRET,
 });
-const ImageUploader = async (imagePath) => {
+// Function to upload multiple images to Cloudinary
+const MultipleImagesUploader = async (imagePaths) => {
     try {
         const mainDir = path_1.default.resolve(__dirname, "..", "assets", "uploads");
-        const fileName = path_1.default.join(mainDir, imagePath);
-        console.log("FileName", fileName);
-        if (!fs_1.default.existsSync(fileName)) {
-            throw new graphql_1.GraphQLError(`File not found: ${fileName}`);
+        const uploadedImages = [];
+        for (const imagePath of imagePaths) {
+            const fileName = path_1.default.join(mainDir, imagePath);
+            console.log("Uploading File:", fileName);
+            if (!fs_1.default.existsSync(fileName)) {
+                throw new graphql_1.GraphQLError(`File not found: ${fileName}`);
+            }
+            const result = await cloudinary_1.v2.uploader.upload(fileName);
+            uploadedImages.push(result.secure_url);
         }
-        const result = await cloudinary_1.v2.uploader.upload(fileName);
-        return result.secure_url;
+        return uploadedImages;
     }
     catch (error) {
         if (error.message.includes("Invalid")) {
@@ -31,12 +36,12 @@ const ImageUploader = async (imagePath) => {
         }
         else if (error.message.includes("File not found")) {
             console.error("File not found:", error);
-            throw new graphql_1.GraphQLError(`The file at path ${imagePath} does not exist.`);
+            throw new graphql_1.GraphQLError(`One or more files in the array do not exist.`);
         }
         else {
-            console.error("Error uploading image:", error);
-            throw new graphql_1.GraphQLError("Failed to upload image to Cloudinary. Please try again.");
+            console.error("Error uploading image(s):", error);
+            throw new graphql_1.GraphQLError("Failed to upload one or more images to Cloudinary. Please try again.");
         }
     }
 };
-exports.ImageUploader = ImageUploader;
+exports.MultipleImagesUploader = MultipleImagesUploader;
