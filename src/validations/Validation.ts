@@ -1,11 +1,15 @@
+import { isValid, parseISO } from "date-fns";
 import { GraphQLError } from "graphql";
+import moment from "moment";
+
+import { Context } from "../context/Context";
+import Prisma from "../lib/prisma";
 import {
+  AppointmentAlreadyBookedTypes,
   InvalidDateTimeTypes,
   validation,
   validationforDoctor,
 } from "../types/types";
-import { isValid, parseISO } from "date-fns";
-import moment from "moment";
 
 export const DateNotinPast = ({
   endTime,
@@ -70,8 +74,8 @@ export const DateNotinPast = ({
 export const InvalidDateTime = ({
   startTime,
   endTime,
-  datescheduledDate,
-  stringscheduledDate,
+  endDate,
+  startDate,
 }: InvalidDateTimeTypes) => {
   if (!isValid(parseISO(startTime))) {
     throw new GraphQLError(
@@ -81,6 +85,16 @@ export const InvalidDateTime = ({
   if (!isValid(parseISO(endTime))) {
     throw new GraphQLError(
       "Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
+    );
+  }
+  if (endDate && !isValid(parseISO(endDate))) {
+    throw new GraphQLError(
+      "Invalid endDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
+    );
+  }
+  if (startDate && !isValid(parseISO(startDate))) {
+    throw new GraphQLError(
+      "Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
     );
   }
 
@@ -135,5 +149,94 @@ export const DateNotinPastforDoctor = ({
     throw new GraphQLError("Schedule date cannot be in the past");
   }
 
+  return true;
+};
+export const validateUserRole = async (context: Context) => {
+  const currentUserId = context.payload.userId;
+  if (!currentUserId) {
+    throw new GraphQLError("User not found");
+  }
+
+  // Fetch user from database
+  const user = await Prisma.user.findUnique({
+    where: { id: currentUserId },
+    select: {
+      role: true,
+    },
+  });
+
+  if (!user) {
+    throw new GraphQLError("User not found");
+  }
+
+  // Role-based validation
+  if (user.role === "DOCTOR") {
+    // Doctor-specific validation
+    const isFillDoctorInfo = await Prisma.doctor.findUnique({
+      where: { userId: currentUserId },
+    });
+
+    if (!isFillDoctorInfo) {
+      throw new GraphQLError(
+        "Doctor info is missing. Please fill your details first."
+      );
+    }
+  } else if (user.role === "PATIENT") {
+    // Patient-specific validation
+    const isFillPatientInfo = await Prisma.patient.findUnique({
+      where: { userId: currentUserId },
+    });
+
+    if (!isFillPatientInfo) {
+      throw new GraphQLError(
+        "Patient info is missing. Please fill your details first."
+      );
+    }
+  } else {
+    throw new GraphQLError("Invalid role");
+  }
+
+  return true;
+};
+export const AppointmentAlreadyBooked = async ({
+  doctorId,
+  endTime,
+  scheduledDate,
+  startTime,
+  patientId,
+}: AppointmentAlreadyBookedTypes) => {
+  const doctorAppointments = await Prisma.appointment.findMany({
+    where: {
+      doctorId: doctorId,
+      scheduledDate,
+      id: {
+        not: patientId,
+      },
+      OR: [
+        {
+          startTime: {
+            lte: endTime,
+          },
+          endTime: {
+            gte: startTime,
+          },
+        },
+
+        {
+          startTime: {
+            gte: startTime,
+          },
+          endTime: {
+            lte: endTime,
+          },
+        },
+      ],
+    },
+  });
+  if (doctorAppointments.length > 0) {
+    throw new GraphQLError(
+      " The selected time slot is already booked by another patient. Please select a different time."
+    );
+  }
   return true;
 };

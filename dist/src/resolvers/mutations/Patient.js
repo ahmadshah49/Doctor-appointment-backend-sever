@@ -24,65 +24,77 @@ const MiddleWare_1 = require("../../middleware/MiddleWare");
 const ImageUploader_1 = require("../../utils/ImageUploader");
 let PatientResolver = class PatientResolver {
     async createPatient(phoneNo, fullName, age, gender, adress, email, profilePicture, context) {
-        if (context.payload.role !== "PATIENT") {
-            throw new graphql_1.GraphQLError("Your are not patient you can not register as a user");
-        }
-        if (!phoneNo || !fullName || !age || !gender || !adress || !email) {
-            throw new graphql_1.GraphQLError("Please add all fields");
-        }
-        const currentUserId = context.payload?.userId;
-        const dbUser = await prisma_1.default.patient.findUnique({
-            where: {
-                userId: currentUserId,
-            },
-        });
-        if (dbUser) {
-            throw new graphql_1.GraphQLError("It looks like you’ve already set up your patient information. You can update your details instead of creating new ones.");
-        }
-        let imageUrl = null;
-        if (profilePicture) {
-            try {
-                imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePicture);
+        try {
+            if (context.payload.role !== "PATIENT") {
+                throw new graphql_1.GraphQLError("Your are not patient you can not register as a user");
             }
-            catch (error) {
-                throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
+            if (!phoneNo || !fullName || !age || !gender || !adress || !email) {
+                throw new graphql_1.GraphQLError("Please add all fields");
             }
+            const currentUserId = context.payload?.userId;
+            const dbUser = await prisma_1.default.patient.findUnique({
+                where: {
+                    userId: currentUserId,
+                },
+            });
+            if (dbUser) {
+                throw new graphql_1.GraphQLError("It looks like you’ve already set up your patient information. You can update your details instead of creating new ones.");
+            }
+            let imageUrl = null;
+            if (profilePicture) {
+                try {
+                    imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePicture);
+                }
+                catch (error) {
+                    throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
+                }
+            }
+            const user = await prisma_1.default.patient.create({
+                data: {
+                    address: adress,
+                    age: age,
+                    fullName: fullName,
+                    gender: gender,
+                    phoneNo: phoneNo,
+                    userId: currentUserId,
+                    email,
+                    profilePicture: imageUrl || null,
+                },
+            });
+            return "Patient Created";
         }
-        const user = await prisma_1.default.patient.create({
-            data: {
-                address: adress,
-                age: age,
-                fullName: fullName,
-                gender: gender,
-                phoneNo: phoneNo,
-                userId: currentUserId,
-                email,
-                profilePicture: imageUrl || null,
-            },
-        });
-        return "Patient Created";
+        catch (error) {
+            console.error("Error while creating patient".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
     }
     async updatePatientInfo(phoneNo, fullName, age, email, gender, adress, profilePicture, context) {
-        if (!phoneNo || !fullName || !age || !gender || !adress || !email) {
-            throw new graphql_1.GraphQLError("Please add all fields");
+        try {
+            if (!phoneNo || !fullName || !age || !gender || !adress || !email) {
+                throw new graphql_1.GraphQLError("Please add all fields");
+            }
+            const currentUserId = context.payload?.userId;
+            const addProfileImage = await (0, ImageUploader_1.ImageUploader)(profilePicture);
+            await prisma_1.default.patient.update({
+                where: {
+                    userId: currentUserId,
+                },
+                data: {
+                    address: adress,
+                    age: age,
+                    fullName: fullName,
+                    gender: gender,
+                    phoneNo: phoneNo,
+                    userId: currentUserId,
+                    profilePicture: addProfileImage || null,
+                },
+            });
+            return "Patient Info Updated";
         }
-        const currentUserId = context.payload?.userId;
-        const addProfileImage = await (0, ImageUploader_1.ImageUploader)(profilePicture);
-        await prisma_1.default.patient.update({
-            where: {
-                userId: currentUserId,
-            },
-            data: {
-                address: adress,
-                age: age,
-                fullName: fullName,
-                gender: gender,
-                phoneNo: phoneNo,
-                userId: currentUserId,
-                profilePicture: addProfileImage || null,
-            },
-        });
-        return "Patient Info Updated";
+        catch (error) {
+            console.error("Error while updating patient info".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
     }
 };
 exports.PatientResolver = PatientResolver;

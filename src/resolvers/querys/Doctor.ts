@@ -1,8 +1,9 @@
-import { Arg, Query, Resolver, UseMiddleware } from "type-graphql";
-import { Doctor } from "../../generated/type-graphql";
-import { isAuth } from "../../middleware/MiddleWare";
 import { GraphQLError } from "graphql";
+import { Arg, Query, Resolver, UseMiddleware } from "type-graphql";
+
+import { Doctor } from "../../generated/type-graphql";
 import Prisma from "../../lib/prisma";
+import { isAuth } from "../../middleware/MiddleWare";
 
 @Resolver(() => Doctor)
 export class Doctors {

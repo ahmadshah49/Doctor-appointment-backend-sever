@@ -1,13 +1,13 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { User, role } from "../../generated/type-graphql";
-import Prisma from "../../lib/prisma";
-import { graphql, GraphQLError } from "graphql";
 import * as bcrypt from "bcryptjs";
-import { createOtp, otp } from "../../utils/SendOtp";
-import { sendResetPasswordOtp } from "../../utils/SendResetPassword";
-import { generatJwt } from "../../utils/GenerateJwt";
-import { isAuth } from "../../middleware/MiddleWare";
+import { GraphQLError } from "graphql";
+import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+
 import { Context } from "../../context/Context";
+import { role, User } from "../../generated/type-graphql";
+import Prisma from "../../lib/prisma";
+import { isAuth } from "../../middleware/MiddleWare";
+import { generatJwt } from "../../utils/GenerateJwt";
+import { sendResetPasswordOtp } from "../../utils/SendResetPassword";
 
 @Resolver(() => User)
 export class AuthResolver {
@@ -19,57 +19,62 @@ export class AuthResolver {
     @Arg("password") password: string,
     @Arg("role", () => role, { nullable: true }) role: role.PATIENT
   ) {
-    if (!name || !password || !email || !phoneNo || !role) {
-      throw new GraphQLError("Please fill all fields");
-    }
-    if (email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        throw new GraphQLError("Please provide a valid email address.");
+    try {
+      if (!name || !password || !email || !phoneNo || !role) {
+        throw new GraphQLError("Please fill all fields");
       }
-    }
-    if (phoneNo) {
-      if (phoneNo) {
-        const phoneRegex = /^\+[1-9]{1}[0-9]{1,14}$/;
-        if (!phoneRegex.test(phoneNo)) {
-          throw new GraphQLError("The phone number is not valid.");
+      if (email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          throw new GraphQLError("Please provide a valid email address.");
         }
       }
-    }
-    if (password.length < 8) {
-      throw new GraphQLError("Password must be at least 8 characters long.");
-    }
+      if (phoneNo) {
+        if (phoneNo) {
+          const phoneRegex = /^\+[1-9]{1}[0-9]{1,14}$/;
+          if (!phoneRegex.test(phoneNo)) {
+            throw new GraphQLError("The phone number is not valid.");
+          }
+        }
+      }
+      if (password.length < 8) {
+        throw new GraphQLError("Password must be at least 8 characters long.");
+      }
 
-    const alreadyExistingEmail = await Prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
+      const alreadyExistingEmail = await Prisma.user.findUnique({
+        where: {
+          email,
+        },
+      });
 
-    if (alreadyExistingEmail) {
-      throw new GraphQLError("Email Already Exists");
+      if (alreadyExistingEmail) {
+        throw new GraphQLError("Email Already Exists");
+      }
+      const alreadyExistingPhoneNo = await Prisma.user.findUnique({
+        where: {
+          phoneNumber: phoneNo,
+        },
+      });
+      if (alreadyExistingPhoneNo) {
+        throw new GraphQLError("Phone no Already Exists");
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = await Prisma.user.create({
+        data: {
+          name,
+          email,
+          phoneNumber: phoneNo,
+          role,
+          password: hashedPassword,
+        },
+      });
+
+      return newUser;
+    } catch (error) {
+      console.error("Error while resgister the user".toUpperCase(), error);
+      throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
-    const alreadyExistingPhoneNo = await Prisma.user.findUnique({
-      where: {
-        phoneNumber: phoneNo,
-      },
-    });
-    if (alreadyExistingPhoneNo) {
-      throw new GraphQLError("Phone no Already Exists");
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await Prisma.user.create({
-      data: {
-        name,
-        email,
-        phoneNumber: phoneNo,
-        role,
-        password: hashedPassword,
-      },
-    });
-
-    return newUser;
   }
 
   @Mutation(() => String)
@@ -77,91 +82,101 @@ export class AuthResolver {
     @Arg("email") email: string,
     @Arg("password") password: string
   ) {
-    if (!email || !password) {
-      throw new GraphQLError("Please add email and password");
-    }
-
-    if (email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        throw new GraphQLError("Please provide a valid email address.");
+    try {
+      if (!email || !password) {
+        throw new GraphQLError("Please add email and password");
       }
+
+      if (email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          throw new GraphQLError("Please provide a valid email address.");
+        }
+      }
+      if (password.length < 8) {
+        throw new GraphQLError("Password must be at least 8 characters long.");
+      }
+      const user = await Prisma.user.findUnique({
+        where: { email },
+      });
+      if (!user) {
+        throw new GraphQLError("User Not Found!");
+      }
+      if (!user.password) {
+        throw new GraphQLError("Something went wrong");
+      }
+      const checkpassword = await bcrypt.compare(password, user.password);
+      if (!checkpassword) {
+        throw new GraphQLError("Wrong password");
+      }
+      return generatJwt(user);
+    } catch (error) {
+      console.error("Error while Login with email".toUpperCase(), error);
+      throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
-    if (password.length < 8) {
-      throw new GraphQLError("Password must be at least 8 characters long.");
-    }
-    const user = await Prisma.user.findUnique({
-      where: { email },
-    });
-    if (!user) {
-      throw new GraphQLError("User Not Found!");
-    }
-    if (!user.password) {
-      throw new GraphQLError("Something went wrong");
-    }
-    const checkpassword = await bcrypt.compare(password, user.password);
-    if (!checkpassword) {
-      throw new GraphQLError("Wrong password");
-    }
-    return generatJwt(user);
   }
   @Mutation(() => String)
   async LoginWithPhoneNo(
     @Arg("phoneNo") phoneNo: string,
     @Arg("userOtp") userOtp: string
   ) {
-    if (!phoneNo) {
-      throw new GraphQLError("Please add phone no");
-    }
-    if (phoneNo) {
-      const phoneRegex = /^\+[1-9]{1}[0-9]{1,14}$/;
-      if (!phoneRegex.test(phoneNo)) {
-        throw new GraphQLError("The phone number is not valid.");
+    try {
+      if (!phoneNo) {
+        throw new GraphQLError("Please add phone no");
       }
-    }
-    const user = await Prisma.user.findUnique({
-      where: {
-        phoneNumber: phoneNo,
-      },
-    });
-    if (!user) {
-      throw new GraphQLError("User Not Found!");
-    }
-    if (!userOtp) {
-      const generateOTP = Math.floor(1000 + Math.random() * 9000).toString();
+      if (phoneNo) {
+        const phoneRegex = /^\+[1-9]{1}[0-9]{1,14}$/;
+        if (!phoneRegex.test(phoneNo)) {
+          throw new GraphQLError("The phone number is not valid.");
+        }
+      }
+      const user = await Prisma.user.findUnique({
+        where: {
+          phoneNumber: phoneNo,
+        },
+      });
+      if (!user) {
+        throw new GraphQLError("User Not Found!");
+      }
+      if (!userOtp) {
+        const generateOTP = Math.floor(1000 + Math.random() * 9000).toString();
+        await Prisma.user.updateMany({
+          where: {
+            phoneNumber: phoneNo,
+          },
+          data: {
+            otp: generateOTP,
+            otpExpire: new Date(Date.now() + 5 * 60 * 1000),
+          },
+        });
+
+        console.log(`Phone No is: ${phoneNo} otp is: ${generateOTP}`);
+        return "Otp Sent on Your Mobile";
+      }
+      if (userOtp.length < 4) {
+        throw new GraphQLError("Otp Must be 4 Digts Long!");
+      }
+      if (user.otpExpire && user.otpExpire < new Date()) {
+        throw new GraphQLError("OTP has expired. Please request a new OTP.");
+      }
+      if (user.otp !== userOtp) {
+        throw new GraphQLError("Wrong Otp");
+      }
+
       await Prisma.user.updateMany({
         where: {
           phoneNumber: phoneNo,
         },
         data: {
-          otp: generateOTP,
-          otpExpire: new Date(Date.now() + 5 * 60 * 1000),
+          otp: null,
+          otpExpire: null,
         },
       });
-
-      console.log(`Phone No is: ${phoneNo} otp is: ${generateOTP}`);
-      return "Otp Sent on Your Mobile";
+      return generatJwt(user);
+    } catch (error) {
+      console.error("Error while loging with phone no".toUpperCase(), error);
+      throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
-    if (userOtp.length < 4) {
-      throw new GraphQLError("Otp Must be 4 Digts Long!");
-    }
-    if (user.otpExpire && user.otpExpire < new Date()) {
-      throw new GraphQLError("OTP has expired. Please request a new OTP.");
-    }
-    if (user.otp !== userOtp) {
-      throw new GraphQLError("Wrong Otp");
-    }
-
-    await Prisma.user.updateMany({
-      where: {
-        phoneNumber: phoneNo,
-      },
-      data: {
-        otp: null,
-        otpExpire: null,
-      },
-    });
-    return generatJwt(user);
   }
 
   @Mutation(() => String)
@@ -170,72 +185,79 @@ export class AuthResolver {
     @Arg("token", { nullable: true }) token: string,
     @Arg("newPassword", { nullable: true }) newPassword: string
   ) {
-    if (!email) {
-      throw new GraphQLError("Please add email");
-    }
-    if (email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        throw new GraphQLError("Please provide a valid email address.");
+    try {
+      if (!email) {
+        throw new GraphQLError("Please add email");
       }
-    }
-    const user = await Prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-    if (!user) {
-      throw new GraphQLError("User Not Found!");
-    }
-    if (!token) {
-      const generateToken = Math.floor(
-        100000 + Math.random() * 900000
-      ).toString();
-      await Prisma.user.updateMany({
+      if (email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          throw new GraphQLError("Please provide a valid email address.");
+        }
+      }
+      const user = await Prisma.user.findUnique({
         where: {
           email,
         },
-        data: {
-          resetPasswordToken: generateToken,
-          resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
-        },
       });
-      sendResetPasswordOtp(email, generateToken);
-      return "Reset Password Token Sent on Your Email";
-    }
-    if (token.length < 6) {
-      throw new GraphQLError("Otp Must be 6 Digts Long!");
-    }
-    if (user.tokenExpire && user.tokenExpire < new Date()) {
-      throw new GraphQLError("OTP has expired. Please request a new OTP.");
-    }
-    if (user.token !== token) {
-      throw new GraphQLError("Wrong Otp");
-    }
-    if (user.token === token) {
-      if (!newPassword) {
-        throw new GraphQLError("Enter New Password");
+      if (!user) {
+        throw new GraphQLError("User Not Found!");
       }
-      if (newPassword.length < 8) {
-        throw new GraphQLError("Password must be at least 8 characters long.");
-      }
-      if (user.token === token) {
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await Prisma.user.update({
+      if (!token) {
+        const generateToken = Math.floor(
+          100000 + Math.random() * 900000
+        ).toString();
+        await Prisma.user.updateMany({
           where: {
             email,
           },
           data: {
-            password: hashedPassword,
-            resetPasswordToken: null,
-            resetPasswordTokenExpire: null,
+            resetPasswordToken: generateToken,
+            resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
           },
         });
-        return "Password Changed!";
+        sendResetPasswordOtp(email, generateToken);
+        return "Reset Password Token Sent on Your Email";
       }
-    }
+      if (token.length < 6) {
+        throw new GraphQLError("Otp Must be 6 Digts Long!");
+      }
+      if (user.tokenExpire && user.tokenExpire < new Date()) {
+        throw new GraphQLError("OTP has expired. Please request a new OTP.");
+      }
+      if (user.token !== token) {
+        throw new GraphQLError("Wrong Otp");
+      }
+      if (user.token === token) {
+        if (!newPassword) {
+          throw new GraphQLError("Enter New Password");
+        }
+        if (newPassword.length < 8) {
+          throw new GraphQLError(
+            "Password must be at least 8 characters long."
+          );
+        }
+        if (user.token === token) {
+          const hashedPassword = await bcrypt.hash(newPassword, 10);
+          await Prisma.user.update({
+            where: {
+              email,
+            },
+            data: {
+              password: hashedPassword,
+              resetPasswordToken: null,
+              resetPasswordTokenExpire: null,
+            },
+          });
+          return "Password Changed!";
+        }
+      }
 
-    return "Password Changed you can login with your new Pasword";
+      return "Password Changed you can login with your new Pasword";
+    } catch (error) {
+      console.error("Error while Reset Password".toUpperCase(), error);
+      throw new GraphQLError(error.message || "An unexpected error occurred.");
+    }
   }
   @Mutation(() => String)
   @UseMiddleware(isAuth)
@@ -244,38 +266,43 @@ export class AuthResolver {
     @Arg("newPassword") newPassword: string,
     @Ctx() context: Context
   ) {
-    if (!currentPassword) {
-      throw new GraphQLError("Add current password");
-    }
-    if (!newPassword) {
-      throw new GraphQLError("Add new password");
-    }
-    const userId = context.payload?.userId;
-    const user = await Prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-    });
-    if (!user) {
-      throw new GraphQLError("user not found");
-    }
-    const isCorrectPassword = await bcrypt.compare(
-      currentPassword,
-      user.password
-    );
-    if (!isCorrectPassword) {
-      throw new GraphQLError("incorrect password");
-    }
+    try {
+      if (!currentPassword) {
+        throw new GraphQLError("Add current password");
+      }
+      if (!newPassword) {
+        throw new GraphQLError("Add new password");
+      }
+      const userId = context.payload?.userId;
+      const user = await Prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+      });
+      if (!user) {
+        throw new GraphQLError("user not found");
+      }
+      const isCorrectPassword = await bcrypt.compare(
+        currentPassword,
+        user.password
+      );
+      if (!isCorrectPassword) {
+        throw new GraphQLError("incorrect password");
+      }
 
-    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-    await context.prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        password: hashedNewPassword,
-      },
-    });
-    return "Password Changed";
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+      await context.prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          password: hashedNewPassword,
+        },
+      });
+      return "Password Changed";
+    } catch (error) {
+      console.error("Error while changing password".toUpperCase(), error);
+      throw new GraphQLError(error.message || "An unexpected error occurred.");
+    }
   }
 }

@@ -3,10 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DateNotinPastforDoctor = exports.InvalidDateTime = exports.DateNotinPast = void 0;
-const graphql_1 = require("graphql");
+exports.AppointmentAlreadyBooked = exports.validateUserRole = exports.DateNotinPastforDoctor = exports.InvalidDateTime = exports.DateNotinPast = void 0;
 const date_fns_1 = require("date-fns");
+const graphql_1 = require("graphql");
 const moment_1 = __importDefault(require("moment"));
+const prisma_1 = __importDefault(require("../lib/prisma"));
 const DateNotinPast = ({ endTime, startTime, datescheduleDate, stringscheduleDate, }) => {
     const currentTimeUTC = (0, moment_1.default)().format("YYYY-MM-DD HH:mm:ss"); // UTC time
     console.log("Current Time (UTC):", currentTimeUTC);
@@ -42,12 +43,18 @@ const DateNotinPast = ({ endTime, startTime, datescheduleDate, stringscheduleDat
     return true;
 };
 exports.DateNotinPast = DateNotinPast;
-const InvalidDateTime = ({ startTime, endTime, datescheduledDate, stringscheduledDate, }) => {
+const InvalidDateTime = ({ startTime, endTime, endDate, startDate, }) => {
     if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startTime))) {
         throw new graphql_1.GraphQLError("Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
     }
     if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endTime))) {
         throw new graphql_1.GraphQLError("Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
+    }
+    if (endDate && !(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endDate))) {
+        throw new graphql_1.GraphQLError("Invalid endDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
+    }
+    if (startDate && !(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startDate))) {
+        throw new graphql_1.GraphQLError("Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
     }
     return true;
 };
@@ -82,3 +89,77 @@ const DateNotinPastforDoctor = ({ endTime, startTime, startDate, endDate, }) => 
     return true;
 };
 exports.DateNotinPastforDoctor = DateNotinPastforDoctor;
+const validateUserRole = async (context) => {
+    const currentUserId = context.payload.userId;
+    if (!currentUserId) {
+        throw new graphql_1.GraphQLError("User not found");
+    }
+    // Fetch user from database
+    const user = await prisma_1.default.user.findUnique({
+        where: { id: currentUserId },
+        select: {
+            role: true,
+        },
+    });
+    if (!user) {
+        throw new graphql_1.GraphQLError("User not found");
+    }
+    // Role-based validation
+    if (user.role === "DOCTOR") {
+        // Doctor-specific validation
+        const isFillDoctorInfo = await prisma_1.default.doctor.findUnique({
+            where: { userId: currentUserId },
+        });
+        if (!isFillDoctorInfo) {
+            throw new graphql_1.GraphQLError("Doctor info is missing. Please fill your details first.");
+        }
+    }
+    else if (user.role === "PATIENT") {
+        // Patient-specific validation
+        const isFillPatientInfo = await prisma_1.default.patient.findUnique({
+            where: { userId: currentUserId },
+        });
+        if (!isFillPatientInfo) {
+            throw new graphql_1.GraphQLError("Patient info is missing. Please fill your details first.");
+        }
+    }
+    else {
+        throw new graphql_1.GraphQLError("Invalid role");
+    }
+    return true;
+};
+exports.validateUserRole = validateUserRole;
+const AppointmentAlreadyBooked = async ({ doctorId, endTime, scheduledDate, startTime, patientId, }) => {
+    const doctorAppointments = await prisma_1.default.appointment.findMany({
+        where: {
+            doctorId: doctorId,
+            scheduledDate,
+            id: {
+                not: patientId,
+            },
+            OR: [
+                {
+                    startTime: {
+                        lte: endTime,
+                    },
+                    endTime: {
+                        gte: startTime,
+                    },
+                },
+                {
+                    startTime: {
+                        gte: startTime,
+                    },
+                    endTime: {
+                        lte: endTime,
+                    },
+                },
+            ],
+        },
+    });
+    if (doctorAppointments.length > 0) {
+        throw new graphql_1.GraphQLError(" The selected time slot is already booked by another patient. Please select a different time.");
+    }
+    return true;
+};
+exports.AppointmentAlreadyBooked = AppointmentAlreadyBooked;

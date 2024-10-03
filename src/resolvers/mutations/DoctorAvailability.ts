@@ -1,12 +1,16 @@
-import { isValid, parseISO } from "date-fns";
+import { parseISO } from "date-fns";
 import { GraphQLError } from "graphql";
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+
 import { Context } from "../../context/Context";
 import { AvailabilitySlot } from "../../generated/type-graphql";
 import Prisma from "../../lib/prisma";
 import { isAuth, isDoctor } from "../../middleware/MiddleWare";
 import { sendAppointmentCancelEmail } from "../../utils/SendAppointmentCancelEmail";
-import { DateNotinPastforDoctor } from "../../validations/Validation";
+import {
+  DateNotinPastforDoctor,
+  InvalidDateTime,
+} from "../../validations/Validation";
 
 @Resolver(() => AvailabilitySlot)
 export class DoctorAvailabilityResvolver {
@@ -29,17 +33,7 @@ export class DoctorAvailabilityResvolver {
       throw new GraphQLError("Start time must be before end time");
     }
 
-    if (!isValid(parseISO(startTime))) {
-      throw new GraphQLError(
-        "Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-      );
-    }
-
-    if (!isValid(parseISO(endTime))) {
-      throw new GraphQLError(
-        "Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-      );
-    }
+    InvalidDateTime({ startTime, endTime });
 
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
@@ -104,17 +98,7 @@ export class DoctorAvailabilityResvolver {
       throw new GraphQLError("Start time must be before end time");
     }
 
-    if (!isValid(parseISO(startTime))) {
-      throw new GraphQLError(
-        "Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-      );
-    }
-
-    if (!isValid(parseISO(endTime))) {
-      throw new GraphQLError(
-        "Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-      );
-    }
+    InvalidDateTime({ startTime, endTime });
 
     const parsedStartTime = parseISO(startTime);
     const parsedEndTime = parseISO(endTime);
@@ -164,27 +148,8 @@ export class DoctorAvailabilityResvolver {
     if (new Date(startTime) >= new Date(endTime)) {
       throw new GraphQLError("Start time must be before end time");
     }
-    if (!isValid(parseISO(startDate))) {
-      throw new GraphQLError(
-        "Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-      );
-    }
-    if (!isValid(parseISO(endDate))) {
-      throw new GraphQLError(
-        "Invalid endDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-      );
-    }
-    if (!isValid(parseISO(startTime))) {
-      throw new GraphQLError(
-        "Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-      );
-    }
+    InvalidDateTime({ startTime, endTime, startDate, endDate });
 
-    if (!isValid(parseISO(endTime))) {
-      throw new GraphQLError(
-        "Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-      );
-    }
     const currentUserId = context.payload?.userId;
     if (!currentUserId) {
       throw new GraphQLError("User not found");
@@ -265,28 +230,7 @@ export class DoctorAvailabilityResvolver {
     if (new Date(startTime) >= new Date(endTime)) {
       throw new GraphQLError("Start time must be before end date");
     }
-
-    if (!isValid(parseISO(startDate))) {
-      throw new GraphQLError(
-        "Invalid startDate format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-      );
-    }
-    if (!isValid(parseISO(endDate))) {
-      throw new GraphQLError(
-        "Invalid endDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-      );
-    }
-    if (!isValid(parseISO(startTime))) {
-      throw new GraphQLError(
-        "Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
-      );
-    }
-
-    if (!isValid(parseISO(endTime))) {
-      throw new GraphQLError(
-        "Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
-      );
-    }
+    InvalidDateTime({ startTime, endTime, startDate, endDate });
 
     const parsedStartDate = parseISO(startDate);
     const parsedEndDate = parseISO(endDate);

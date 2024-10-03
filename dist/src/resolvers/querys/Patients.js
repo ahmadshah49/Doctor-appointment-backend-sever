@@ -21,71 +21,87 @@ const type_graphql_1 = require("type-graphql");
 const type_graphql_2 = require("../../generated/type-graphql");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
 const MiddleWare_1 = require("../../middleware/MiddleWare");
+const Validation_1 = require("../../validations/Validation");
 let Patients = class Patients {
     async getPatientsByDoctor(context) {
-        const currentUserId = context.payload.userId;
-        if (!currentUserId) {
-            throw new graphql_1.GraphQLError("User not found");
-        }
-        const distinctPatients = await prisma_1.default.appointment.findMany({
-            where: {
-                doctorId: currentUserId,
-            },
-            distinct: ["patientId"],
-            select: {
-                patientId: true,
-            },
-        });
-        const patientIds = distinctPatients.map((appointment) => appointment.patientId);
-        console.log("PatientIds", patientIds);
-        const patients = await prisma_1.default.patient.findMany({
-            where: {
-                userId: {
-                    in: patientIds,
+        try {
+            const currentUserId = context.payload.userId;
+            if (!currentUserId) {
+                throw new graphql_1.GraphQLError("User not found");
+            }
+            await (0, Validation_1.validateUserRole)(context);
+            const distinctPatients = await prisma_1.default.appointment.findMany({
+                where: {
+                    doctorId: currentUserId,
                 },
-            },
-        });
-        return patients;
+                distinct: ["patientId"],
+                select: {
+                    patientId: true,
+                },
+            });
+            const patientIds = distinctPatients.map((appointment) => appointment.patientId);
+            console.log("PatientIds", patientIds);
+            const patients = await prisma_1.default.patient.findMany({
+                where: {
+                    userId: {
+                        in: patientIds,
+                    },
+                },
+            });
+            return patients;
+        }
+        catch (error) {
+            console.error("Error while getting Patients".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
     }
     async getFilteredPatients(gender, minAge, maxAge, context) {
-        const currentUserId = context.payload.userId;
-        if (!currentUserId) {
-            throw new graphql_1.GraphQLError("User not found");
-        }
-        const distinctPatients = await prisma_1.default.appointment.findMany({
-            where: {
-                doctorId: currentUserId,
-            },
-            distinct: ["patientId"],
-            select: {
-                patientId: true,
-            },
-        });
-        if (distinctPatients.length === 0) {
-            return [];
-        }
-        const patientIds = distinctPatients.map((appointment) => appointment.patientId);
-        console.log("PatientIds", patientIds);
-        const patients = await prisma_1.default.patient.findMany({
-            where: {
-                userId: {
-                    in: patientIds,
+        try {
+            const currentUserId = context.payload.userId;
+            if (!currentUserId) {
+                throw new graphql_1.GraphQLError("User not found");
+            }
+            await (0, Validation_1.validateUserRole)(context);
+            const distinctPatients = await prisma_1.default.appointment.findMany({
+                where: {
+                    doctorId: currentUserId,
                 },
-                gender: gender || undefined,
-            },
-        });
-        const filteredPatients = patients.filter((patient) => {
-            const age = parseInt(patient.age);
-            if (isNaN(age))
-                return false;
-            const withinMinAge = minAge ? age >= minAge : true;
-            const withinMaxAge = maxAge ? age <= maxAge : true;
-            return withinMinAge && withinMaxAge;
-        });
-        return filteredPatients;
+                distinct: ["patientId"],
+                select: {
+                    patientId: true,
+                },
+            });
+            if (distinctPatients.length === 0) {
+                return [];
+            }
+            const patientIds = distinctPatients.map((appointment) => appointment.patientId);
+            console.log("PatientIds", patientIds);
+            const patients = await prisma_1.default.patient.findMany({
+                where: {
+                    userId: {
+                        in: patientIds,
+                    },
+                    gender: gender || undefined,
+                },
+            });
+            const filteredPatients = patients.filter((patient) => {
+                const age = parseInt(patient.age);
+                if (isNaN(age))
+                    return false;
+                const withinMinAge = minAge ? age >= minAge : true;
+                const withinMaxAge = maxAge ? age <= maxAge : true;
+                return withinMinAge && withinMaxAge;
+            });
+            return filteredPatients;
+        }
+        catch (error) {
+            console.error("Error while getting appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
     }
     async getAppointmentByPatient(context, patientId) {
         try {
+            await (0, Validation_1.validateUserRole)(context);
             const patient = await prisma_1.default.patient.findUnique({
                 where: { id: patientId },
                 include: {
@@ -98,47 +114,54 @@ let Patients = class Patients {
             return patient;
         }
         catch (error) {
-            console.log("Error", error);
-            throw new graphql_1.GraphQLError("Something went wrong");
+            console.error("Error while getting  appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
     async searchPatientsByDoctor(context, search) {
-        const currentUserId = context.payload.userId;
-        if (!currentUserId) {
-            throw new graphql_1.GraphQLError("User not found");
-        }
-        if (!search || search.trim() === "") {
-            return [];
-        }
-        const distinctPatients = await prisma_1.default.appointment.findMany({
-            where: {
-                doctorId: currentUserId,
-            },
-            distinct: ["patientId"],
-            select: {
-                patientId: true,
-            },
-        });
-        const patientIds = distinctPatients.map((appointment) => appointment.patientId);
-        console.log("PatientIds", patientIds);
-        const searchedPatients = await prisma_1.default.patient.findMany({
-            where: {
-                userId: {
-                    in: patientIds,
+        await (0, Validation_1.validateUserRole)(context);
+        try {
+            const currentUserId = context.payload.userId;
+            if (!currentUserId) {
+                throw new graphql_1.GraphQLError("User not found");
+            }
+            if (!search || search.trim() === "") {
+                return [];
+            }
+            const distinctPatients = await prisma_1.default.appointment.findMany({
+                where: {
+                    doctorId: currentUserId,
                 },
-                ...(search && {
-                    OR: [
-                        {
-                            fullName: {
-                                contains: search,
-                                mode: "insensitive",
+                distinct: ["patientId"],
+                select: {
+                    patientId: true,
+                },
+            });
+            const patientIds = distinctPatients.map((appointment) => appointment.patientId);
+            console.log("PatientIds", patientIds);
+            const searchedPatients = await prisma_1.default.patient.findMany({
+                where: {
+                    userId: {
+                        in: patientIds,
+                    },
+                    ...(search && {
+                        OR: [
+                            {
+                                fullName: {
+                                    contains: search,
+                                    mode: "insensitive",
+                                },
                             },
-                        },
-                    ],
-                }),
-            },
-        });
-        return searchedPatients;
+                        ],
+                    }),
+                },
+            });
+            return searchedPatients;
+        }
+        catch (error) {
+            console.error("Error while searching patients".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
     }
 };
 exports.Patients = Patients;
@@ -153,7 +176,7 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Query)(() => [type_graphql_2.Patient]),
     (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth, MiddleWare_1.isDoctor),
-    __param(0, (0, type_graphql_1.Arg)("gender", () => type_graphql_2.gender, { nullable: true })),
+    __param(0, (0, type_graphql_1.Arg)("gender", () => type_graphql_2.gender)),
     __param(1, (0, type_graphql_1.Arg)("minAge", { nullable: true })),
     __param(2, (0, type_graphql_1.Arg)("maxAge", { nullable: true })),
     __param(3, (0, type_graphql_1.Ctx)()),

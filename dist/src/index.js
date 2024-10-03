@@ -3,11 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const graphql_yoga_1 = require("graphql-yoga");
 const http_1 = require("http");
-const Auth_1 = require("./resolvers/mutations/Auth");
 const type_graphql_1 = require("type-graphql");
+const Auth_1 = require("./resolvers/mutations/Auth");
 const DummyQuery_1 = require("./resolvers/querys/DummyQuery");
 const Context_1 = require("./context/Context");
-const Example_1 = require("./resolvers/mutations/Example");
 const Patient_1 = require("./resolvers/mutations/Patient");
 const Doctor_1 = require("./resolvers/mutations/Doctor");
 const DoctorAvailability_1 = require("./resolvers/mutations/DoctorAvailability");
@@ -20,7 +19,6 @@ const index = async () => {
         resolvers: [
             Auth_1.AuthResolver,
             DummyQuery_1.MinimalQueryResolver,
-            Example_1.ExampleResolver,
             Patient_1.PatientResolver,
             Doctor_1.DoctorResolver,
             DoctorAvailability_1.DoctorAvailabilityResvolver,

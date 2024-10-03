@@ -24,65 +24,77 @@ const MiddleWare_1 = require("../../middleware/MiddleWare");
 const ImageUploader_1 = require("../../utils/ImageUploader");
 let DoctorResolver = class DoctorResolver {
     async createDoctor(name, profilePhoto, address, availability, email, isAvailable, gender, context) {
-        const currentUserId = context.payload?.userId;
-        const dbUser = await prisma_1.default.doctor.findUnique({
-            where: {
-                userId: currentUserId,
-            },
-        });
-        if (dbUser) {
-            throw new graphql_1.GraphQLError("It looks like you’ve already set up your Doctor information. You can update your details instead of creating new ones.");
-        }
-        let imageUrl = null;
-        if (profilePhoto) {
-            try {
-                imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePhoto);
+        try {
+            const currentUserId = context.payload?.userId;
+            const dbUser = await prisma_1.default.doctor.findUnique({
+                where: {
+                    userId: currentUserId,
+                },
+            });
+            if (dbUser) {
+                throw new graphql_1.GraphQLError("It looks like you’ve already set up your Doctor information. You can update your details instead of creating new ones.");
             }
-            catch (error) {
-                throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
+            let imageUrl = null;
+            if (profilePhoto) {
+                try {
+                    imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePhoto);
+                }
+                catch (error) {
+                    throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
+                }
             }
+            await prisma_1.default.doctor.create({
+                data: {
+                    address,
+                    email,
+                    gender,
+                    name,
+                    availability,
+                    isAvailable,
+                    profilePhoto: imageUrl || null,
+                    userId: currentUserId,
+                },
+            });
+            return "Data Added";
         }
-        await prisma_1.default.doctor.create({
-            data: {
-                address,
-                email,
-                gender,
-                name,
-                availability,
-                isAvailable,
-                profilePhoto: imageUrl || null,
-                userId: currentUserId,
-            },
-        });
-        return "Data Added";
+        catch (error) {
+            console.error("Error while adding doctor info".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
     }
     async updateDoctor(name, profilePhoto, address, availability, email, isAvailable, gender, context) {
-        const currentUserId = context.payload?.userId;
-        let imageUrl = null;
-        if (profilePhoto) {
-            try {
-                imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePhoto);
+        try {
+            const currentUserId = context.payload?.userId;
+            let imageUrl = null;
+            if (profilePhoto) {
+                try {
+                    imageUrl = await (0, ImageUploader_1.ImageUploader)(profilePhoto);
+                }
+                catch (error) {
+                    throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
+                }
             }
-            catch (error) {
-                throw new graphql_1.GraphQLError("Error uploading profile picture: ", error.message);
-            }
+            await prisma_1.default.doctor.update({
+                where: {
+                    userId: currentUserId,
+                },
+                data: {
+                    address,
+                    email,
+                    gender,
+                    name,
+                    availability,
+                    isAvailable,
+                    profilePhoto: imageUrl || null,
+                    userId: currentUserId,
+                },
+            });
+            return "Data Updated";
         }
-        await prisma_1.default.doctor.update({
-            where: {
-                userId: currentUserId,
-            },
-            data: {
-                address,
-                email,
-                gender,
-                name,
-                availability,
-                isAvailable,
-                profilePhoto: imageUrl || null,
-                userId: currentUserId,
-            },
-        });
-        return "Data Updated";
+        catch (error) {
+            console.error("Error while updating doctor info".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
     }
 };
 exports.DoctorResolver = DoctorResolver;

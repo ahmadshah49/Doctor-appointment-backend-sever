@@ -1,12 +1,6 @@
 import { GraphQLError } from "graphql";
-import {
-  Arg,
-  Ctx,
-  Mutation,
-  Query,
-  Resolver,
-  UseMiddleware,
-} from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+
 import { Context } from "../../context/Context";
 import { Doctor, gender } from "../../generated/type-graphql";
 import Prisma from "../../lib/prisma";
@@ -27,41 +21,46 @@ export class DoctorResolver {
     @Arg("gender", () => gender) gender: gender,
     @Ctx() context: Context
   ) {
-    const currentUserId = context.payload?.userId;
-    const dbUser = await Prisma.doctor.findUnique({
-      where: {
-        userId: currentUserId,
-      },
-    });
-    if (dbUser) {
-      throw new GraphQLError(
-        "It looks like you’ve already set up your Doctor information. You can update your details instead of creating new ones."
-      );
-    }
-    let imageUrl = null;
-    if (profilePhoto) {
-      try {
-        imageUrl = await ImageUploader(profilePhoto);
-      } catch (error) {
+    try {
+      const currentUserId = context.payload?.userId;
+      const dbUser = await Prisma.doctor.findUnique({
+        where: {
+          userId: currentUserId,
+        },
+      });
+      if (dbUser) {
         throw new GraphQLError(
-          "Error uploading profile picture: ",
-          error.message
+          "It looks like you’ve already set up your Doctor information. You can update your details instead of creating new ones."
         );
       }
+      let imageUrl = null;
+      if (profilePhoto) {
+        try {
+          imageUrl = await ImageUploader(profilePhoto);
+        } catch (error) {
+          throw new GraphQLError(
+            "Error uploading profile picture: ",
+            error.message
+          );
+        }
+      }
+      await Prisma.doctor.create({
+        data: {
+          address,
+          email,
+          gender,
+          name,
+          availability,
+          isAvailable,
+          profilePhoto: imageUrl || null,
+          userId: currentUserId,
+        },
+      });
+      return "Data Added";
+    } catch (error) {
+      console.error("Error while adding doctor info".toUpperCase(), error);
+      throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
-    await Prisma.doctor.create({
-      data: {
-        address,
-        email,
-        gender,
-        name,
-        availability,
-        isAvailable,
-        profilePhoto: imageUrl || null,
-        userId: currentUserId,
-      },
-    });
-    return "Data Added";
   }
   @Mutation(() => String)
   @UseMiddleware(isAuth, isDoctor)
@@ -75,34 +74,39 @@ export class DoctorResolver {
     @Arg("gender", () => gender, { nullable: true }) gender: gender,
     @Ctx() context: Context
   ) {
-    const currentUserId = context.payload?.userId;
-    let imageUrl = null;
-    if (profilePhoto) {
-      try {
-        imageUrl = await ImageUploader(profilePhoto);
-      } catch (error) {
-        throw new GraphQLError(
-          "Error uploading profile picture: ",
-          error.message
-        );
+    try {
+      const currentUserId = context.payload?.userId;
+      let imageUrl = null;
+      if (profilePhoto) {
+        try {
+          imageUrl = await ImageUploader(profilePhoto);
+        } catch (error) {
+          throw new GraphQLError(
+            "Error uploading profile picture: ",
+            error.message
+          );
+        }
       }
-    }
-    await Prisma.doctor.update({
-      where: {
-        userId: currentUserId,
-      },
+      await Prisma.doctor.update({
+        where: {
+          userId: currentUserId,
+        },
 
-      data: {
-        address,
-        email,
-        gender,
-        name,
-        availability,
-        isAvailable,
-        profilePhoto: imageUrl || null,
-        userId: currentUserId,
-      },
-    });
-    return "Data Updated";
+        data: {
+          address,
+          email,
+          gender,
+          name,
+          availability,
+          isAvailable,
+          profilePhoto: imageUrl || null,
+          userId: currentUserId,
+        },
+      });
+      return "Data Updated";
+    } catch (error) {
+      console.error("Error while updating doctor info".toUpperCase(), error);
+      throw new GraphQLError(error.message || "An unexpected error occurred.");
+    }
   }
 }

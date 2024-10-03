@@ -17,6 +17,15 @@ export type validationforDoctor = {
 export type InvalidDateTimeTypes = {
   startTime?: string;
   endTime?: string;
+  endDate?: string;
+  startDate?: string;
   datescheduledDate?: Date;
   stringscheduledDate?: string;
+};
+export type AppointmentAlreadyBookedTypes = {
+  startTime: string;
+  endTime: string;
+  doctorId: number;
+  scheduledDate: Date | string;
+  patientId?: number;
 };

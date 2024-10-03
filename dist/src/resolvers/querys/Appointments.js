@@ -21,21 +21,30 @@ const type_graphql_2 = require("../../generated/type-graphql");
 const MiddleWare_1 = require("../../middleware/MiddleWare");
 const graphql_1 = require("graphql");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
+const Validation_1 = require("../../validations/Validation");
 let GetAppointmentsResolver = class GetAppointmentsResolver {
     async getAppointmentsByDoctor(context) {
-        const currentUserId = context.payload.userId;
-        if (!currentUserId) {
-            throw new graphql_1.GraphQLError("User not found");
+        try {
+            const currentUserId = context.payload.userId;
+            if (!currentUserId) {
+                throw new graphql_1.GraphQLError("User not found");
+            }
+            await (0, Validation_1.validateUserRole)(context);
+            const appointments = await prisma_1.default.appointment.findMany({
+                where: {
+                    doctorId: currentUserId,
+                },
+            });
+            return appointments;
         }
-        const appointments = await prisma_1.default.appointment.findMany({
-            where: {
-                doctorId: currentUserId,
-            },
-        });
-        return appointments;
+        catch (error) {
+            console.error("Error in getAppointmentsByDoctor:", error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
     }
     async getTodayUpcomingAppointments(context) {
         try {
+            await (0, Validation_1.validateUserRole)(context);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const tomorrow = new Date();
@@ -60,12 +69,13 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return upcommingAppointments;
         }
         catch (error) {
-            console.log("Error", error);
-            throw new graphql_1.GraphQLError("Something went wrong");
+            console.error("Error while getting today upcomming appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
     async getTodayCompletedAppointments(context) {
         try {
+            await (0, Validation_1.validateUserRole)(context);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const tomorrow = new Date();
@@ -90,12 +100,13 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return compeltedAppointments;
         }
         catch (error) {
-            console.log("Error", error);
-            throw new graphql_1.GraphQLError("Something went wrong");
+            console.error("Error while getting today completed appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
     async getTodayMissedAppointments(context) {
         try {
+            await (0, Validation_1.validateUserRole)(context);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const tomorrow = new Date();
@@ -120,12 +131,13 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return missedAppointments;
         }
         catch (error) {
-            console.log("Error", error);
-            throw new graphql_1.GraphQLError("Something went wrong");
+            console.log("Error while  geting Today Missed Appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
     async getAllMissedAppointments(context) {
         try {
+            await (0, Validation_1.validateUserRole)(context);
             const currentUserId = context.payload.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");
@@ -139,12 +151,13 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return missedAppointments;
         }
         catch (error) {
-            console.log("Error", error);
-            throw new graphql_1.GraphQLError("Something went wrong");
+            console.log("Error while  geting All Missed Appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
     async getAllUpcomingAppointments(context) {
         try {
+            await (0, Validation_1.validateUserRole)(context);
             const currentUserId = context.payload.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");
@@ -158,12 +171,13 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return upcommingAppointments;
         }
         catch (error) {
-            console.log("Error", error);
-            throw new graphql_1.GraphQLError("Something went wrong");
+            console.log("Error while  geting All Upcommig Appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
     async getAllCompletedAppointments(context) {
         try {
+            await (0, Validation_1.validateUserRole)(context);
             const currentUserId = context.payload.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");
@@ -177,12 +191,13 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return completedAppointments;
         }
         catch (error) {
-            console.log("Error", error);
-            throw new graphql_1.GraphQLError("Something went wrong");
+            console.log("Error while  geting All Completed Appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
     async searchAppointments(context, search) {
         try {
+            await (0, Validation_1.validateUserRole)(context);
             const currentUserId = context.payload.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");
@@ -207,8 +222,8 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return searchAppointments;
         }
         catch (error) {
-            console.log("Error", error);
-            throw new graphql_1.GraphQLError("Something went wrong");
+            console.log("Error while searching Appointments".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
 };
