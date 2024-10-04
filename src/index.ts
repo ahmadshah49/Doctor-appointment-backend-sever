@@ -34,7 +34,9 @@ const index = async () => {
   });
   const server = createServer(yoga);
   server.listen(4000, () => {
-    console.info("Server is running on http://localhost:4000/graphql");
+    console.info(
+      "Server is running on https://doctor-appointment-backend-sever-pvomt1kg8.vercel.app/graphql"
+    );
   });
 };
 index();
