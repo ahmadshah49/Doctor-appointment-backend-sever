@@ -163,19 +163,6 @@ let AppointmentResolver = class AppointmentResolver {
             if (!appointmentIdForUpdate || !doctorId) {
                 throw new graphql_1.GraphQLError("Please add appointmentIdForUpdate and doctorId");
             }
-            // InvalidDateTime({ startTime, endTime });
-            // const parsedStartTime = parseISO(startTime);
-            // const parsedEndTime = parseISO(endTime);
-            // DateNotinPast({
-            //   startTime: parsedStartTime,
-            //   datescheduleDate: scheduledDate,
-            //   endTime: parsedEndTime,
-            // });
-            // if (parsedStartTime >= parsedEndTime) {
-            //   throw new GraphQLError(
-            //     "Start time must be before end time on the same day."
-            //   );
-            // }
             if (context.payload.role !== "PATIENT") {
                 throw new graphql_1.GraphQLError("You are not patient so you can't di this action");
             }
@@ -189,102 +176,6 @@ let AppointmentResolver = class AppointmentResolver {
             if (!checkDoctorId) {
                 throw new graphql_1.GraphQLError("Doctor not found!");
             }
-            // const checkDoctorAvailability = await Prisma.availabilitySlot.findFirst({
-            //   where: {
-            //     doctorId: doctorId,
-            //   },
-            // });
-            // const checkDoctorUnAvailability =
-            //   await Prisma.unavailabilitySlot.findFirst({
-            //     where: {
-            //       doctorId,
-            //     },
-            //   });
-            // const unavailableDoctorStartDate = moment(
-            //   checkDoctorUnAvailability?.startDate
-            // ).format("YYYY-MM-DD");
-            // const unavailableDoctorEndDate = moment(
-            //   checkDoctorUnAvailability?.endDate
-            // ).format("YYYY-MM-DD");
-            // const unavailableDoctorStartTime = moment
-            //   .utc(checkDoctorUnAvailability?.startTime)
-            //   .format("HH:mm:ss");
-            // const unavailableDoctorEndTime = moment
-            //   .utc(checkDoctorUnAvailability?.endTime)
-            //   .format("HH:mm:ss");
-            // const unavailableDoctorOneDay = moment
-            //   .utc(checkDoctorUnAvailability?.startTime)
-            //   .format("YYYY-MM-DD");
-            // if (!checkDoctorAvailability) {
-            //   throw new GraphQLError("Doctor availability not found!");
-            // }
-            // const doctorStartTime = moment
-            //   .utc(checkDoctorAvailability?.startTime)
-            //   .format("HH:mm:ss");
-            // const doctorEndTime = moment
-            //   .utc(checkDoctorAvailability?.endTime)
-            //   .format("HH:mm:ss");
-            // const appointmentScheduleDate =
-            //   moment(scheduledDate).format("YYYY-MM-DD");
-            // const appointmentStartTime = moment.utc(startTime).format("HH:mm:ss");
-            // const appointmentEndTime = moment.utc(endTime).format("HH:mm:ss");
-            // if (
-            //   !(
-            //     doctorStartTime <= appointmentStartTime &&
-            //     doctorEndTime >= appointmentEndTime
-            //   )
-            // ) {
-            //   throw new GraphQLError("Doctor is not available at this time");
-            // }
-            // if (
-            //   !(
-            //     doctorStartTime <= appointmentStartTime &&
-            //     doctorEndTime >= appointmentEndTime
-            //   )
-            // ) {
-            //   throw new GraphQLError("Doctor is not available at this time");
-            // }
-            // if (unavailableDoctorStartDate && unavailableDoctorEndDate) {
-            //   if (
-            //     appointmentScheduleDate >= unavailableDoctorStartDate &&
-            //     appointmentScheduleDate <= unavailableDoctorEndDate
-            //   ) {
-            //     if (
-            //       (appointmentStartTime >= unavailableDoctorStartTime &&
-            //         appointmentStartTime < unavailableDoctorEndTime) ||
-            //       (appointmentEndTime > unavailableDoctorStartTime &&
-            //         appointmentEndTime <= unavailableDoctorEndTime) ||
-            //       (appointmentStartTime <= unavailableDoctorStartTime &&
-            //         appointmentEndTime >= unavailableDoctorEndTime)
-            //     ) {
-            //       throw new GraphQLError(
-            //         "Doctor is unavailable during this time. Please choose another time slot."
-            //       );
-            //     }
-            //   }
-            // }
-            // if (appointmentScheduleDate === unavailableDoctorOneDay) {
-            //   if (
-            //     (appointmentStartTime >= unavailableDoctorStartTime &&
-            //       appointmentStartTime < unavailableDoctorEndTime) ||
-            //     (appointmentEndTime > unavailableDoctorStartTime &&
-            //       appointmentEndTime <= unavailableDoctorEndTime) ||
-            //     (appointmentStartTime <= unavailableDoctorStartTime &&
-            //       appointmentEndTime >= unavailableDoctorEndTime)
-            //   ) {
-            //     throw new GraphQLError(
-            //       "Doctor is unavailable during this time. Please choose another time slot."
-            //     );
-            //   }
-            // }
-            // console.log("appointmentScheduleDate", appointmentScheduleDate);
-            // await AppointmentAlreadyBooked({
-            //   doctorId: doctorId,
-            //   patientId: appointmentIdForUpdate,
-            //   endTime,
-            //   scheduledDate,
-            //   startTime,
-            // });
             let imageUrl = null;
             if (presciptions) {
                 try {
@@ -307,9 +198,6 @@ let AppointmentResolver = class AppointmentResolver {
                     phoneNo,
                     details,
                     presciptions: imageUrl,
-                    // startTime,
-                    // endTime,
-                    // scheduledDate,
                     patientId: currentUserId,
                     doctorId,
                     medicalHistory,

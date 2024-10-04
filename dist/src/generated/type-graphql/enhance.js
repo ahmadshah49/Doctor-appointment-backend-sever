@@ -23,7 +23,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.applyInputTypesEnhanceMap = exports.applyOutputTypesEnhanceMap = exports.applyModelsEnhanceMap = exports.applyRelationResolversEnhanceMap = exports.applyArgsTypesEnhanceMap = exports.applyResolversEnhanceMap = void 0;
+exports.applyResolversEnhanceMap = applyResolversEnhanceMap;
+exports.applyArgsTypesEnhanceMap = applyArgsTypesEnhanceMap;
+exports.applyRelationResolversEnhanceMap = applyRelationResolversEnhanceMap;
+exports.applyModelsEnhanceMap = applyModelsEnhanceMap;
+exports.applyOutputTypesEnhanceMap = applyOutputTypesEnhanceMap;
+exports.applyInputTypesEnhanceMap = applyInputTypesEnhanceMap;
 const tslib = __importStar(require("tslib"));
 const crudResolvers = __importStar(require("./resolvers/crud/resolvers-crud.index"));
 const argsTypes = __importStar(require("./resolvers/crud/args.index"));
@@ -276,7 +281,6 @@ function applyResolversEnhanceMap(resolversEnhanceMap) {
         }
     }
 }
-exports.applyResolversEnhanceMap = applyResolversEnhanceMap;
 function applyArgsTypesEnhanceMap(argsTypesEnhanceMap) {
     for (const argsTypesEnhanceMapKey of Object.keys(argsTypesEnhanceMap)) {
         const argsTypeName = argsTypesEnhanceMapKey;
@@ -286,7 +290,6 @@ function applyArgsTypesEnhanceMap(argsTypesEnhanceMap) {
         applyTypeClassEnhanceConfig(typeConfig, typeClass, typeTarget, argsInfo[argsTypeName]);
     }
 }
-exports.applyArgsTypesEnhanceMap = applyArgsTypesEnhanceMap;
 const relationResolversMap = {
     User: relationResolvers.UserRelationsResolver,
     Doctor: relationResolvers.DoctorRelationsResolver,
@@ -323,7 +326,6 @@ function applyRelationResolversEnhanceMap(relationResolversEnhanceMap) {
         }
     }
 }
-exports.applyRelationResolversEnhanceMap = applyRelationResolversEnhanceMap;
 function applyTypeClassEnhanceConfig(enhanceConfig, typeClass, typePrototype, typeFieldNames) {
     if (enhanceConfig.class) {
         tslib.__decorate(enhanceConfig.class, typeClass);
@@ -360,7 +362,6 @@ function applyModelsEnhanceMap(modelsEnhanceMap) {
         applyTypeClassEnhanceConfig(modelConfig, modelClass, modelTarget, modelsInfo[modelName]);
     }
 }
-exports.applyModelsEnhanceMap = applyModelsEnhanceMap;
 const outputsInfo = {
     AggregateUser: ["_count", "_avg", "_sum", "_min", "_max"],
     UserGroupBy: ["id", "name", "email", "password", "phoneNumber", "role", "token", "tokenExpire", "otp", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture", "_count", "_avg", "_sum", "_min", "_max"],
@@ -423,7 +424,6 @@ function applyOutputTypesEnhanceMap(outputTypesEnhanceMap) {
         applyTypeClassEnhanceConfig(typeConfig, typeClass, typeTarget, outputsInfo[outputTypeName]);
     }
 }
-exports.applyOutputTypesEnhanceMap = applyOutputTypesEnhanceMap;
 const inputsInfo = {
     UserWhereInput: ["AND", "OR", "NOT", "id", "name", "email", "password", "phoneNumber", "role", "token", "tokenExpire", "otp", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture", "doctor", "patient"],
     UserOrderByWithRelationInput: ["id", "name", "email", "password", "phoneNumber", "role", "token", "tokenExpire", "otp", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture", "doctor", "patient"],
@@ -704,4 +704,3 @@ function applyInputTypesEnhanceMap(inputTypesEnhanceMap) {
         applyTypeClassEnhanceConfig(typeConfig, typeClass, typeTarget, inputsInfo[inputTypeName]);
     }
 }
-exports.applyInputTypesEnhanceMap = applyInputTypesEnhanceMap;
