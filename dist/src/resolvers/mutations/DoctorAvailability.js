@@ -26,205 +26,225 @@ const SendAppointmentCancelEmail_1 = require("../../utils/SendAppointmentCancelE
 const Validation_1 = require("../../validations/Validation");
 let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
     async AddDoctorAvailability(context, startTime, endTime, isBooked) {
-        if (!startTime) {
-            throw new graphql_1.GraphQLError("Please add availability start time");
+        try {
+            if (!startTime) {
+                throw new graphql_1.GraphQLError("Please add availability start time");
+            }
+            if (!endTime) {
+                throw new graphql_1.GraphQLError("Please add availability end time");
+            }
+            if (new Date(startTime) >= new Date(endTime)) {
+                throw new graphql_1.GraphQLError("Start time must be before end time");
+            }
+            (0, Validation_1.InvalidDateTime)({ startTime, endTime });
+            const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
+            const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
+            if (parsedStartTime.getTime() === parsedEndTime.getTime() &&
+                parsedStartTime >= parsedEndTime) {
+                throw new graphql_1.GraphQLError("Start time must be before end time on the same day.");
+            }
+            const currentUserId = context.payload.userId;
+            console.log("currentUserId", currentUserId);
+            const doctor = await prisma_1.default.doctor.findUnique({
+                where: { userId: currentUserId },
+            });
+            console.log("Doctor Id", doctor.userId);
+            if (!doctor) {
+                throw new graphql_1.GraphQLError("Doctor not found");
+            }
+            const existingAvailabilitySlot = await prisma_1.default.availabilitySlot.findUnique({
+                where: {
+                    doctorId: currentUserId,
+                },
+            });
+            if (existingAvailabilitySlot) {
+                throw new graphql_1.GraphQLError("Availability slot already exists for this doctor. Please update the existing slot instead of creating a new one.");
+            }
+            await prisma_1.default.availabilitySlot.create({
+                data: {
+                    startTime: parsedStartTime,
+                    endTime: parsedEndTime,
+                    isBooked: isBooked ?? false,
+                    doctorId: currentUserId,
+                },
+            });
+            return "Availability Slot Added";
         }
-        if (!endTime) {
-            throw new graphql_1.GraphQLError("Please add availability end time");
+        catch (error) {
+            throw new graphql_1.GraphQLError(error.message || "an unexpected error occurred");
         }
-        if (new Date(startTime) >= new Date(endTime)) {
-            throw new graphql_1.GraphQLError("Start time must be before end time");
-        }
-        (0, Validation_1.InvalidDateTime)({ startTime, endTime });
-        const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
-        const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
-        if (parsedStartTime.getTime() === parsedEndTime.getTime() &&
-            parsedStartTime >= parsedEndTime) {
-            throw new graphql_1.GraphQLError("Start time must be before end time on the same day.");
-        }
-        const currentUserId = context.payload.userId;
-        console.log("currentUserId", currentUserId);
-        const doctor = await prisma_1.default.doctor.findUnique({
-            where: { userId: currentUserId },
-        });
-        console.log("Doctor Id", doctor.userId);
-        if (!doctor) {
-            throw new graphql_1.GraphQLError("Doctor not found");
-        }
-        const existingAvailabilitySlot = await prisma_1.default.availabilitySlot.findUnique({
-            where: {
-                doctorId: currentUserId,
-            },
-        });
-        if (existingAvailabilitySlot) {
-            throw new graphql_1.GraphQLError("Availability slot already exists for this doctor. Please update the existing slot instead of creating a new one.");
-        }
-        await prisma_1.default.availabilitySlot.create({
-            data: {
-                startTime: parsedStartTime,
-                endTime: parsedEndTime,
-                isBooked: isBooked ?? false,
-                doctorId: currentUserId,
-            },
-        });
-        return "Availability Slot Added";
     }
     async updateDoctorAvailability(context, startTime, endTime, isBooked) {
-        if (!startTime) {
-            throw new graphql_1.GraphQLError("Please add availability start time");
+        try {
+            if (!startTime) {
+                throw new graphql_1.GraphQLError("Please add availability start time");
+            }
+            if (!endTime) {
+                throw new graphql_1.GraphQLError("Please add availability end time");
+            }
+            if (new Date(startTime) >= new Date(endTime)) {
+                throw new graphql_1.GraphQLError("Start time must be before end time");
+            }
+            (0, Validation_1.InvalidDateTime)({ startTime, endTime });
+            const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
+            const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
+            const currentUserId = context.payload.userId;
+            console.log("currentUserId", currentUserId);
+            const doctor = await prisma_1.default.doctor.findUnique({
+                where: { userId: currentUserId },
+            });
+            console.log("Doctor Id", doctor.userId);
+            if (!doctor) {
+                throw new graphql_1.GraphQLError("Doctor not found");
+            }
+            await prisma_1.default.availabilitySlot.update({
+                where: {
+                    doctorId: currentUserId,
+                },
+                data: {
+                    startTime: parsedStartTime,
+                    endTime: parsedEndTime,
+                    isBooked: isBooked ?? false,
+                    doctorId: currentUserId,
+                },
+            });
+            return "availabilitySlot Updated";
         }
-        if (!endTime) {
-            throw new graphql_1.GraphQLError("Please add availability end time");
+        catch (error) {
+            throw new graphql_1.GraphQLError(error.message || "an unexpected error occurred");
         }
-        if (new Date(startTime) >= new Date(endTime)) {
-            throw new graphql_1.GraphQLError("Start time must be before end time");
-        }
-        (0, Validation_1.InvalidDateTime)({ startTime, endTime });
-        const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
-        const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
-        const currentUserId = context.payload.userId;
-        console.log("currentUserId", currentUserId);
-        const doctor = await prisma_1.default.doctor.findUnique({
-            where: { userId: currentUserId },
-        });
-        console.log("Doctor Id", doctor.userId);
-        if (!doctor) {
-            throw new graphql_1.GraphQLError("Doctor not found");
-        }
-        await prisma_1.default.availabilitySlot.update({
-            where: {
-                doctorId: currentUserId,
-            },
-            data: {
-                startTime: parsedStartTime,
-                endTime: parsedEndTime,
-                isBooked: isBooked ?? false,
-                doctorId: currentUserId,
-            },
-        });
-        return "availabilitySlot Updated";
     }
     async addDoctorUnavailability(context, doctorId, startTime, endTime, startDate, endDate, reason, isAvailable) {
-        if (!doctorId || !startTime || !endTime) {
-            throw new graphql_1.GraphQLError("Please Add doctor id ,start time and end time");
-        }
-        if (new Date(startDate) >= new Date(endDate)) {
-            throw new graphql_1.GraphQLError("Start date must be before end date");
-        }
-        if (new Date(startTime) >= new Date(endTime)) {
-            throw new graphql_1.GraphQLError("Start time must be before end time");
-        }
-        (0, Validation_1.InvalidDateTime)({ startTime, endTime, startDate, endDate });
-        const currentUserId = context.payload?.userId;
-        if (!currentUserId) {
-            throw new graphql_1.GraphQLError("User not found");
-        }
-        const existingUnavailabilitySlot = await prisma_1.default.unavailabilitySlot.findUnique({
-            where: {
-                doctorId: currentUserId,
-            },
-        });
-        if (existingUnavailabilitySlot) {
-            throw new graphql_1.GraphQLError("Unavailability slot already exists for this doctor. Please update the existing slot instead of creating a new one.");
-        }
-        const parsedStartDate = (0, date_fns_1.parseISO)(startDate);
-        const parsedEndDate = (0, date_fns_1.parseISO)(endDate);
-        const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
-        const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
-        (0, Validation_1.DateNotinPastforDoctor)({
-            startTime: parsedStartTime,
-            startDate: parsedStartDate,
-            endDate: parsedEndDate,
-            endTime: parsedEndTime,
-        });
-        await prisma_1.default.unavailabilitySlot.create({
-            data: {
-                endTime: parsedEndTime,
+        try {
+            if (!doctorId || !startTime || !endTime) {
+                throw new graphql_1.GraphQLError("Please Add doctor id ,start time and end time");
+            }
+            if (new Date(startDate) >= new Date(endDate)) {
+                throw new graphql_1.GraphQLError("Start date must be before end date");
+            }
+            if (new Date(startTime) >= new Date(endTime)) {
+                throw new graphql_1.GraphQLError("Start time must be before end time");
+            }
+            (0, Validation_1.InvalidDateTime)({ startTime, endTime, startDate, endDate });
+            const currentUserId = context.payload?.userId;
+            if (!currentUserId) {
+                throw new graphql_1.GraphQLError("User not found");
+            }
+            const existingUnavailabilitySlot = await prisma_1.default.unavailabilitySlot.findUnique({
+                where: {
+                    doctorId: currentUserId,
+                },
+            });
+            if (existingUnavailabilitySlot) {
+                throw new graphql_1.GraphQLError("Unavailability slot already exists for this doctor. Please update the existing slot instead of creating a new one.");
+            }
+            const parsedStartDate = (0, date_fns_1.parseISO)(startDate);
+            const parsedEndDate = (0, date_fns_1.parseISO)(endDate);
+            const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
+            const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
+            (0, Validation_1.DateNotinPastforDoctor)({
                 startTime: parsedStartTime,
-                doctorId,
                 startDate: parsedStartDate,
                 endDate: parsedEndDate,
-                isAvailable,
-                reason,
-            },
-        });
-        const affectedAppointments = await prisma_1.default.appointment.findMany({
-            where: {
-                doctorId,
-                scheduledDate: {
-                    gte: parsedStartDate,
-                    lte: parsedEndDate,
-                },
-                status: "UPCOMING",
-            },
-        });
-        for (const appointment of affectedAppointments) {
-            await prisma_1.default.appointment.update({
-                where: { id: appointment.id },
-                data: { status: "CANCELLED" },
+                endTime: parsedEndTime,
             });
-            (0, SendAppointmentCancelEmail_1.sendAppointmentCancelEmail)(appointment.email, appointment.scheduledDate, appointment.fullName);
+            await prisma_1.default.unavailabilitySlot.create({
+                data: {
+                    endTime: parsedEndTime,
+                    startTime: parsedStartTime,
+                    doctorId,
+                    startDate: parsedStartDate,
+                    endDate: parsedEndDate,
+                    isAvailable,
+                    reason,
+                },
+            });
+            const affectedAppointments = await prisma_1.default.appointment.findMany({
+                where: {
+                    doctorId,
+                    scheduledDate: {
+                        gte: parsedStartDate,
+                        lte: parsedEndDate,
+                    },
+                    status: "UPCOMING",
+                },
+            });
+            for (const appointment of affectedAppointments) {
+                await prisma_1.default.appointment.update({
+                    where: { id: appointment.id },
+                    data: { status: "CANCELLED" },
+                });
+                (0, SendAppointmentCancelEmail_1.sendAppointmentCancelEmail)(appointment.email, appointment.scheduledDate, appointment.fullName);
+            }
             return "Unavailability Added";
+        }
+        catch (error) {
+            throw new graphql_1.GraphQLError(error.message || "an unexpected error occurred");
         }
     }
     async updateDoctorUnavailability(context, doctorId, startTime, endTime, startDate, endDate, reason, isAvailable) {
-        if (!doctorId || !startTime || !endTime) {
-            throw new graphql_1.GraphQLError("Please Add doctor id ,start time and end time");
-        }
-        if (new Date(startDate) >= new Date(endDate)) {
-            throw new graphql_1.GraphQLError("Start date must be before end time");
-        }
-        if (new Date(startTime) >= new Date(endTime)) {
-            throw new graphql_1.GraphQLError("Start time must be before end date");
-        }
-        (0, Validation_1.InvalidDateTime)({ startTime, endTime, startDate, endDate });
-        const parsedStartDate = (0, date_fns_1.parseISO)(startDate);
-        const parsedEndDate = (0, date_fns_1.parseISO)(endDate);
-        const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
-        const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
-        (0, Validation_1.DateNotinPastforDoctor)({
-            startTime: parsedStartTime,
-            startDate: parsedStartDate,
-            endDate: parsedEndDate,
-            endTime: parsedEndTime,
-        });
-        const currentUserId = context.payload.userId;
-        if (!currentUserId) {
-            throw new graphql_1.GraphQLError("User not found");
-        }
-        await prisma_1.default.unavailabilitySlot.update({
-            where: {
-                doctorId: currentUserId,
-            },
-            data: {
-                endTime: parsedEndTime,
+        try {
+            if (!doctorId || !startTime || !endTime) {
+                throw new graphql_1.GraphQLError("Please Add doctor id ,start time and end time");
+            }
+            if (new Date(startDate) >= new Date(endDate)) {
+                throw new graphql_1.GraphQLError("Start date must be before end time");
+            }
+            if (new Date(startTime) >= new Date(endTime)) {
+                throw new graphql_1.GraphQLError("Start time must be before end date");
+            }
+            (0, Validation_1.InvalidDateTime)({ startTime, endTime, startDate, endDate });
+            const parsedStartDate = (0, date_fns_1.parseISO)(startDate);
+            const parsedEndDate = (0, date_fns_1.parseISO)(endDate);
+            const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
+            const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
+            (0, Validation_1.DateNotinPastforDoctor)({
                 startTime: parsedStartTime,
-                doctorId,
                 startDate: parsedStartDate,
                 endDate: parsedEndDate,
-                isAvailable,
-                reason,
-            },
-        });
-        const affectedAppointments = await prisma_1.default.appointment.findMany({
-            where: {
-                doctorId,
-                scheduledDate: {
-                    gte: parsedStartDate,
-                    lte: parsedEndDate,
-                },
-                status: "UPCOMING",
-            },
-        });
-        for (const appointment of affectedAppointments) {
-            console.log("Doctor Email", appointment.email);
-            await prisma_1.default.appointment.update({
-                where: { id: appointment.id },
-                data: { status: "CANCELLED" },
+                endTime: parsedEndTime,
             });
-            (0, SendAppointmentCancelEmail_1.sendAppointmentCancelEmail)(appointment.email, appointment.scheduledDate, appointment.fullName);
+            const currentUserId = context.payload.userId;
+            if (!currentUserId) {
+                throw new graphql_1.GraphQLError("User not found");
+            }
+            await prisma_1.default.unavailabilitySlot.update({
+                where: {
+                    doctorId: currentUserId,
+                },
+                data: {
+                    endTime: parsedEndTime,
+                    startTime: parsedStartTime,
+                    doctorId,
+                    startDate: parsedStartDate,
+                    endDate: parsedEndDate,
+                    isAvailable,
+                    reason,
+                },
+            });
+            const affectedAppointments = await prisma_1.default.appointment.findMany({
+                where: {
+                    doctorId,
+                    scheduledDate: {
+                        gte: parsedStartDate,
+                        lte: parsedEndDate,
+                    },
+                    status: "UPCOMING",
+                },
+            });
+            for (const appointment of affectedAppointments) {
+                console.log("Doctor Email", appointment.email);
+                await prisma_1.default.appointment.update({
+                    where: { id: appointment.id },
+                    data: { status: "CANCELLED" },
+                });
+                (0, SendAppointmentCancelEmail_1.sendAppointmentCancelEmail)(appointment.email, appointment.scheduledDate, appointment.fullName);
+            }
+            return "Unavailability Updated";
         }
-        return "Unavailability Updated";
+        catch (error) {
+            throw new graphql_1.GraphQLError(error.message || "an unexpected error occurred");
+        }
     }
 };
 exports.DoctorAvailabilityResvolver = DoctorAvailabilityResvolver;

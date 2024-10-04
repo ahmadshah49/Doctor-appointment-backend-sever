@@ -202,53 +202,25 @@ export class AppointmentResolver {
   @Mutation(() => String)
   @UseMiddleware(isAuth)
   async updateAppointment(
-    @Arg("fullName") fullName: string,
-    @Arg("email") email: string,
-    @Arg("age") age: string,
-    @Arg("gender", () => gender) gender: gender,
-    @Arg("phoneNo") phoneNo: string,
-    @Arg("address") address: string,
+    @Arg("fullName", { nullable: true }) fullName: string,
+    @Arg("email", { nullable: true }) email: string,
+    @Arg("age", { nullable: true }) age: string,
+    @Arg("gender", () => gender, { nullable: true }) gender: gender,
+    @Arg("phoneNo", { nullable: true }) phoneNo: string,
+    @Arg("address", { nullable: true }) address: string,
     @Arg("medicalHistory", { nullable: true }) medicalHistory: string,
     @Arg("presciptions", () => [String], { nullable: true })
     presciptions: string[],
     @Arg("details", { nullable: true }) details: string,
-    @Arg("scheduledDate") scheduledDate: Date,
-    @Arg("startTime") startTime: string,
-    @Arg("endTime") endTime: string,
     @Arg("doctorId") doctorId: number,
     @Arg("appointmentIdForUpdate") appointmentIdForUpdate: number,
     @Ctx() context: Context
   ) {
     try {
       await validateUserRole(context);
-      if (
-        !fullName ||
-        !email ||
-        !age ||
-        !gender ||
-        !phoneNo ||
-        !address ||
-        !presciptions ||
-        !scheduledDate ||
-        !startTime ||
-        !endTime ||
-        !appointmentIdForUpdate
-      ) {
-        throw new GraphQLError("Please add all required Fields");
-      }
-
-      InvalidDateTime({ startTime, endTime });
-
-      const parsedStartTime = parseISO(startTime);
-      const parsedEndTime = parseISO(endTime);
-      DateNotinPast({
-        startTime: parsedStartTime,
-        datescheduleDate: scheduledDate,
-        endTime: parsedEndTime,
-      });
-      if (parsedStartTime >= parsedEndTime) {
+      if (!appointmentIdForUpdate || !doctorId) {
         throw new GraphQLError(
-          "Start time must be before end time on the same day."
+          "Please add appointmentIdForUpdate and doctorId"
         );
       }
 
@@ -269,107 +241,6 @@ export class AppointmentResolver {
       if (!checkDoctorId) {
         throw new GraphQLError("Doctor not found!");
       }
-
-      const checkDoctorAvailability = await Prisma.availabilitySlot.findFirst({
-        where: {
-          doctorId: doctorId,
-        },
-      });
-      const checkDoctorUnAvailability =
-        await Prisma.unavailabilitySlot.findFirst({
-          where: {
-            doctorId,
-          },
-        });
-      const unavailableDoctorStartDate = moment(
-        checkDoctorUnAvailability?.startDate
-      ).format("YYYY-MM-DD");
-      const unavailableDoctorEndDate = moment(
-        checkDoctorUnAvailability?.endDate
-      ).format("YYYY-MM-DD");
-      const unavailableDoctorStartTime = moment
-        .utc(checkDoctorUnAvailability?.startTime)
-        .format("HH:mm:ss");
-      const unavailableDoctorEndTime = moment
-        .utc(checkDoctorUnAvailability?.endTime)
-        .format("HH:mm:ss");
-      const unavailableDoctorOneDay = moment
-        .utc(checkDoctorUnAvailability?.startTime)
-        .format("YYYY-MM-DD");
-
-      if (!checkDoctorAvailability) {
-        throw new GraphQLError("Doctor availability not found!");
-      }
-
-      const doctorStartTime = moment
-        .utc(checkDoctorAvailability?.startTime)
-        .format("HH:mm:ss");
-      const doctorEndTime = moment
-        .utc(checkDoctorAvailability?.endTime)
-        .format("HH:mm:ss");
-      const appointmentScheduleDate =
-        moment(scheduledDate).format("YYYY-MM-DD");
-      const appointmentStartTime = moment.utc(startTime).format("HH:mm:ss");
-      const appointmentEndTime = moment.utc(endTime).format("HH:mm:ss");
-
-      if (
-        !(
-          doctorStartTime <= appointmentStartTime &&
-          doctorEndTime >= appointmentEndTime
-        )
-      ) {
-        throw new GraphQLError("Doctor is not available at this time");
-      }
-      if (
-        !(
-          doctorStartTime <= appointmentStartTime &&
-          doctorEndTime >= appointmentEndTime
-        )
-      ) {
-        throw new GraphQLError("Doctor is not available at this time");
-      }
-      if (unavailableDoctorStartDate && unavailableDoctorEndDate) {
-        if (
-          appointmentScheduleDate >= unavailableDoctorStartDate &&
-          appointmentScheduleDate <= unavailableDoctorEndDate
-        ) {
-          if (
-            (appointmentStartTime >= unavailableDoctorStartTime &&
-              appointmentStartTime < unavailableDoctorEndTime) ||
-            (appointmentEndTime > unavailableDoctorStartTime &&
-              appointmentEndTime <= unavailableDoctorEndTime) ||
-            (appointmentStartTime <= unavailableDoctorStartTime &&
-              appointmentEndTime >= unavailableDoctorEndTime)
-          ) {
-            throw new GraphQLError(
-              "Doctor is unavailable during this time. Please choose another time slot."
-            );
-          }
-        }
-      }
-
-      if (appointmentScheduleDate === unavailableDoctorOneDay) {
-        if (
-          (appointmentStartTime >= unavailableDoctorStartTime &&
-            appointmentStartTime < unavailableDoctorEndTime) ||
-          (appointmentEndTime > unavailableDoctorStartTime &&
-            appointmentEndTime <= unavailableDoctorEndTime) ||
-          (appointmentStartTime <= unavailableDoctorStartTime &&
-            appointmentEndTime >= unavailableDoctorEndTime)
-        ) {
-          throw new GraphQLError(
-            "Doctor is unavailable during this time. Please choose another time slot."
-          );
-        }
-      }
-      // console.log("appointmentScheduleDate", appointmentScheduleDate);
-      await AppointmentAlreadyBooked({
-        doctorId: doctorId,
-        patientId: appointmentIdForUpdate,
-        endTime,
-        scheduledDate,
-        startTime,
-      });
 
       let imageUrl = null;
       if (presciptions) {
@@ -396,13 +267,9 @@ export class AppointmentResolver {
           phoneNo,
           details,
           presciptions: imageUrl,
-          startTime,
-          endTime,
-          scheduledDate,
           patientId: currentUserId,
           doctorId,
           medicalHistory,
-          status: "UPCOMING",
         },
       });
       return "Appointment updated";
@@ -472,7 +339,7 @@ export class AppointmentResolver {
         throw new GraphQLError("User not found!");
       }
 
-      if (startTime === "" || endTime === "" || scheduledDate === "") {
+      if (startTime === "" || endTime === "" || scheduledDate === " ") {
         throw new GraphQLError("Invalid date or time input");
       }
 

@@ -43,10 +43,10 @@ const bcrypt = __importStar(require("bcryptjs"));
 const graphql_1 = require("graphql");
 const type_graphql_1 = require("type-graphql");
 const type_graphql_2 = require("../../generated/type-graphql");
+const prisma_1 = __importDefault(require("../../lib/prisma"));
 const MiddleWare_1 = require("../../middleware/MiddleWare");
 const GenerateJwt_1 = require("../../utils/GenerateJwt");
 const SendResetPassword_1 = require("../../utils/SendResetPassword");
-const prisma_1 = __importDefault(require("../../lib/prisma"));
 let AuthResolver = class AuthResolver {
     async registerUser(name, email, phoneNo, password, role) {
         try {

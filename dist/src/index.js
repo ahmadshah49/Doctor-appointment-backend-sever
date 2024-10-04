@@ -5,20 +5,18 @@ const graphql_yoga_1 = require("graphql-yoga");
 const http_1 = require("http");
 const type_graphql_1 = require("type-graphql");
 const Auth_1 = require("./resolvers/mutations/Auth");
-const DummyQuery_1 = require("./resolvers/querys/DummyQuery");
 const Context_1 = require("./context/Context");
-const Patient_1 = require("./resolvers/mutations/Patient");
+const Appointment_1 = require("./resolvers/mutations/Appointment");
 const Doctor_1 = require("./resolvers/mutations/Doctor");
 const DoctorAvailability_1 = require("./resolvers/mutations/DoctorAvailability");
-const Appointment_1 = require("./resolvers/mutations/Appointment");
+const Patient_1 = require("./resolvers/mutations/Patient");
 const Appointments_1 = require("./resolvers/querys/Appointments");
-const Patients_1 = require("./resolvers/querys/Patients");
 const Doctor_2 = require("./resolvers/querys/Doctor");
+const Patients_1 = require("./resolvers/querys/Patients");
 const index = async () => {
     const schema = (0, type_graphql_1.buildSchemaSync)({
         resolvers: [
             Auth_1.AuthResolver,
-            DummyQuery_1.MinimalQueryResolver,
             Patient_1.PatientResolver,
             Doctor_1.DoctorResolver,
             DoctorAvailability_1.DoctorAvailabilityResvolver,

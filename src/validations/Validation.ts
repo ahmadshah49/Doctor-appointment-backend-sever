@@ -77,12 +77,12 @@ export const InvalidDateTime = ({
   endDate,
   startDate,
 }: InvalidDateTimeTypes) => {
-  if (!isValid(parseISO(startTime))) {
+  if (startTime && !isValid(parseISO(startTime))) {
     throw new GraphQLError(
       "Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z)."
     );
   }
-  if (!isValid(parseISO(endTime))) {
+  if (endTime && !isValid(parseISO(endTime))) {
     throw new GraphQLError(
       "Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
     );

@@ -16,11 +16,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Doctors = void 0;
+const graphql_1 = require("graphql");
 const type_graphql_1 = require("type-graphql");
 const type_graphql_2 = require("../../generated/type-graphql");
-const MiddleWare_1 = require("../../middleware/MiddleWare");
-const graphql_1 = require("graphql");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
+const MiddleWare_1 = require("../../middleware/MiddleWare");
 let Doctors = class Doctors {
     async allDoctor() {
         try {

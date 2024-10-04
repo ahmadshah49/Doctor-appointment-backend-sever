@@ -44,10 +44,10 @@ const DateNotinPast = ({ endTime, startTime, datescheduleDate, stringscheduleDat
 };
 exports.DateNotinPast = DateNotinPast;
 const InvalidDateTime = ({ startTime, endTime, endDate, startDate, }) => {
-    if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startTime))) {
+    if (startTime && !(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(startTime))) {
         throw new graphql_1.GraphQLError("Invalid startTime format. Please use ISO 8601 format (e.g., 2024-09-25T08:30:00Z).");
     }
-    if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endTime))) {
+    if (endTime && !(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endTime))) {
         throw new graphql_1.GraphQLError("Invalid endTime format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
     }
     if (endDate && !(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(endDate))) {
