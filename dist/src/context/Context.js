@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createContext = createContext;
+exports.createContext = void 0;
 const client_1 = require("@prisma/client");
 function createContext({ req }) {
     return {
@@ -8,3 +8,4 @@ function createContext({ req }) {
         req,
     };
 }
+exports.createContext = createContext;

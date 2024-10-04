@@ -3,9 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.transformInfoIntoPrismaArgs = transformInfoIntoPrismaArgs;
-exports.getPrismaFromContext = getPrismaFromContext;
-exports.transformCountFieldIntoSelectRelationsCount = transformCountFieldIntoSelectRelationsCount;
+exports.transformCountFieldIntoSelectRelationsCount = exports.getPrismaFromContext = exports.transformInfoIntoPrismaArgs = void 0;
 const graphql_fields_1 = __importDefault(require("graphql-fields"));
 function transformInfoIntoPrismaArgs(info) {
     const fields = (0, graphql_fields_1.default)(
@@ -16,6 +14,7 @@ function transformInfoIntoPrismaArgs(info) {
     });
     return transformFields(fields);
 }
+exports.transformInfoIntoPrismaArgs = transformInfoIntoPrismaArgs;
 function transformFields(fields) {
     return Object.fromEntries(Object.entries(fields)
         .map(([key, value]) => {
@@ -38,6 +37,7 @@ function getPrismaFromContext(context) {
     }
     return prismaClient;
 }
+exports.getPrismaFromContext = getPrismaFromContext;
 function transformCountFieldIntoSelectRelationsCount(_count) {
     return {
         include: {
@@ -49,3 +49,4 @@ function transformCountFieldIntoSelectRelationsCount(_count) {
         },
     };
 }
+exports.transformCountFieldIntoSelectRelationsCount = transformCountFieldIntoSelectRelationsCount;
