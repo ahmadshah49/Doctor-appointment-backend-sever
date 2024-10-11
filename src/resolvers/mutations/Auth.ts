@@ -11,7 +11,7 @@ import { sendResetPasswordOtp } from "../../utils/SendResetPassword";
 
 @Resolver(() => User)
 export class AuthResolver {
-  @Mutation(() => User)
+  @Mutation(() => String)
   async registerUser(
     @Arg("name") name: string,
     @Arg("email", { nullable: true }) email: string,
@@ -70,7 +70,7 @@ export class AuthResolver {
         },
       });
 
-      return newUser;
+      return "User regiter successfully";
     } catch (error) {
       console.error("Error while resgister the user".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");

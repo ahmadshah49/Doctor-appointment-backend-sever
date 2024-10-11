@@ -11,7 +11,7 @@ export class DoctorTypes {
   @Field()
   name: string;
 
-  @Field({ nullable: true }) // nullable fields should be marked like this
+  @Field({ nullable: true })
   profilePhoto: string;
 
   @Field()

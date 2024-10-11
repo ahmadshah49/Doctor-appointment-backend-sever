@@ -10,64 +10,64 @@ import { PatientCount } from "../resolvers/outputs/PatientCount";
 
 @TypeGraphQL.ObjectType("Patient", {})
 export class Patient {
-  @TypeGraphQL.Field((_type) => TypeGraphQL.Int, {
-    nullable: false,
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
   })
   id!: number;
 
-  @TypeGraphQL.Field((_type) => String, {
-    nullable: false,
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
   })
   age!: string;
 
-  @TypeGraphQL.Field((_type) => String, {
-    nullable: false,
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
   })
   fullName!: string;
 
-  @TypeGraphQL.Field((_type) => gender, {
-    nullable: false,
+  @TypeGraphQL.Field(_type => gender, {
+    nullable: false
   })
   gender!: "MALE" | "FEMALE" | "OTHERS";
 
-  @TypeGraphQL.Field((_type) => String, {
-    nullable: false,
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
   })
   address!: string;
 
-  @TypeGraphQL.Field((_type) => String, {
-    nullable: false,
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
   })
   email!: string;
 
-  @TypeGraphQL.Field((_type) => String, {
-    nullable: true,
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
   })
   profilePicture?: string | null;
 
-  @TypeGraphQL.Field((_type) => String, {
-    nullable: false,
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
   })
   phoneNo!: string;
 
   Doctor?: Doctor | null;
 
-  @TypeGraphQL.Field((_type) => TypeGraphQL.Int, {
-    nullable: true,
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
   })
   doctorId?: number | null;
 
   User?: User;
 
-  @TypeGraphQL.Field((_type) => TypeGraphQL.Int, {
-    nullable: false,
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
   })
   userId!: number;
-  @TypeGraphQL.Field((_type) => [Appointment], { nullable: true })
+
   appointments?: Appointment[];
 
-  @TypeGraphQL.Field((_type) => PatientCount, {
-    nullable: true,
+  @TypeGraphQL.Field(_type => PatientCount, {
+    nullable: true
   })
   _count?: PatientCount | null;
 }

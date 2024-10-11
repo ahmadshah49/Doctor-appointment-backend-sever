@@ -38,7 +38,7 @@ model User {
   otpExpire                DateTime?
   profilePicture           String?
   doctor                   Doctor?
-  patient                  Patient?
+  patient                  Patient? 
 }
 
 model Doctor {
@@ -97,8 +97,6 @@ model Appointment {
 
 model AvailabilitySlot {
   id        Int      @id @default(autoincrement())
-  // startDate DateTime
-  // endDate   DateTime
   startTime DateTime
   endTime   DateTime
   isBooked  Boolean? @default(false)

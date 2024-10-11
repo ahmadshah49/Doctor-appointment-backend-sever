@@ -76,6 +76,7 @@ export class DoctorResolver {
   ) {
     try {
       const currentUserId = context.payload?.userId;
+
       let imageUrl = null;
       if (profilePhoto) {
         try {

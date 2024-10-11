@@ -9,7 +9,6 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-// Function to upload multiple images to Cloudinary
 export const MultipleImagesUploader = async (imagePaths: string[]) => {
   try {
     const mainDir = path.resolve(__dirname, "..", "assets", "uploads");

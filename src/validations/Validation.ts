@@ -157,7 +157,6 @@ export const validateUserRole = async (context: Context) => {
     throw new GraphQLError("User not found");
   }
 
-  // Fetch user from database
   const user = await Prisma.user.findUnique({
     where: { id: currentUserId },
     select: {
@@ -169,9 +168,7 @@ export const validateUserRole = async (context: Context) => {
     throw new GraphQLError("User not found");
   }
 
-  // Role-based validation
   if (user.role === "DOCTOR") {
-    // Doctor-specific validation
     const isFillDoctorInfo = await Prisma.doctor.findUnique({
       where: { userId: currentUserId },
     });
@@ -182,7 +179,6 @@ export const validateUserRole = async (context: Context) => {
       );
     }
   } else if (user.role === "PATIENT") {
-    // Patient-specific validation
     const isFillPatientInfo = await Prisma.patient.findUnique({
       where: { userId: currentUserId },
     });

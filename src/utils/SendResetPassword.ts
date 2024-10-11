@@ -12,7 +12,6 @@ export const transporter = nodemailer.createTransport({
 export const sendResetPasswordOtp = async (email: string, token: string) => {
   const info = await transporter.sendMail({
     from: '"No Reply" <noreply@noreply.com>',
-
     to: email,
     subject: "Password Reset",
     text: `Your Otp is ${token}`,
