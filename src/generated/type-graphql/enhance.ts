@@ -550,7 +550,7 @@ export function applyOutputTypesEnhanceMap(
 const inputsInfo = {
   UserWhereInput: ["AND", "OR", "NOT", "id", "name", "email", "password", "phoneNumber", "role", "token", "tokenExpire", "otp", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture", "doctor", "patient"],
   UserOrderByWithRelationInput: ["id", "name", "email", "password", "phoneNumber", "role", "token", "tokenExpire", "otp", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture", "doctor", "patient"],
-  UserWhereUniqueInput: ["id", "email", "phoneNumber", "AND", "OR", "NOT", "name", "password", "role", "token", "tokenExpire", "otp", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture", "doctor", "patient"],
+  UserWhereUniqueInput: ["id", "email", "phoneNumber", "otp", "AND", "OR", "NOT", "name", "password", "role", "token", "tokenExpire", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture", "doctor", "patient"],
   UserOrderByWithAggregationInput: ["id", "name", "email", "password", "phoneNumber", "role", "token", "tokenExpire", "otp", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture", "_count", "_avg", "_max", "_min", "_sum"],
   UserScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "name", "email", "password", "phoneNumber", "role", "token", "tokenExpire", "otp", "resetPasswordToken", "resetPasswordTokenExpire", "otpExpire", "profilePicture"],
   DoctorWhereInput: ["AND", "OR", "NOT", "id", "userId", "name", "profilePhoto", "address", "availability", "email", "isAvailable", "gender", "User", "patients", "appointments", "AvailabilitySlot", "UnavailabilitySlot"],

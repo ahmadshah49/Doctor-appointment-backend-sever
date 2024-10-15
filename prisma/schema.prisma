@@ -32,13 +32,13 @@ model User {
   role                     role      @default(PATIENT)
   token                    String?
   tokenExpire              DateTime?
-  otp                      String?
+  otp                      String?   @unique
   resetPasswordToken       String?
   resetPasswordTokenExpire DateTime?
   otpExpire                DateTime?
   profilePicture           String?
   doctor                   Doctor?
-  patient                  Patient? 
+  patient                  Patient?
 }
 
 model Doctor {

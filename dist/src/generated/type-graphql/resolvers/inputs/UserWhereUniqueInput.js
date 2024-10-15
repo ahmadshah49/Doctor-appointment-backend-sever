@@ -63,6 +63,12 @@ __decorate([
     __metadata("design:type", String)
 ], UserWhereUniqueInput.prototype, "phoneNumber", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], UserWhereUniqueInput.prototype, "otp", void 0);
+__decorate([
     TypeGraphQL.Field(_type => [UserWhereInput_1.UserWhereInput], {
         nullable: true
     }),
@@ -110,12 +116,6 @@ __decorate([
     }),
     __metadata("design:type", DateTimeNullableFilter_1.DateTimeNullableFilter)
 ], UserWhereUniqueInput.prototype, "tokenExpire", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
-], UserWhereUniqueInput.prototype, "otp", void 0);
 __decorate([
     TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
         nullable: true

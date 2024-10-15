@@ -27,6 +27,11 @@ export class UserWhereUniqueInput {
   })
   phoneNumber?: string | undefined;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  otp?: string | undefined;
+
   @TypeGraphQL.Field(_type => [UserWhereInput], {
     nullable: true
   })
@@ -66,11 +71,6 @@ export class UserWhereUniqueInput {
     nullable: true
   })
   tokenExpire?: DateTimeNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  otp?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true

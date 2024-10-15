@@ -225,15 +225,33 @@ export class AuthResolver {
     @Arg("newPassword", { nullable: true }) newPassword: string
   ) {
     try {
+      if (token.length < 6) {
+        throw new GraphQLError("Otp Must be 6 Digts Long!");
+      }
+      console.log("OTP", token);
+
       const user = await Prisma.user.findFirst({
         where: {
-          otp: token,
+          // email: "ahmadraza.fsd.pk94@gmail.com",
+          resetPasswordToken: token,
+          resetPasswordTokenExpire: {
+            gt: new Date(),
+          },
         },
       });
+      console.log("User", user);
+      console.log("user", user?.email);
+
       if (!user) {
-        throw new GraphQLError("Otp Not Found!,send request for otp");
+        throw new GraphQLError("Wrong or expired otp");
       }
 
+      if (!newPassword) {
+        throw new GraphQLError("Enter New Password");
+      }
+      if (newPassword.length < 8) {
+        throw new GraphQLError("Password must be at least 8 characters long.");
+      }
       // const generateToken = Math.floor(
       //   100000 + Math.random() * 900000
       // ).toString();
@@ -249,39 +267,20 @@ export class AuthResolver {
       // sendResetPasswordOtp(email, generateToken);
       // return "Reset Password Token Sent on Your Email";
 
-      if (token.length < 6) {
-        throw new GraphQLError("Otp Must be 6 Digts Long!");
+      if (user.resetPasswordToken === token) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await Prisma.user.updateMany({
+          where: {
+            resetPasswordToken: token,
+          },
+          data: {
+            password: hashedPassword,
+            resetPasswordToken: null,
+            resetPasswordTokenExpire: null,
+          },
+        });
       }
-      if (user.tokenExpire && user.tokenExpire < new Date()) {
-        throw new GraphQLError("OTP has expired. Please request a new OTP.");
-      }
-      if (user.token !== token) {
-        throw new GraphQLError("Wrong Otp");
-      }
-      if (user.token === token) {
-        if (!newPassword) {
-          throw new GraphQLError("Enter New Password");
-        }
-        if (newPassword.length < 8) {
-          throw new GraphQLError(
-            "Password must be at least 8 characters long."
-          );
-        }
-        if (user.token === token) {
-          const hashedPassword = await bcrypt.hash(newPassword, 10);
-          await Prisma.user.updateMany({
-            where: {
-              otp: token,
-            },
-            data: {
-              password: hashedPassword,
-              resetPasswordToken: null,
-              resetPasswordTokenExpire: null,
-            },
-          });
-          return "Password Changed!";
-        }
-      }
+      return "Password Changed!";
     } catch (error) {
       console.error("Error while Reset Password".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
