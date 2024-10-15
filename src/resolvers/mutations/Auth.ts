@@ -240,7 +240,9 @@ export class AuthResolver {
       if (!user) {
         throw new GraphQLError("Wrong or expired otp");
       }
-
+      if (!newPassword) {
+        return "Please enter a new password.";
+      }
       if (newPassword.length < 8) {
         throw new GraphQLError("Password must be at least 8 characters long.");
       }

@@ -191,10 +191,7 @@ let AuthResolver = class AuthResolver {
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
-    async sentResetPasswordOtp(email
-    // @Arg("token", { nullable: true }) token: string,
-    // @Arg("newPassword", { nullable: true }) newPassword: string
-    ) {
+    async sentResetPasswordOtp(email) {
         try {
             if (!email) {
                 throw new graphql_1.GraphQLError("Please add email");
@@ -239,7 +236,6 @@ let AuthResolver = class AuthResolver {
             console.log("OTP", token);
             const user = await prisma_1.default.user.findFirst({
                 where: {
-                    // email: "ahmadraza.fsd.pk94@gmail.com",
                     resetPasswordToken: token,
                     resetPasswordTokenExpire: {
                         gt: new Date(),
@@ -252,25 +248,11 @@ let AuthResolver = class AuthResolver {
                 throw new graphql_1.GraphQLError("Wrong or expired otp");
             }
             if (!newPassword) {
-                throw new graphql_1.GraphQLError("Enter New Password");
+                return "Please enter a new password.";
             }
             if (newPassword.length < 8) {
                 throw new graphql_1.GraphQLError("Password must be at least 8 characters long.");
             }
-            // const generateToken = Math.floor(
-            //   100000 + Math.random() * 900000
-            // ).toString();
-            // await Prisma.user.updateMany({
-            //   where: {
-            //     otp:token,
-            //   },
-            //   data: {
-            //     resetPasswordToken: generateToken,
-            //     resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
-            //   },
-            // });
-            // sendResetPasswordOtp(email, generateToken);
-            // return "Reset Password Token Sent on Your Email";
             if (user.resetPasswordToken === token) {
                 const hashedPassword = await bcrypt.hash(newPassword, 10);
                 await prisma_1.default.user.updateMany({
