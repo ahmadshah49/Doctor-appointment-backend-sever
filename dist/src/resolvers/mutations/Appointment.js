@@ -56,7 +56,6 @@ let AppointmentResolver = class AppointmentResolver {
             if (context.payload.role !== "PATIENT") {
                 throw new graphql_1.GraphQLError("You are not patient so you can't di this action");
             }
-            console.log("User Role", context.payload?.role);
             const currentUserId = context.payload?.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");
@@ -153,7 +152,6 @@ let AppointmentResolver = class AppointmentResolver {
             return "Appointment Added";
         }
         catch (error) {
-            console.error("Error while creating appointment".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -206,7 +204,6 @@ let AppointmentResolver = class AppointmentResolver {
             return "Appointment updated";
         }
         catch (error) {
-            console.error("Error while updating appointment".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -258,11 +255,6 @@ let AppointmentResolver = class AppointmentResolver {
             if (!(0, date_fns_1.isValid)((0, date_fns_1.parseISO)(scheduledDate))) {
                 throw new graphql_1.GraphQLError("Invalid scheduledDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z).");
             }
-            console.log("Scheduled Date:", scheduledDate);
-            console.log("Start Time:", startTime);
-            console.log("End Time:", endTime);
-            console.log("Patient ID:", patientId);
-            console.log("Now Start Loging");
             (0, Validation_1.InvalidDateTime)({ startTime, endTime });
             const doctor = await prisma_1.default.appointment.findUnique({
                 where: { id: patientId },
@@ -272,8 +264,6 @@ let AppointmentResolver = class AppointmentResolver {
             if (!(0, date_fns_1.isValid)(parsedStartTime) || !(0, date_fns_1.isValid)(parsedEndTime)) {
                 throw new graphql_1.GraphQLError("Invalid time format");
             }
-            console.log("Parsed Start Time:", parsedStartTime);
-            console.log("Parsed End Time:", parsedEndTime);
             if (parsedStartTime >= parsedEndTime) {
                 throw new graphql_1.GraphQLError("Start time must be before end time on the same day.");
             }
@@ -304,7 +294,6 @@ let AppointmentResolver = class AppointmentResolver {
                 .utc(checkDoctorUnAvailability?.startTime)
                 .format("YYYY-MM-DD");
             if (!checkDoctorAvailability) {
-                console.log("Doctor ID ", doctor.doctorId);
                 throw new graphql_1.GraphQLError("Doctor availability not found!");
             }
             const doctorStartTime = moment_1.default
@@ -362,7 +351,6 @@ let AppointmentResolver = class AppointmentResolver {
             return "Appointment reschedule ";
         }
         catch (error) {
-            console.log("Error while reschedule appointment");
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }

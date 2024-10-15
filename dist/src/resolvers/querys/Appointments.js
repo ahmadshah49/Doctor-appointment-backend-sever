@@ -38,7 +38,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return appointments;
         }
         catch (error) {
-            console.error("Error in getAppointmentsByDoctor:", error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -50,8 +49,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             const tomorrow = new Date();
             tomorrow.setHours(0, 0, 0, 0);
             tomorrow.setDate(today.getDate() + 1);
-            console.log("Today", today);
-            console.log("Tomorrow", tomorrow);
             const currentUserId = context.payload.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");
@@ -69,7 +66,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return upcommingAppointments;
         }
         catch (error) {
-            console.error("Error while getting today upcomming appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -81,8 +77,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             const tomorrow = new Date();
             tomorrow.setHours(0, 0, 0, 0);
             tomorrow.setDate(today.getDate() + 1);
-            console.log("Today", today);
-            console.log("Tomorrow", tomorrow);
             const currentUserId = context.payload.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");
@@ -100,7 +94,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return compeltedAppointments;
         }
         catch (error) {
-            console.error("Error while getting today completed appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -112,8 +105,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             const tomorrow = new Date();
             tomorrow.setHours(0, 0, 0, 0);
             tomorrow.setDate(today.getDate() + 1);
-            console.log("Today", today);
-            console.log("Tomorrow", tomorrow);
             const currentUserId = context.payload.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");
@@ -131,7 +122,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return missedAppointments;
         }
         catch (error) {
-            console.log("Error while  geting Today Missed Appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -151,7 +141,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return missedAppointments;
         }
         catch (error) {
-            console.log("Error while  geting All Missed Appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -171,7 +160,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return upcommingAppointments;
         }
         catch (error) {
-            console.log("Error while  geting All Upcommig Appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -191,7 +179,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return completedAppointments;
         }
         catch (error) {
-            console.log("Error while  geting All Completed Appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -222,7 +209,6 @@ let GetAppointmentsResolver = class GetAppointmentsResolver {
             return searchAppointments;
         }
         catch (error) {
-            console.log("Error while searching Appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }

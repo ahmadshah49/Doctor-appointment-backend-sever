@@ -31,7 +31,6 @@ export class Patients {
       const patientIds = distinctPatients.map(
         (appointment) => appointment.patientId
       );
-      console.log("PatientIds", patientIds);
 
       const patients = await Prisma.patient.findMany({
         where: {
@@ -42,7 +41,6 @@ export class Patients {
       });
       return patients;
     } catch (error) {
-      console.error("Error while getting Patients".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -76,7 +74,6 @@ export class Patients {
       const patientIds = distinctPatients.map(
         (appointment) => appointment.patientId
       );
-      console.log("PatientIds", patientIds);
 
       const patients = await Prisma.patient.findMany({
         where: {
@@ -98,7 +95,6 @@ export class Patients {
 
       return filteredPatients;
     } catch (error) {
-      console.error("Error while getting appointments".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -121,7 +117,6 @@ export class Patients {
       }
       return patient;
     } catch (error) {
-      console.error("Error while getting  appointments".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -153,7 +148,6 @@ export class Patients {
       const patientIds = distinctPatients.map(
         (appointment) => appointment.patientId
       );
-      console.log("PatientIds", patientIds);
 
       const searchedPatients = await Prisma.patient.findMany({
         where: {
@@ -175,7 +169,6 @@ export class Patients {
 
       return searchedPatients;
     } catch (error) {
-      console.error("Error while searching patients".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }

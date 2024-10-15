@@ -67,7 +67,6 @@ export class PatientResolver {
 
       return "Patient Created";
     } catch (error) {
-      console.error("Error while creating patient".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -106,9 +105,7 @@ export class PatientResolver {
 
       return "Patient Info Updated";
     } catch (error) {
-      console.error("Error while updating patient info".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
 }
-

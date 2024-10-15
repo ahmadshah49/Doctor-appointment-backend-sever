@@ -72,7 +72,6 @@ export class AuthResolver {
 
       return "User regiter successfully";
     } catch (error) {
-      console.error("Error while resgister the user".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -111,7 +110,6 @@ export class AuthResolver {
       }
       return generatJwt(user);
     } catch (error) {
-      console.error("Error while Login with email".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -150,7 +148,6 @@ export class AuthResolver {
           },
         });
 
-        console.log(`Phone No is: ${phoneNo} otp is: ${generateOTP}`);
         return "Otp Sent on Your Mobile";
       }
       if (userOtp.length < 4) {
@@ -174,16 +171,15 @@ export class AuthResolver {
       });
       return generatJwt(user);
     } catch (error) {
-      console.error("Error while loging with phone no".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
 
   @Mutation(() => String)
-  async resetPassword(
-    @Arg("email", { nullable: true }) email: string,
-    @Arg("token", { nullable: true }) token: string,
-    @Arg("newPassword", { nullable: true }) newPassword: string
+  async sentResetPasswordOtp(
+    @Arg("email") email: string
+    // @Arg("token", { nullable: true }) token: string,
+    // @Arg("newPassword", { nullable: true }) newPassword: string
   ) {
     try {
       if (!email) {
@@ -203,22 +199,56 @@ export class AuthResolver {
       if (!user) {
         throw new GraphQLError("User Not Found!");
       }
-      if (!token) {
-        const generateToken = Math.floor(
-          100000 + Math.random() * 900000
-        ).toString();
-        await Prisma.user.updateMany({
-          where: {
-            email,
-          },
-          data: {
-            resetPasswordToken: generateToken,
-            resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
-          },
-        });
-        sendResetPasswordOtp(email, generateToken);
-        return "Reset Password Token Sent on Your Email";
+
+      const generateToken = Math.floor(
+        100000 + Math.random() * 900000
+      ).toString();
+      await Prisma.user.updateMany({
+        where: {
+          email,
+        },
+        data: {
+          resetPasswordToken: generateToken,
+          resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
+        },
+      });
+      sendResetPasswordOtp(email, generateToken);
+      return "Reset Password Token Sent on Your Email";
+    } catch (error) {
+      console.error("Error while Reset Password".toUpperCase(), error);
+      throw new GraphQLError(error.message || "An unexpected error occurred.");
+    }
+  }
+  @Mutation(() => String)
+  async resetPassword(
+    @Arg("token", { nullable: true }) token: string,
+    @Arg("newPassword", { nullable: true }) newPassword: string
+  ) {
+    try {
+      const user = await Prisma.user.findFirst({
+        where: {
+          otp: token,
+        },
+      });
+      if (!user) {
+        throw new GraphQLError("Otp Not Found!,send request for otp");
       }
+
+      // const generateToken = Math.floor(
+      //   100000 + Math.random() * 900000
+      // ).toString();
+      // await Prisma.user.updateMany({
+      //   where: {
+      //     otp:token,
+      //   },
+      //   data: {
+      //     resetPasswordToken: generateToken,
+      //     resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
+      //   },
+      // });
+      // sendResetPasswordOtp(email, generateToken);
+      // return "Reset Password Token Sent on Your Email";
+
       if (token.length < 6) {
         throw new GraphQLError("Otp Must be 6 Digts Long!");
       }
@@ -239,9 +269,9 @@ export class AuthResolver {
         }
         if (user.token === token) {
           const hashedPassword = await bcrypt.hash(newPassword, 10);
-          await Prisma.user.update({
+          await Prisma.user.updateMany({
             where: {
-              email,
+              otp: token,
             },
             data: {
               password: hashedPassword,
@@ -252,8 +282,6 @@ export class AuthResolver {
           return "Password Changed!";
         }
       }
-
-      return "Password Changed you can login with your new Pasword";
     } catch (error) {
       console.error("Error while Reset Password".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
@@ -301,7 +329,6 @@ export class AuthResolver {
       });
       return "Password Changed";
     } catch (error) {
-      console.error("Error while changing password".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }

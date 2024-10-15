@@ -58,7 +58,6 @@ let DoctorResolver = class DoctorResolver {
             return "Data Added";
         }
         catch (error) {
-            console.error("Error while adding doctor info".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -92,7 +91,6 @@ let DoctorResolver = class DoctorResolver {
             return "Data Updated";
         }
         catch (error) {
-            console.error("Error while updating doctor info".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }

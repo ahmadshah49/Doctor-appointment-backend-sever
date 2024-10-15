@@ -26,7 +26,6 @@ export class GetAppointmentsResolver {
       });
       return appointments;
     } catch (error) {
-      console.error("Error in getAppointmentsByDoctor:", error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -40,8 +39,6 @@ export class GetAppointmentsResolver {
       const tomorrow = new Date();
       tomorrow.setHours(0, 0, 0, 0);
       tomorrow.setDate(today.getDate() + 1);
-      console.log("Today", today);
-      console.log("Tomorrow", tomorrow);
 
       const currentUserId = context.payload.userId;
       if (!currentUserId) {
@@ -59,10 +56,6 @@ export class GetAppointmentsResolver {
       });
       return upcommingAppointments;
     } catch (error) {
-      console.error(
-        "Error while getting today upcomming appointments".toUpperCase(),
-        error
-      );
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -76,8 +69,6 @@ export class GetAppointmentsResolver {
       const tomorrow = new Date();
       tomorrow.setHours(0, 0, 0, 0);
       tomorrow.setDate(today.getDate() + 1);
-      console.log("Today", today);
-      console.log("Tomorrow", tomorrow);
 
       const currentUserId = context.payload.userId;
       if (!currentUserId) {
@@ -95,10 +86,6 @@ export class GetAppointmentsResolver {
       });
       return compeltedAppointments;
     } catch (error) {
-      console.error(
-        "Error while getting today completed appointments".toUpperCase(),
-        error
-      );
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -112,8 +99,6 @@ export class GetAppointmentsResolver {
       const tomorrow = new Date();
       tomorrow.setHours(0, 0, 0, 0);
       tomorrow.setDate(today.getDate() + 1);
-      console.log("Today", today);
-      console.log("Tomorrow", tomorrow);
 
       const currentUserId = context.payload.userId;
       if (!currentUserId) {
@@ -131,10 +116,6 @@ export class GetAppointmentsResolver {
       });
       return missedAppointments;
     } catch (error) {
-      console.log(
-        "Error while  geting Today Missed Appointments".toUpperCase(),
-        error
-      );
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -155,10 +136,6 @@ export class GetAppointmentsResolver {
       });
       return missedAppointments;
     } catch (error) {
-      console.log(
-        "Error while  geting All Missed Appointments".toUpperCase(),
-        error
-      );
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -179,10 +156,6 @@ export class GetAppointmentsResolver {
       });
       return upcommingAppointments;
     } catch (error) {
-      console.log(
-        "Error while  geting All Upcommig Appointments".toUpperCase(),
-        error
-      );
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -203,10 +176,6 @@ export class GetAppointmentsResolver {
       });
       return completedAppointments;
     } catch (error) {
-      console.log(
-        "Error while  geting All Completed Appointments".toUpperCase(),
-        error
-      );
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -241,7 +210,6 @@ export class GetAppointmentsResolver {
       });
       return searchAppointments;
     } catch (error) {
-      console.log("Error while searching Appointments".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }

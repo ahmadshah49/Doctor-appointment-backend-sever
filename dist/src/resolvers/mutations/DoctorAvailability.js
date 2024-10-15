@@ -44,11 +44,9 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
                 throw new graphql_1.GraphQLError("Start time must be before end time on the same day.");
             }
             const currentUserId = context.payload.userId;
-            console.log("currentUserId", currentUserId);
             const doctor = await prisma_1.default.doctor.findUnique({
                 where: { userId: currentUserId },
             });
-            console.log("Doctor Id", doctor.userId);
             if (!doctor) {
                 throw new graphql_1.GraphQLError("Doctor not found");
             }
@@ -89,11 +87,9 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
             const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
             const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
             const currentUserId = context.payload.userId;
-            console.log("currentUserId", currentUserId);
             const doctor = await prisma_1.default.doctor.findUnique({
                 where: { userId: currentUserId },
             });
-            console.log("Doctor Id", doctor.userId);
             if (!doctor) {
                 throw new graphql_1.GraphQLError("Doctor not found");
             }
@@ -233,7 +229,6 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
                 },
             });
             for (const appointment of affectedAppointments) {
-                console.log("Doctor Email", appointment.email);
                 await prisma_1.default.appointment.update({
                     where: { id: appointment.id },
                     data: { status: "CANCELLED" },

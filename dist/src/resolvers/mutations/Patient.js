@@ -64,7 +64,6 @@ let PatientResolver = class PatientResolver {
             return "Patient Created";
         }
         catch (error) {
-            console.error("Error while creating patient".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -92,7 +91,6 @@ let PatientResolver = class PatientResolver {
             return "Patient Info Updated";
         }
         catch (error) {
-            console.error("Error while updating patient info".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }

@@ -73,7 +73,6 @@ export class AppointmentResolver {
           "You are not patient so you can't di this action"
         );
       }
-      console.log("User Role", context.payload?.role);
       const currentUserId = context.payload?.userId;
       if (!currentUserId) {
         throw new GraphQLError("User not found");
@@ -195,7 +194,6 @@ export class AppointmentResolver {
       });
       return "Appointment Added";
     } catch (error) {
-      console.error("Error while creating appointment".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -274,7 +272,6 @@ export class AppointmentResolver {
       });
       return "Appointment updated";
     } catch (error) {
-      console.error("Error while updating appointment".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -348,12 +345,7 @@ export class AppointmentResolver {
           "Invalid scheduledDate format. Please use ISO 8601 format (e.g., 2024-09-25T17:00:00Z)."
         );
       }
-      console.log("Scheduled Date:", scheduledDate);
-      console.log("Start Time:", startTime);
-      console.log("End Time:", endTime);
-      console.log("Patient ID:", patientId);
 
-      console.log("Now Start Loging");
       InvalidDateTime({ startTime, endTime });
       const doctor = await Prisma.appointment.findUnique({
         where: { id: patientId },
@@ -365,8 +357,6 @@ export class AppointmentResolver {
         throw new GraphQLError("Invalid time format");
       }
 
-      console.log("Parsed Start Time:", parsedStartTime);
-      console.log("Parsed End Time:", parsedEndTime);
       if (parsedStartTime >= parsedEndTime) {
         throw new GraphQLError(
           "Start time must be before end time on the same day."
@@ -405,8 +395,6 @@ export class AppointmentResolver {
         .format("YYYY-MM-DD");
 
       if (!checkDoctorAvailability) {
-        console.log("Doctor ID ", doctor.doctorId);
-
         throw new GraphQLError("Doctor availability not found!");
       }
 
@@ -481,7 +469,6 @@ export class AppointmentResolver {
       });
       return "Appointment reschedule ";
     } catch (error) {
-      console.log("Error while reschedule appointment");
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }

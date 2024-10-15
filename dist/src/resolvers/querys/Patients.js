@@ -40,7 +40,6 @@ let Patients = class Patients {
                 },
             });
             const patientIds = distinctPatients.map((appointment) => appointment.patientId);
-            console.log("PatientIds", patientIds);
             const patients = await prisma_1.default.patient.findMany({
                 where: {
                     userId: {
@@ -51,7 +50,6 @@ let Patients = class Patients {
             return patients;
         }
         catch (error) {
-            console.error("Error while getting Patients".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -75,7 +73,6 @@ let Patients = class Patients {
                 return [];
             }
             const patientIds = distinctPatients.map((appointment) => appointment.patientId);
-            console.log("PatientIds", patientIds);
             const patients = await prisma_1.default.patient.findMany({
                 where: {
                     userId: {
@@ -95,7 +92,6 @@ let Patients = class Patients {
             return filteredPatients;
         }
         catch (error) {
-            console.error("Error while getting appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -114,7 +110,6 @@ let Patients = class Patients {
             return patient;
         }
         catch (error) {
-            console.error("Error while getting  appointments".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -138,7 +133,6 @@ let Patients = class Patients {
                 },
             });
             const patientIds = distinctPatients.map((appointment) => appointment.patientId);
-            console.log("PatientIds", patientIds);
             const searchedPatients = await prisma_1.default.patient.findMany({
                 where: {
                     userId: {
@@ -159,7 +153,6 @@ let Patients = class Patients {
             return searchedPatients;
         }
         catch (error) {
-            console.error("Error while searching patients".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }

@@ -58,7 +58,6 @@ export class DoctorResolver {
       });
       return "Data Added";
     } catch (error) {
-      console.error("Error while adding doctor info".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -106,7 +105,6 @@ export class DoctorResolver {
       });
       return "Data Updated";
     } catch (error) {
-      console.error("Error while updating doctor info".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }

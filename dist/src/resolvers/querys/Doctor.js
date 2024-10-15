@@ -25,11 +25,9 @@ let Doctors = class Doctors {
     async allDoctor() {
         try {
             const doctor = await prisma_1.default.doctor.findMany({});
-            console.log("Doctor", doctor);
             return doctor;
         }
         catch (error) {
-            console.log("Error While Getting doctors", error);
             throw new graphql_1.GraphQLError("Error While Getting doctors");
         }
     }
@@ -52,7 +50,6 @@ let Doctors = class Doctors {
             return searchDoctors;
         }
         catch (error) {
-            console.log("Error", error);
             throw new graphql_1.GraphQLError("Something went wrong");
         }
     }

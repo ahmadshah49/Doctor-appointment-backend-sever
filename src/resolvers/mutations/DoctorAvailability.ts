@@ -49,12 +49,10 @@ export class DoctorAvailabilityResvolver {
       }
 
       const currentUserId = context.payload.userId;
-      console.log("currentUserId", currentUserId);
 
       const doctor = await Prisma.doctor.findUnique({
         where: { userId: currentUserId },
       });
-      console.log("Doctor Id", doctor.userId);
 
       if (!doctor) {
         throw new GraphQLError("Doctor not found");
@@ -111,12 +109,10 @@ export class DoctorAvailabilityResvolver {
       const parsedEndTime = parseISO(endTime);
 
       const currentUserId = context.payload.userId;
-      console.log("currentUserId", currentUserId);
 
       const doctor = await Prisma.doctor.findUnique({
         where: { userId: currentUserId },
       });
-      console.log("Doctor Id", doctor.userId);
 
       if (!doctor) {
         throw new GraphQLError("Doctor not found");
@@ -287,7 +283,6 @@ export class DoctorAvailabilityResvolver {
         },
       });
       for (const appointment of affectedAppointments) {
-        console.log("Doctor Email", appointment.email);
         await Prisma.appointment.update({
           where: { id: appointment.id },
           data: { status: "CANCELLED" },

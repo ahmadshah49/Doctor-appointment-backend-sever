@@ -99,7 +99,6 @@ let AuthResolver = class AuthResolver {
             return "User regiter successfully";
         }
         catch (error) {
-            console.error("Error while resgister the user".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -133,7 +132,6 @@ let AuthResolver = class AuthResolver {
             return (0, GenerateJwt_1.generatJwt)(user);
         }
         catch (error) {
-            console.error("Error while Login with email".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -167,7 +165,6 @@ let AuthResolver = class AuthResolver {
                         otpExpire: new Date(Date.now() + 5 * 60 * 1000),
                     },
                 });
-                console.log(`Phone No is: ${phoneNo} otp is: ${generateOTP}`);
                 return "Otp Sent on Your Mobile";
             }
             if (userOtp.length < 4) {
@@ -191,11 +188,13 @@ let AuthResolver = class AuthResolver {
             return (0, GenerateJwt_1.generatJwt)(user);
         }
         catch (error) {
-            console.error("Error while loging with phone no".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
-    async resetPassword(email, token, newPassword) {
+    async sentResetPasswordOtp(email
+    // @Arg("token", { nullable: true }) token: string,
+    // @Arg("newPassword", { nullable: true }) newPassword: string
+    ) {
         try {
             if (!email) {
                 throw new graphql_1.GraphQLError("Please add email");
@@ -214,20 +213,48 @@ let AuthResolver = class AuthResolver {
             if (!user) {
                 throw new graphql_1.GraphQLError("User Not Found!");
             }
-            if (!token) {
-                const generateToken = Math.floor(100000 + Math.random() * 900000).toString();
-                await prisma_1.default.user.updateMany({
-                    where: {
-                        email,
-                    },
-                    data: {
-                        resetPasswordToken: generateToken,
-                        resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
-                    },
-                });
-                (0, SendResetPassword_1.sendResetPasswordOtp)(email, generateToken);
-                return "Reset Password Token Sent on Your Email";
+            const generateToken = Math.floor(100000 + Math.random() * 900000).toString();
+            await prisma_1.default.user.updateMany({
+                where: {
+                    email,
+                },
+                data: {
+                    resetPasswordToken: generateToken,
+                    resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
+                },
+            });
+            (0, SendResetPassword_1.sendResetPasswordOtp)(email, generateToken);
+            return "Reset Password Token Sent on Your Email";
+        }
+        catch (error) {
+            console.error("Error while Reset Password".toUpperCase(), error);
+            throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
+        }
+    }
+    async resetPassword(token, newPassword) {
+        try {
+            const user = await prisma_1.default.user.findFirst({
+                where: {
+                    otp: token,
+                },
+            });
+            if (!user) {
+                throw new graphql_1.GraphQLError("Otp Not Found!,send request for otp");
             }
+            // const generateToken = Math.floor(
+            //   100000 + Math.random() * 900000
+            // ).toString();
+            // await Prisma.user.updateMany({
+            //   where: {
+            //     otp:token,
+            //   },
+            //   data: {
+            //     resetPasswordToken: generateToken,
+            //     resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
+            //   },
+            // });
+            // sendResetPasswordOtp(email, generateToken);
+            // return "Reset Password Token Sent on Your Email";
             if (token.length < 6) {
                 throw new graphql_1.GraphQLError("Otp Must be 6 Digts Long!");
             }
@@ -246,9 +273,9 @@ let AuthResolver = class AuthResolver {
                 }
                 if (user.token === token) {
                     const hashedPassword = await bcrypt.hash(newPassword, 10);
-                    await prisma_1.default.user.update({
+                    await prisma_1.default.user.updateMany({
                         where: {
-                            email,
+                            otp: token,
                         },
                         data: {
                             password: hashedPassword,
@@ -259,7 +286,6 @@ let AuthResolver = class AuthResolver {
                     return "Password Changed!";
                 }
             }
-            return "Password Changed you can login with your new Pasword";
         }
         catch (error) {
             console.error("Error while Reset Password".toUpperCase(), error);
@@ -299,7 +325,6 @@ let AuthResolver = class AuthResolver {
             return "Password Changed";
         }
         catch (error) {
-            console.error("Error while changing password".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -334,11 +359,17 @@ __decorate([
 ], AuthResolver.prototype, "LoginWithPhoneNo", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
-    __param(0, (0, type_graphql_1.Arg)("email", { nullable: true })),
-    __param(1, (0, type_graphql_1.Arg)("token", { nullable: true })),
-    __param(2, (0, type_graphql_1.Arg)("newPassword", { nullable: true })),
+    __param(0, (0, type_graphql_1.Arg)("email")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AuthResolver.prototype, "sentResetPasswordOtp", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => String),
+    __param(0, (0, type_graphql_1.Arg)("token", { nullable: true })),
+    __param(1, (0, type_graphql_1.Arg)("newPassword", { nullable: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "resetPassword", null);
 __decorate([

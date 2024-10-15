@@ -12,11 +12,9 @@ export class Doctors {
   async allDoctor() {
     try {
       const doctor = await Prisma.doctor.findMany({});
-      console.log("Doctor", doctor);
+
       return doctor;
     } catch (error) {
-      console.log("Error While Getting doctors", error);
-
       throw new GraphQLError("Error While Getting doctors");
     }
   }
@@ -40,7 +38,6 @@ export class Doctors {
       });
       return searchDoctors;
     } catch (error) {
-      console.log("Error", error);
       throw new GraphQLError("Something went wrong");
     }
   }
