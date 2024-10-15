@@ -27,8 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], DoctorTypes.prototype, "name", void 0);
 __decorate([
-    (0, type_graphql_1.Field)({ nullable: true }) // nullable fields should be marked like this
-    ,
+    (0, type_graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], DoctorTypes.prototype, "profilePhoto", void 0);
 __decorate([

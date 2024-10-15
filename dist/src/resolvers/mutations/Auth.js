@@ -96,7 +96,7 @@ let AuthResolver = class AuthResolver {
                     password: hashedPassword,
                 },
             });
-            return newUser;
+            return "User regiter successfully";
         }
         catch (error) {
             console.error("Error while resgister the user".toUpperCase(), error);
@@ -306,7 +306,7 @@ let AuthResolver = class AuthResolver {
 };
 exports.AuthResolver = AuthResolver;
 __decorate([
-    (0, type_graphql_1.Mutation)(() => type_graphql_2.User),
+    (0, type_graphql_1.Mutation)(() => String),
     __param(0, (0, type_graphql_1.Arg)("name")),
     __param(1, (0, type_graphql_1.Arg)("email", { nullable: true })),
     __param(2, (0, type_graphql_1.Arg)("phoneNo", { nullable: true })),
@@ -334,7 +334,7 @@ __decorate([
 ], AuthResolver.prototype, "LoginWithPhoneNo", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
-    __param(0, (0, type_graphql_1.Arg)("email")),
+    __param(0, (0, type_graphql_1.Arg)("email", { nullable: true })),
     __param(1, (0, type_graphql_1.Arg)("token", { nullable: true })),
     __param(2, (0, type_graphql_1.Arg)("newPassword", { nullable: true })),
     __metadata("design:type", Function),

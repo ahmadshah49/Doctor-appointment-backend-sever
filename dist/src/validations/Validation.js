@@ -94,7 +94,6 @@ const validateUserRole = async (context) => {
     if (!currentUserId) {
         throw new graphql_1.GraphQLError("User not found");
     }
-    // Fetch user from database
     const user = await prisma_1.default.user.findUnique({
         where: { id: currentUserId },
         select: {
@@ -104,9 +103,7 @@ const validateUserRole = async (context) => {
     if (!user) {
         throw new graphql_1.GraphQLError("User not found");
     }
-    // Role-based validation
     if (user.role === "DOCTOR") {
-        // Doctor-specific validation
         const isFillDoctorInfo = await prisma_1.default.doctor.findUnique({
             where: { userId: currentUserId },
         });
@@ -115,7 +112,6 @@ const validateUserRole = async (context) => {
         }
     }
     else if (user.role === "PATIENT") {
-        // Patient-specific validation
         const isFillPatientInfo = await prisma_1.default.patient.findUnique({
             where: { userId: currentUserId },
         });
