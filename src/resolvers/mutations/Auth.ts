@@ -176,11 +176,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => String)
-  async sentResetPasswordOtp(
-    @Arg("email") email: string
-    // @Arg("token", { nullable: true }) token: string,
-    // @Arg("newPassword", { nullable: true }) newPassword: string
-  ) {
+  async sentResetPasswordOtp(@Arg("email") email: string) {
     try {
       if (!email) {
         throw new GraphQLError("Please add email");
@@ -232,7 +228,6 @@ export class AuthResolver {
 
       const user = await Prisma.user.findFirst({
         where: {
-          // email: "ahmadraza.fsd.pk94@gmail.com",
           resetPasswordToken: token,
           resetPasswordTokenExpire: {
             gt: new Date(),
@@ -246,27 +241,9 @@ export class AuthResolver {
         throw new GraphQLError("Wrong or expired otp");
       }
 
-      if (!newPassword) {
-        throw new GraphQLError("Enter New Password");
-      }
       if (newPassword.length < 8) {
         throw new GraphQLError("Password must be at least 8 characters long.");
       }
-      // const generateToken = Math.floor(
-      //   100000 + Math.random() * 900000
-      // ).toString();
-      // await Prisma.user.updateMany({
-      //   where: {
-      //     otp:token,
-      //   },
-      //   data: {
-      //     resetPasswordToken: generateToken,
-      //     resetPasswordTokenExpire: new Date(Date.now() + 5 * 60 * 1000),
-      //   },
-      // });
-      // sendResetPasswordOtp(email, generateToken);
-      // return "Reset Password Token Sent on Your Email";
-
       if (user.resetPasswordToken === token) {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         await Prisma.user.updateMany({
