@@ -181,7 +181,7 @@ export class AuthResolver {
 
   @Mutation(() => String)
   async resetPassword(
-    @Arg("email") email: string,
+    @Arg("email", { nullable: true }) email: string,
     @Arg("token", { nullable: true }) token: string,
     @Arg("newPassword", { nullable: true }) newPassword: string
   ) {
