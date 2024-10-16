@@ -333,7 +333,7 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
     __param(0, (0, type_graphql_1.Arg)("phoneNo")),
-    __param(1, (0, type_graphql_1.Arg)("userOtp")),
+    __param(1, (0, type_graphql_1.Arg)("userOtp", { nullable: true })),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
