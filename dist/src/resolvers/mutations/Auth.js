@@ -168,7 +168,7 @@ let AuthResolver = class AuthResolver {
                 return "Otp Sent on Your Mobile";
             }
             if (userOtp.length < 4) {
-                throw new graphql_1.GraphQLError("Otp Must be 4 Digts Long!");
+                throw new graphql_1.GraphQLError("Otp must be 4 digits long!");
             }
             if (user.otpExpire && user.otpExpire < new Date()) {
                 throw new graphql_1.GraphQLError("OTP has expired. Please request a new OTP.");
@@ -231,7 +231,7 @@ let AuthResolver = class AuthResolver {
     async resetPassword(token, newPassword) {
         try {
             if (token.length < 6) {
-                throw new graphql_1.GraphQLError("Otp Must be 6 Digts Long!");
+                throw new graphql_1.GraphQLError("Otp must be 6 digits long!");
             }
             console.log("OTP", token);
             const user = await prisma_1.default.user.findFirst({
