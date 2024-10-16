@@ -116,7 +116,7 @@ export class AuthResolver {
   @Mutation(() => String)
   async LoginWithPhoneNo(
     @Arg("phoneNo") phoneNo: string,
-    @Arg("userOtp") userOtp: string
+    @Arg("userOtp", { nullable: true }) userOtp: string
   ) {
     try {
       if (!phoneNo) {
