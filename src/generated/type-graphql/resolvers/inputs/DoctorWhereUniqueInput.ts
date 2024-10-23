@@ -4,7 +4,6 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AppointmentListRelationFilter } from "../inputs/AppointmentListRelationFilter";
 import { AvailabilitySlotListRelationFilter } from "../inputs/AvailabilitySlotListRelationFilter";
-import { BoolNullableFilter } from "../inputs/BoolNullableFilter";
 import { DoctorWhereInput } from "../inputs/DoctorWhereInput";
 import { EnumgenderFilter } from "../inputs/EnumgenderFilter";
 import { PatientListRelationFilter } from "../inputs/PatientListRelationFilter";
@@ -55,20 +54,10 @@ export class DoctorWhereUniqueInput {
   })
   address?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  availability?: StringNullableFilter | undefined;
-
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
   email?: StringFilter | undefined;
-
-  @TypeGraphQL.Field(_type => BoolNullableFilter, {
-    nullable: true
-  })
-  isAvailable?: BoolNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumgenderFilter, {
     nullable: true

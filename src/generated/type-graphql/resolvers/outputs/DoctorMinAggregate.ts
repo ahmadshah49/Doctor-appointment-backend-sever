@@ -34,17 +34,7 @@ export class DoctorMinAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  availability!: string | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
   email!: string | null;
-
-  @TypeGraphQL.Field(_type => Boolean, {
-    nullable: true
-  })
-  isAvailable!: boolean | null;
 
   @TypeGraphQL.Field(_type => gender, {
     nullable: true

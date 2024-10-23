@@ -6,9 +6,7 @@ export enum DoctorScalarFieldEnum {
   name = "name",
   profilePhoto = "profilePhoto",
   address = "address",
-  availability = "availability",
   email = "email",
-  isAvailable = "isAvailable",
   gender = "gender"
 }
 TypeGraphQL.registerEnumType(DoctorScalarFieldEnum, {

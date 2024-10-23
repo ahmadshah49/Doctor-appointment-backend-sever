@@ -20,7 +20,7 @@ export class GroupByDoctorArgs {
   @TypeGraphQL.Field(_type => [DoctorScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "userId" | "name" | "profilePhoto" | "address" | "availability" | "email" | "isAvailable" | "gender">;
+  by!: Array<"id" | "userId" | "name" | "profilePhoto" | "address" | "email" | "gender">;
 
   @TypeGraphQL.Field(_type => DoctorScalarWhereWithAggregatesInput, {
     nullable: true

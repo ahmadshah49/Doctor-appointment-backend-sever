@@ -48,9 +48,7 @@ model Doctor {
   name               String
   profilePhoto       String?
   address            String
-  availability       String?
   email              String
-  isAvailable        Boolean?             @default(true) //check this feild
   gender             gender
   patients           Patient[]
   appointments       Appointment[]
@@ -100,9 +98,8 @@ model AvailabilitySlot {
   startTime DateTime
   endTime   DateTime
   isBooked  Boolean? @default(false)
-
-  doctor   Doctor @relation(fields: [doctorId], references: [userId])
-  doctorId Int    @unique
+  doctor    Doctor   @relation(fields: [doctorId], references: [userId])
+  doctorId  Int      @unique
 }
 
 model UnavailabilitySlot {

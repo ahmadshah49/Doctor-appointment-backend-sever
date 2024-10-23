@@ -133,7 +133,7 @@ export class AuthResolver {
           phoneNumber: phoneNo,
         },
       });
-      if (!user) {
+      if (user.phoneNumber !== phoneNo) {
         throw new GraphQLError("User Not Found!");
       }
       if (!userOtp) {

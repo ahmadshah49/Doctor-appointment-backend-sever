@@ -12,7 +12,6 @@ export class Doctors {
   async allDoctor() {
     try {
       const doctor = await Prisma.doctor.findMany({});
-
       return doctor;
     } catch (error) {
       throw new GraphQLError("Error While Getting doctors");
