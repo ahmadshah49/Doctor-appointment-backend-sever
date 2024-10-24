@@ -110,6 +110,8 @@ export class AuthResolver {
       }
       return generatJwt(user);
     } catch (error) {
+      console.log("Error While login", error);
+
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }

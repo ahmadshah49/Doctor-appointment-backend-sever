@@ -36,7 +36,6 @@ exports.DoctorWhereInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentListRelationFilter_1 = require("../inputs/AppointmentListRelationFilter");
 const AvailabilitySlotListRelationFilter_1 = require("../inputs/AvailabilitySlotListRelationFilter");
-const BoolNullableFilter_1 = require("../inputs/BoolNullableFilter");
 const EnumgenderFilter_1 = require("../inputs/EnumgenderFilter");
 const IntFilter_1 = require("../inputs/IntFilter");
 const PatientListRelationFilter_1 = require("../inputs/PatientListRelationFilter");
@@ -96,23 +95,11 @@ __decorate([
     __metadata("design:type", StringFilter_1.StringFilter)
 ], DoctorWhereInput.prototype, "address", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
-], DoctorWhereInput.prototype, "availability", void 0);
-__decorate([
     TypeGraphQL.Field(_type => StringFilter_1.StringFilter, {
         nullable: true
     }),
     __metadata("design:type", StringFilter_1.StringFilter)
 ], DoctorWhereInput.prototype, "email", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => BoolNullableFilter_1.BoolNullableFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", BoolNullableFilter_1.BoolNullableFilter)
-], DoctorWhereInput.prototype, "isAvailable", void 0);
 __decorate([
     TypeGraphQL.Field(_type => EnumgenderFilter_1.EnumgenderFilter, {
         nullable: true

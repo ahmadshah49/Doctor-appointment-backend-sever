@@ -172,4 +172,46 @@ export class Patients {
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
+  @Query(() => Patient, { nullable: true })
+  @UseMiddleware(isAuth)
+  async getPatient(@Ctx() context: Context) {
+    try {
+      if (context.payload.role !== "PATIENT") {
+        throw new GraphQLError(
+          "You are not authorized to access this resource."
+        );
+      }
+      const userId = context.payload.userId;
+      const patient = await Prisma.patient.findUnique({
+        where: {
+          userId,
+        },
+      });
+
+      return patient;
+    } catch (error) {
+      console.log("error", error);
+
+      throw new GraphQLError(error.message || "Something went wrong!");
+    }
+  }
+  @Query(() => Patient)
+  @UseMiddleware(isAuth)
+  async getSinglePatient(@Arg("id") id: number) {
+    try {
+      const patient = await Prisma.patient.findUnique({
+        where: {
+          id,
+        },
+      });
+      if (!patient) {
+        throw new GraphQLError("User not found!");
+      }
+      return patient;
+    } catch (error) {
+      console.log("error", error);
+
+      throw new GraphQLError(error.message || "Something went wrong!");
+    }
+  }
 }

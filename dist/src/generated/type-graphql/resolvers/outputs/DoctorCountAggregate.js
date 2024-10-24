@@ -72,19 +72,7 @@ __decorate([
         nullable: false
     }),
     __metadata("design:type", Number)
-], DoctorCountAggregate.prototype, "availability", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: false
-    }),
-    __metadata("design:type", Number)
 ], DoctorCountAggregate.prototype, "email", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: false
-    }),
-    __metadata("design:type", Number)
-], DoctorCountAggregate.prototype, "isAvailable", void 0);
 __decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {
         nullable: false

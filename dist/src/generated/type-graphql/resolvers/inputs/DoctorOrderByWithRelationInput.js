@@ -75,23 +75,11 @@ __decorate([
     __metadata("design:type", String)
 ], DoctorOrderByWithRelationInput.prototype, "address", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
-        nullable: true
-    }),
-    __metadata("design:type", SortOrderInput_1.SortOrderInput)
-], DoctorOrderByWithRelationInput.prototype, "availability", void 0);
-__decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true
     }),
     __metadata("design:type", String)
 ], DoctorOrderByWithRelationInput.prototype, "email", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
-        nullable: true
-    }),
-    __metadata("design:type", SortOrderInput_1.SortOrderInput)
-], DoctorOrderByWithRelationInput.prototype, "isAvailable", void 0);
 __decorate([
     TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
         nullable: true

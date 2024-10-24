@@ -63,22 +63,10 @@ __decorate([
 ], DoctorCreateInput.prototype, "address", void 0);
 __decorate([
     TypeGraphQL.Field(_type => String, {
-        nullable: true
-    }),
-    __metadata("design:type", String)
-], DoctorCreateInput.prototype, "availability", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => String, {
         nullable: false
     }),
     __metadata("design:type", String)
 ], DoctorCreateInput.prototype, "email", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Boolean, {
-        nullable: true
-    }),
-    __metadata("design:type", Boolean)
-], DoctorCreateInput.prototype, "isAvailable", void 0);
 __decorate([
     TypeGraphQL.Field(_type => gender_1.gender, {
         nullable: false

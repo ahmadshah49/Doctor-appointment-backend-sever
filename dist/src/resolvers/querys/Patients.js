@@ -156,6 +156,41 @@ let Patients = class Patients {
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
+    async getPatient(context) {
+        try {
+            if (context.payload.role !== "PATIENT") {
+                throw new graphql_1.GraphQLError("You are not authorized to access this resource.");
+            }
+            const userId = context.payload.userId;
+            const patient = await prisma_1.default.patient.findUnique({
+                where: {
+                    userId,
+                },
+            });
+            return patient;
+        }
+        catch (error) {
+            console.log("error", error);
+            throw new graphql_1.GraphQLError(error.message || "Something went wrong!");
+        }
+    }
+    async getSinglePatient(id) {
+        try {
+            const patient = await prisma_1.default.patient.findUnique({
+                where: {
+                    id,
+                },
+            });
+            if (!patient) {
+                throw new graphql_1.GraphQLError("User not found!");
+            }
+            return patient;
+        }
+        catch (error) {
+            console.log("error", error);
+            throw new graphql_1.GraphQLError(error.message || "Something went wrong!");
+        }
+    }
 };
 exports.Patients = Patients;
 __decorate([
@@ -195,6 +230,22 @@ __decorate([
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], Patients.prototype, "searchPatientsByDoctor", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => type_graphql_2.Patient, { nullable: true }),
+    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], Patients.prototype, "getPatient", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => type_graphql_2.Patient),
+    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], Patients.prototype, "getSinglePatient", null);
 exports.Patients = Patients = __decorate([
     (0, type_graphql_1.Resolver)(() => type_graphql_2.Patient)
 ], Patients);

@@ -32,9 +32,7 @@ var DoctorScalarFieldEnum;
     DoctorScalarFieldEnum["name"] = "name";
     DoctorScalarFieldEnum["profilePhoto"] = "profilePhoto";
     DoctorScalarFieldEnum["address"] = "address";
-    DoctorScalarFieldEnum["availability"] = "availability";
     DoctorScalarFieldEnum["email"] = "email";
-    DoctorScalarFieldEnum["isAvailable"] = "isAvailable";
     DoctorScalarFieldEnum["gender"] = "gender";
 })(DoctorScalarFieldEnum || (exports.DoctorScalarFieldEnum = DoctorScalarFieldEnum = {}));
 TypeGraphQL.registerEnumType(DoctorScalarFieldEnum, {

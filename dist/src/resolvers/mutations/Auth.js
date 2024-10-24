@@ -132,6 +132,7 @@ let AuthResolver = class AuthResolver {
             return (0, GenerateJwt_1.generatJwt)(user);
         }
         catch (error) {
+            console.log("Error While login", error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -151,7 +152,7 @@ let AuthResolver = class AuthResolver {
                     phoneNumber: phoneNo,
                 },
             });
-            if (!user) {
+            if (user.phoneNumber !== phoneNo) {
                 throw new graphql_1.GraphQLError("User Not Found!");
             }
             if (!userOtp) {

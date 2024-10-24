@@ -37,7 +37,6 @@ const TypeGraphQL = __importStar(require("type-graphql"));
 const AppointmentUpdateManyWithoutDoctorNestedInput_1 = require("../inputs/AppointmentUpdateManyWithoutDoctorNestedInput");
 const AvailabilitySlotUpdateManyWithoutDoctorNestedInput_1 = require("../inputs/AvailabilitySlotUpdateManyWithoutDoctorNestedInput");
 const EnumgenderFieldUpdateOperationsInput_1 = require("../inputs/EnumgenderFieldUpdateOperationsInput");
-const NullableBoolFieldUpdateOperationsInput_1 = require("../inputs/NullableBoolFieldUpdateOperationsInput");
 const NullableStringFieldUpdateOperationsInput_1 = require("../inputs/NullableStringFieldUpdateOperationsInput");
 const StringFieldUpdateOperationsInput_1 = require("../inputs/StringFieldUpdateOperationsInput");
 const UnavailabilitySlotUpdateManyWithoutDoctorNestedInput_1 = require("../inputs/UnavailabilitySlotUpdateManyWithoutDoctorNestedInput");
@@ -64,23 +63,11 @@ __decorate([
     __metadata("design:type", StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput)
 ], DoctorUpdateWithoutPatientsInput.prototype, "address", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput, {
-        nullable: true
-    }),
-    __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
-], DoctorUpdateWithoutPatientsInput.prototype, "availability", void 0);
-__decorate([
     TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput, {
         nullable: true
     }),
     __metadata("design:type", StringFieldUpdateOperationsInput_1.StringFieldUpdateOperationsInput)
 ], DoctorUpdateWithoutPatientsInput.prototype, "email", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => NullableBoolFieldUpdateOperationsInput_1.NullableBoolFieldUpdateOperationsInput, {
-        nullable: true
-    }),
-    __metadata("design:type", NullableBoolFieldUpdateOperationsInput_1.NullableBoolFieldUpdateOperationsInput)
-], DoctorUpdateWithoutPatientsInput.prototype, "isAvailable", void 0);
 __decorate([
     TypeGraphQL.Field(_type => EnumgenderFieldUpdateOperationsInput_1.EnumgenderFieldUpdateOperationsInput, {
         nullable: true

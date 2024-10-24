@@ -34,7 +34,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoctorScalarWhereWithAggregatesInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const BoolNullableWithAggregatesFilter_1 = require("../inputs/BoolNullableWithAggregatesFilter");
 const EnumgenderWithAggregatesFilter_1 = require("../inputs/EnumgenderWithAggregatesFilter");
 const IntWithAggregatesFilter_1 = require("../inputs/IntWithAggregatesFilter");
 const StringNullableWithAggregatesFilter_1 = require("../inputs/StringNullableWithAggregatesFilter");
@@ -91,23 +90,11 @@ __decorate([
     __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
 ], DoctorScalarWhereWithAggregatesInput.prototype, "address", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", StringNullableWithAggregatesFilter_1.StringNullableWithAggregatesFilter)
-], DoctorScalarWhereWithAggregatesInput.prototype, "availability", void 0);
-__decorate([
     TypeGraphQL.Field(_type => StringWithAggregatesFilter_1.StringWithAggregatesFilter, {
         nullable: true
     }),
     __metadata("design:type", StringWithAggregatesFilter_1.StringWithAggregatesFilter)
 ], DoctorScalarWhereWithAggregatesInput.prototype, "email", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => BoolNullableWithAggregatesFilter_1.BoolNullableWithAggregatesFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", BoolNullableWithAggregatesFilter_1.BoolNullableWithAggregatesFilter)
-], DoctorScalarWhereWithAggregatesInput.prototype, "isAvailable", void 0);
 __decorate([
     TypeGraphQL.Field(_type => EnumgenderWithAggregatesFilter_1.EnumgenderWithAggregatesFilter, {
         nullable: true

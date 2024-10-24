@@ -53,6 +53,24 @@ let Doctors = class Doctors {
             throw new graphql_1.GraphQLError("Something went wrong");
         }
     }
+    async getDoctor(context) {
+        try {
+            if (context.payload.role !== "DOCTOR") {
+                throw new graphql_1.GraphQLError("You are not authorized to access this resource.");
+            }
+            const userId = context.payload.userId;
+            const doctor = await prisma_1.default.doctor.findUnique({
+                where: {
+                    userId,
+                },
+            });
+            return doctor;
+        }
+        catch (error) {
+            console.log("error", error);
+            throw new graphql_1.GraphQLError(error.message || "Something went wrong!");
+        }
+    }
 };
 exports.Doctors = Doctors;
 __decorate([
@@ -70,6 +88,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], Doctors.prototype, "searchDoctors", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => type_graphql_2.Doctor),
+    (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth, MiddleWare_1.isDoctor),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], Doctors.prototype, "getDoctor", null);
 exports.Doctors = Doctors = __decorate([
     (0, type_graphql_1.Resolver)(() => type_graphql_2.Doctor)
 ], Doctors);
