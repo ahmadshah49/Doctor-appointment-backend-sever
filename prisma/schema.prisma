@@ -97,7 +97,6 @@ model AvailabilitySlot {
   id        Int      @id @default(autoincrement())
   startTime DateTime
   endTime   DateTime
-  isBooked  Boolean? @default(false)
   doctor    Doctor   @relation(fields: [doctorId], references: [userId])
   doctorId  Int      @unique
 }
