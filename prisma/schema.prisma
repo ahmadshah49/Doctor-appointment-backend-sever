@@ -37,6 +37,7 @@ model User {
   resetPasswordTokenExpire DateTime?
   otpExpire                DateTime?
   profilePicture           String?
+  refreshToken             String?
   doctor                   Doctor?
   patient                  Patient?
 }

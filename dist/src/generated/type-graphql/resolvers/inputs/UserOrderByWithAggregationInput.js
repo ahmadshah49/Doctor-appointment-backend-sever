@@ -123,6 +123,12 @@ __decorate([
     __metadata("design:type", SortOrderInput_1.SortOrderInput)
 ], UserOrderByWithAggregationInput.prototype, "profilePicture", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], UserOrderByWithAggregationInput.prototype, "refreshToken", void 0);
+__decorate([
     TypeGraphQL.Field(_type => UserCountOrderByAggregateInput_1.UserCountOrderByAggregateInput, {
         nullable: true
     }),

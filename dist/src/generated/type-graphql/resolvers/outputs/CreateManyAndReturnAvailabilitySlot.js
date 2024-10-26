@@ -57,12 +57,6 @@ __decorate([
     __metadata("design:type", Date)
 ], CreateManyAndReturnAvailabilitySlot.prototype, "endTime", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => Boolean, {
-        nullable: true
-    }),
-    __metadata("design:type", Boolean)
-], CreateManyAndReturnAvailabilitySlot.prototype, "isBooked", void 0);
-__decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {
         nullable: false
     }),

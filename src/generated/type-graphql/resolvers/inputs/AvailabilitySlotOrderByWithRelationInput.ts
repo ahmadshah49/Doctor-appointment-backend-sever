@@ -3,7 +3,6 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DoctorOrderByWithRelationInput } from "../inputs/DoctorOrderByWithRelationInput";
-import { SortOrderInput } from "../inputs/SortOrderInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("AvailabilitySlotOrderByWithRelationInput", {})
@@ -22,11 +21,6 @@ export class AvailabilitySlotOrderByWithRelationInput {
     nullable: true
   })
   endTime?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrderInput, {
-    nullable: true
-  })
-  isBooked?: SortOrderInput | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true

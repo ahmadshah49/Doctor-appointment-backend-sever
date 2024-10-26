@@ -60,12 +60,6 @@ __decorate([
         nullable: false
     }),
     __metadata("design:type", Number)
-], AvailabilitySlotCountAggregate.prototype, "isBooked", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-        nullable: false
-    }),
-    __metadata("design:type", Number)
 ], AvailabilitySlotCountAggregate.prototype, "doctorId", void 0);
 __decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {

@@ -55,12 +55,6 @@ __decorate([
     }),
     __metadata("design:type", Date)
 ], AvailabilitySlotCreateManyDoctorInput.prototype, "endTime", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => Boolean, {
-        nullable: true
-    }),
-    __metadata("design:type", Boolean)
-], AvailabilitySlotCreateManyDoctorInput.prototype, "isBooked", void 0);
 exports.AvailabilitySlotCreateManyDoctorInput = AvailabilitySlotCreateManyDoctorInput = __decorate([
     TypeGraphQL.InputType("AvailabilitySlotCreateManyDoctorInput", {})
 ], AvailabilitySlotCreateManyDoctorInput);

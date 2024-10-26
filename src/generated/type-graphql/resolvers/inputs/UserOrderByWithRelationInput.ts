@@ -74,6 +74,11 @@ export class UserOrderByWithRelationInput {
   })
   profilePicture?: SortOrderInput | undefined;
 
+  @TypeGraphQL.Field(_type => SortOrderInput, {
+    nullable: true
+  })
+  refreshToken?: SortOrderInput | undefined;
+
   @TypeGraphQL.Field(_type => DoctorOrderByWithRelationInput, {
     nullable: true
   })

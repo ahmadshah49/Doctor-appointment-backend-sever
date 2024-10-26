@@ -73,7 +73,6 @@ export class DoctorAvailabilityResvolver {
         data: {
           startTime: parsedStartTime,
           endTime: parsedEndTime,
-          isBooked: isBooked ?? false,
           doctorId: currentUserId,
         },
       });
@@ -124,7 +123,6 @@ export class DoctorAvailabilityResvolver {
         data: {
           startTime: parsedStartTime,
           endTime: parsedEndTime,
-          isBooked: isBooked ?? false,
           doctorId: currentUserId,
         },
       });

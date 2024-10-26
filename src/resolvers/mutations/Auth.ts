@@ -6,8 +6,13 @@ import { Context } from "../../context/Context";
 import { role, User } from "../../generated/type-graphql";
 import Prisma from "../../lib/prisma";
 import { isAuth } from "../../middleware/MiddleWare";
-import { generatJwt } from "../../utils/GenerateJwt";
+
 import { sendResetPasswordOtp } from "../../utils/SendResetPassword";
+import { AuthResponse } from "../../types/ResolverTypes";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../../utils/GenerateJwt";
 
 @Resolver(() => User)
 export class AuthResolver {
@@ -76,7 +81,7 @@ export class AuthResolver {
     }
   }
 
-  @Mutation(() => String)
+  @Mutation(() => AuthResponse)
   async LoginWithEmail(
     @Arg("email") email: string,
     @Arg("password") password: string
@@ -101,21 +106,35 @@ export class AuthResolver {
       if (!user) {
         throw new GraphQLError("User Not Found!");
       }
-      if (!user.password) {
+      if (!user?.password) {
         throw new GraphQLError("Something went wrong");
       }
       const checkpassword = await bcrypt.compare(password, user.password);
       if (!checkpassword) {
         throw new GraphQLError("Wrong password");
       }
-      return generatJwt(user);
+      const accessToken = generateAccessToken(user);
+      const refreshToken = generateRefreshToken(user);
+
+      if (refreshToken) {
+        await Prisma.user.update({
+          where: {
+            email,
+          },
+          data: {
+            refreshToken,
+          },
+        });
+      }
+      return { accessToken, refreshToken, user };
     } catch (error) {
       console.log("Error While login", error);
 
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
-  @Mutation(() => String)
+
+  @Mutation(() => AuthResponse)
   async LoginWithPhoneNo(
     @Arg("phoneNo") phoneNo: string,
     @Arg("userOtp", { nullable: true }) userOtp: string
@@ -171,7 +190,9 @@ export class AuthResolver {
           otpExpire: null,
         },
       });
-      return generatJwt(user);
+      const accessToken = generateAccessToken(user);
+      const refreshToken = generateRefreshToken(user);
+      return { accessToken, refreshToken, user };
     } catch (error) {
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }

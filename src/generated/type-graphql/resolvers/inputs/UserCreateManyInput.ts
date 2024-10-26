@@ -70,4 +70,9 @@ export class UserCreateManyInput {
     nullable: true
   })
   profilePicture?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  refreshToken?: string | undefined;
 }

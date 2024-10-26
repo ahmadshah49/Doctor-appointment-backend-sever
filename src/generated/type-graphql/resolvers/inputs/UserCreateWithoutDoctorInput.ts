@@ -67,6 +67,11 @@ export class UserCreateWithoutDoctorInput {
   })
   profilePicture?: string | undefined;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  refreshToken?: string | undefined;
+
   @TypeGraphQL.Field(_type => PatientCreateNestedOneWithoutUserInput, {
     nullable: true
   })

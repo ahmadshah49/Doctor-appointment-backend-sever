@@ -45,8 +45,9 @@ const type_graphql_1 = require("type-graphql");
 const type_graphql_2 = require("../../generated/type-graphql");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
 const MiddleWare_1 = require("../../middleware/MiddleWare");
-const GenerateJwt_1 = require("../../utils/GenerateJwt");
 const SendResetPassword_1 = require("../../utils/SendResetPassword");
+const ResolverTypes_1 = require("../../types/ResolverTypes");
+const GenerateJwt_1 = require("../../utils/GenerateJwt");
 let AuthResolver = class AuthResolver {
     async registerUser(name, email, phoneNo, password, role) {
         try {
@@ -122,14 +123,26 @@ let AuthResolver = class AuthResolver {
             if (!user) {
                 throw new graphql_1.GraphQLError("User Not Found!");
             }
-            if (!user.password) {
+            if (!user?.password) {
                 throw new graphql_1.GraphQLError("Something went wrong");
             }
             const checkpassword = await bcrypt.compare(password, user.password);
             if (!checkpassword) {
                 throw new graphql_1.GraphQLError("Wrong password");
             }
-            return (0, GenerateJwt_1.generatJwt)(user);
+            const accessToken = (0, GenerateJwt_1.generateAccessToken)(user);
+            const refreshToken = (0, GenerateJwt_1.generateRefreshToken)(user);
+            if (refreshToken) {
+                await prisma_1.default.user.update({
+                    where: {
+                        email,
+                    },
+                    data: {
+                        refreshToken,
+                    },
+                });
+            }
+            return { accessToken, refreshToken, user };
         }
         catch (error) {
             console.log("Error While login", error);
@@ -186,7 +199,9 @@ let AuthResolver = class AuthResolver {
                     otpExpire: null,
                 },
             });
-            return (0, GenerateJwt_1.generatJwt)(user);
+            const accessToken = (0, GenerateJwt_1.generateAccessToken)(user);
+            const refreshToken = (0, GenerateJwt_1.generateRefreshToken)(user);
+            return { accessToken, refreshToken, user };
         }
         catch (error) {
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
@@ -324,7 +339,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "registerUser", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => String),
+    (0, type_graphql_1.Mutation)(() => ResolverTypes_1.AuthResponse),
     __param(0, (0, type_graphql_1.Arg)("email")),
     __param(1, (0, type_graphql_1.Arg)("password")),
     __metadata("design:type", Function),
@@ -332,7 +347,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "LoginWithEmail", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => String),
+    (0, type_graphql_1.Mutation)(() => ResolverTypes_1.AuthResponse),
     __param(0, (0, type_graphql_1.Arg)("phoneNo")),
     __param(1, (0, type_graphql_1.Arg)("userOtp", { nullable: true })),
     __metadata("design:type", Function),

@@ -40,6 +40,7 @@ var UserScalarFieldEnum;
     UserScalarFieldEnum["resetPasswordTokenExpire"] = "resetPasswordTokenExpire";
     UserScalarFieldEnum["otpExpire"] = "otpExpire";
     UserScalarFieldEnum["profilePicture"] = "profilePicture";
+    UserScalarFieldEnum["refreshToken"] = "refreshToken";
 })(UserScalarFieldEnum || (exports.UserScalarFieldEnum = UserScalarFieldEnum = {}));
 TypeGraphQL.registerEnumType(UserScalarFieldEnum, {
     name: "UserScalarFieldEnum",

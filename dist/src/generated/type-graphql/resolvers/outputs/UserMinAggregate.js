@@ -116,6 +116,12 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], UserMinAggregate.prototype, "profilePicture", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], UserMinAggregate.prototype, "refreshToken", void 0);
 exports.UserMinAggregate = UserMinAggregate = __decorate([
     TypeGraphQL.ObjectType("UserMinAggregate", {})
 ], UserMinAggregate);

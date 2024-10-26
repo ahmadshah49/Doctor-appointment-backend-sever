@@ -9,8 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DoctorTypes = void 0;
+exports.AuthResponse = exports.DoctorTypes = void 0;
 const type_graphql_1 = require("type-graphql");
+const type_graphql_2 = require("../generated/type-graphql");
 let DoctorTypes = class DoctorTypes {
 };
 exports.DoctorTypes = DoctorTypes;
@@ -53,3 +54,21 @@ __decorate([
 exports.DoctorTypes = DoctorTypes = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], DoctorTypes);
+let AuthResponse = class AuthResponse {
+};
+exports.AuthResponse = AuthResponse;
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], AuthResponse.prototype, "accessToken", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], AuthResponse.prototype, "refreshToken", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => type_graphql_2.User),
+    __metadata("design:type", type_graphql_2.User)
+], AuthResponse.prototype, "user", void 0);
+exports.AuthResponse = AuthResponse = __decorate([
+    (0, type_graphql_1.ObjectType)()
+], AuthResponse);

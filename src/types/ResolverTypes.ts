@@ -1,4 +1,5 @@
 import { Field, ObjectType } from "type-graphql";
+import { User } from "../generated/type-graphql";
 
 @ObjectType()
 export class DoctorTypes {
@@ -28,4 +29,16 @@ export class DoctorTypes {
 
   @Field()
   gender: string;
+}
+
+@ObjectType()
+export class AuthResponse {
+  @Field()
+  accessToken: string;
+
+  @Field()
+  refreshToken: string;
+
+  @Field(() => User)
+  user: User;
 }

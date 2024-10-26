@@ -116,6 +116,12 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], UserCreateManyInput.prototype, "profilePicture", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], UserCreateManyInput.prototype, "refreshToken", void 0);
 exports.UserCreateManyInput = UserCreateManyInput = __decorate([
     TypeGraphQL.InputType("UserCreateManyInput", {})
 ], UserCreateManyInput);

@@ -3,7 +3,6 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AvailabilitySlotWhereInput } from "../inputs/AvailabilitySlotWhereInput";
-import { BoolNullableFilter } from "../inputs/BoolNullableFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { DoctorRelationFilter } from "../inputs/DoctorRelationFilter";
 
@@ -43,11 +42,6 @@ export class AvailabilitySlotWhereUniqueInput {
     nullable: true
   })
   endTime?: DateTimeFilter | undefined;
-
-  @TypeGraphQL.Field(_type => BoolNullableFilter, {
-    nullable: true
-  })
-  isBooked?: BoolNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => DoctorRelationFilter, {
     nullable: true

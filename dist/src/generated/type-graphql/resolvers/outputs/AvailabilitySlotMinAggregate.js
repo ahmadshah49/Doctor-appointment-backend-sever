@@ -56,12 +56,6 @@ __decorate([
     __metadata("design:type", Date)
 ], AvailabilitySlotMinAggregate.prototype, "endTime", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => Boolean, {
-        nullable: true
-    }),
-    __metadata("design:type", Boolean)
-], AvailabilitySlotMinAggregate.prototype, "isBooked", void 0);
-__decorate([
     TypeGraphQL.Field(_type => TypeGraphQL.Int, {
         nullable: true
     }),

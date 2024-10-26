@@ -92,6 +92,11 @@ export class UserWhereInput {
   })
   profilePicture?: StringNullableFilter | undefined;
 
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
+    nullable: true
+  })
+  refreshToken?: StringNullableFilter | undefined;
+
   @TypeGraphQL.Field(_type => DoctorNullableRelationFilter, {
     nullable: true
   })

@@ -70,4 +70,9 @@ export class UserMaxAggregate {
     nullable: true
   })
   profilePicture!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  refreshToken!: string | null;
 }

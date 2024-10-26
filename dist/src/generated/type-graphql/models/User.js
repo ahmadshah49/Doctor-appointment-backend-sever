@@ -116,6 +116,12 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], User.prototype, "profilePicture", void 0);
+__decorate([
+    TypeGraphQL.Field(_type => String, {
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], User.prototype, "refreshToken", void 0);
 exports.User = User = __decorate([
     TypeGraphQL.ObjectType("User", {})
 ], User);

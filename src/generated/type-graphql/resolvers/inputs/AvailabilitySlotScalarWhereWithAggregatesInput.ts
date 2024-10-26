@@ -2,7 +2,6 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BoolNullableWithAggregatesFilter } from "../inputs/BoolNullableWithAggregatesFilter";
 import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
 import { IntWithAggregatesFilter } from "../inputs/IntWithAggregatesFilter";
 
@@ -37,11 +36,6 @@ export class AvailabilitySlotScalarWhereWithAggregatesInput {
     nullable: true
   })
   endTime?: DateTimeWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => BoolNullableWithAggregatesFilter, {
-    nullable: true
-  })
-  isBooked?: BoolNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => IntWithAggregatesFilter, {
     nullable: true

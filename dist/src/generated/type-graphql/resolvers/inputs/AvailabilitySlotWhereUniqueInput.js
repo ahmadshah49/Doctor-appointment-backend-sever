@@ -35,7 +35,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AvailabilitySlotWhereUniqueInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const AvailabilitySlotWhereInput_1 = require("../inputs/AvailabilitySlotWhereInput");
-const BoolNullableFilter_1 = require("../inputs/BoolNullableFilter");
 const DateTimeFilter_1 = require("../inputs/DateTimeFilter");
 const DoctorRelationFilter_1 = require("../inputs/DoctorRelationFilter");
 let AvailabilitySlotWhereUniqueInput = class AvailabilitySlotWhereUniqueInput {
@@ -83,12 +82,6 @@ __decorate([
     }),
     __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
 ], AvailabilitySlotWhereUniqueInput.prototype, "endTime", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => BoolNullableFilter_1.BoolNullableFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", BoolNullableFilter_1.BoolNullableFilter)
-], AvailabilitySlotWhereUniqueInput.prototype, "isBooked", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DoctorRelationFilter_1.DoctorRelationFilter, {
         nullable: true

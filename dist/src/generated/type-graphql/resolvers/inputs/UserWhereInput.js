@@ -141,6 +141,12 @@ __decorate([
     __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
 ], UserWhereInput.prototype, "profilePicture", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => StringNullableFilter_1.StringNullableFilter, {
+        nullable: true
+    }),
+    __metadata("design:type", StringNullableFilter_1.StringNullableFilter)
+], UserWhereInput.prototype, "refreshToken", void 0);
+__decorate([
     TypeGraphQL.Field(_type => DoctorNullableRelationFilter_1.DoctorNullableRelationFilter, {
         nullable: true
     }),

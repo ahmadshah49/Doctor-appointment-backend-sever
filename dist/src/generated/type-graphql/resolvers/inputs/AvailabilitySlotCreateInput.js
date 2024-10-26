@@ -51,12 +51,6 @@ __decorate([
     __metadata("design:type", Date)
 ], AvailabilitySlotCreateInput.prototype, "endTime", void 0);
 __decorate([
-    TypeGraphQL.Field(_type => Boolean, {
-        nullable: true
-    }),
-    __metadata("design:type", Boolean)
-], AvailabilitySlotCreateInput.prototype, "isBooked", void 0);
-__decorate([
     TypeGraphQL.Field(_type => DoctorCreateNestedOneWithoutAvailabilitySlotInput_1.DoctorCreateNestedOneWithoutAvailabilitySlotInput, {
         nullable: false
     }),

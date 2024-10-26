@@ -30,7 +30,6 @@ var AvailabilitySlotScalarFieldEnum;
     AvailabilitySlotScalarFieldEnum["id"] = "id";
     AvailabilitySlotScalarFieldEnum["startTime"] = "startTime";
     AvailabilitySlotScalarFieldEnum["endTime"] = "endTime";
-    AvailabilitySlotScalarFieldEnum["isBooked"] = "isBooked";
     AvailabilitySlotScalarFieldEnum["doctorId"] = "doctorId";
 })(AvailabilitySlotScalarFieldEnum || (exports.AvailabilitySlotScalarFieldEnum = AvailabilitySlotScalarFieldEnum = {}));
 TypeGraphQL.registerEnumType(AvailabilitySlotScalarFieldEnum, {

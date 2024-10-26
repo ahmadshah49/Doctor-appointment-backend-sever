@@ -19,9 +19,4 @@ export class AvailabilitySlotCreateManyDoctorInput {
     nullable: false
   })
   endTime!: Date;
-
-  @TypeGraphQL.Field(_type => Boolean, {
-    nullable: true
-  })
-  isBooked?: boolean | undefined;
 }

@@ -62,7 +62,6 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
                 data: {
                     startTime: parsedStartTime,
                     endTime: parsedEndTime,
-                    isBooked: isBooked ?? false,
                     doctorId: currentUserId,
                 },
             });
@@ -100,7 +99,6 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
                 data: {
                     startTime: parsedStartTime,
                     endTime: parsedEndTime,
-                    isBooked: isBooked ?? false,
                     doctorId: currentUserId,
                 },
             });

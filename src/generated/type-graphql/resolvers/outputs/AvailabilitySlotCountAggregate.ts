@@ -23,11 +23,6 @@ export class AvailabilitySlotCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  isBooked!: number;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
   doctorId!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

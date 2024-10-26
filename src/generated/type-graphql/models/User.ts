@@ -73,6 +73,11 @@ export class User {
   })
   profilePicture?: string | null;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  refreshToken?: string | null;
+
   doctor?: Doctor | null;
 
   patient?: Patient | null;

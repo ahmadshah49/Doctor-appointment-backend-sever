@@ -120,6 +120,12 @@ __decorate([
     __metadata("design:type", SortOrderInput_1.SortOrderInput)
 ], UserOrderByWithRelationInput.prototype, "profilePicture", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => SortOrderInput_1.SortOrderInput, {
+        nullable: true
+    }),
+    __metadata("design:type", SortOrderInput_1.SortOrderInput)
+], UserOrderByWithRelationInput.prototype, "refreshToken", void 0);
+__decorate([
     TypeGraphQL.Field(_type => DoctorOrderByWithRelationInput_1.DoctorOrderByWithRelationInput, {
         nullable: true
     }),

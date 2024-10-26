@@ -61,12 +61,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotMaxOrderByAggregateInput.prototype, "isBooked", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
-        nullable: true
-    }),
-    __metadata("design:type", String)
 ], AvailabilitySlotMaxOrderByAggregateInput.prototype, "doctorId", void 0);
 exports.AvailabilitySlotMaxOrderByAggregateInput = AvailabilitySlotMaxOrderByAggregateInput = __decorate([
     TypeGraphQL.InputType("AvailabilitySlotMaxOrderByAggregateInput", {})

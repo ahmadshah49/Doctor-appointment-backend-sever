@@ -21,11 +21,6 @@ export class AvailabilitySlot {
   })
   endTime!: Date;
 
-  @TypeGraphQL.Field(_type => Boolean, {
-    nullable: true
-  })
-  isBooked?: boolean | null;
-
   doctor?: Doctor;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

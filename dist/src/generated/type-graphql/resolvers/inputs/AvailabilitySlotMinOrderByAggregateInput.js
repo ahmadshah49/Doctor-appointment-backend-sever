@@ -61,12 +61,6 @@ __decorate([
         nullable: true
     }),
     __metadata("design:type", String)
-], AvailabilitySlotMinOrderByAggregateInput.prototype, "isBooked", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => SortOrder_1.SortOrder, {
-        nullable: true
-    }),
-    __metadata("design:type", String)
 ], AvailabilitySlotMinOrderByAggregateInput.prototype, "doctorId", void 0);
 exports.AvailabilitySlotMinOrderByAggregateInput = AvailabilitySlotMinOrderByAggregateInput = __decorate([
     TypeGraphQL.InputType("AvailabilitySlotMinOrderByAggregateInput", {})

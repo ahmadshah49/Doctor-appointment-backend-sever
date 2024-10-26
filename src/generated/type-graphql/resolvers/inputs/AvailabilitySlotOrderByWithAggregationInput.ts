@@ -7,7 +7,6 @@ import { AvailabilitySlotCountOrderByAggregateInput } from "../inputs/Availabili
 import { AvailabilitySlotMaxOrderByAggregateInput } from "../inputs/AvailabilitySlotMaxOrderByAggregateInput";
 import { AvailabilitySlotMinOrderByAggregateInput } from "../inputs/AvailabilitySlotMinOrderByAggregateInput";
 import { AvailabilitySlotSumOrderByAggregateInput } from "../inputs/AvailabilitySlotSumOrderByAggregateInput";
-import { SortOrderInput } from "../inputs/SortOrderInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("AvailabilitySlotOrderByWithAggregationInput", {})
@@ -26,11 +25,6 @@ export class AvailabilitySlotOrderByWithAggregationInput {
     nullable: true
   })
   endTime?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrderInput, {
-    nullable: true
-  })
-  isBooked?: SortOrderInput | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true

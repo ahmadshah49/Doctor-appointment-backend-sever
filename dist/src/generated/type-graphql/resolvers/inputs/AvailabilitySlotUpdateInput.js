@@ -36,7 +36,6 @@ exports.AvailabilitySlotUpdateInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const DateTimeFieldUpdateOperationsInput_1 = require("../inputs/DateTimeFieldUpdateOperationsInput");
 const DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput_1 = require("../inputs/DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput");
-const NullableBoolFieldUpdateOperationsInput_1 = require("../inputs/NullableBoolFieldUpdateOperationsInput");
 let AvailabilitySlotUpdateInput = class AvailabilitySlotUpdateInput {
 };
 exports.AvailabilitySlotUpdateInput = AvailabilitySlotUpdateInput;
@@ -52,12 +51,6 @@ __decorate([
     }),
     __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
 ], AvailabilitySlotUpdateInput.prototype, "endTime", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => NullableBoolFieldUpdateOperationsInput_1.NullableBoolFieldUpdateOperationsInput, {
-        nullable: true
-    }),
-    __metadata("design:type", NullableBoolFieldUpdateOperationsInput_1.NullableBoolFieldUpdateOperationsInput)
-], AvailabilitySlotUpdateInput.prototype, "isBooked", void 0);
 __decorate([
     TypeGraphQL.Field(_type => DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput_1.DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput, {
         nullable: true

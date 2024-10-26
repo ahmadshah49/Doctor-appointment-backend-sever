@@ -70,6 +70,11 @@ export class UserUpdateWithoutDoctorInput {
   })
   profilePicture?: NullableStringFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  refreshToken?: NullableStringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => PatientUpdateOneWithoutUserNestedInput, {
     nullable: true
   })

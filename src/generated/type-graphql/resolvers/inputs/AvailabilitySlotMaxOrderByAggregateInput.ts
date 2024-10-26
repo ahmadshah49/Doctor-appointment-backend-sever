@@ -24,10 +24,5 @@ export class AvailabilitySlotMaxOrderByAggregateInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  isBooked?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
   doctorId?: "asc" | "desc" | undefined;
 }

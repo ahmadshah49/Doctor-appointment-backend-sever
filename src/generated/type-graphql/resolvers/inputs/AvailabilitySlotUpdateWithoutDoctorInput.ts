@@ -3,7 +3,6 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
-import { NullableBoolFieldUpdateOperationsInput } from "../inputs/NullableBoolFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType("AvailabilitySlotUpdateWithoutDoctorInput", {})
 export class AvailabilitySlotUpdateWithoutDoctorInput {
@@ -16,9 +15,4 @@ export class AvailabilitySlotUpdateWithoutDoctorInput {
     nullable: true
   })
   endTime?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => NullableBoolFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  isBooked?: NullableBoolFieldUpdateOperationsInput | undefined;
 }

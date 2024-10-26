@@ -115,6 +115,12 @@ __decorate([
     __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
 ], UserUpdateWithoutPatientInput.prototype, "profilePicture", void 0);
 __decorate([
+    TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput, {
+        nullable: true
+    }),
+    __metadata("design:type", NullableStringFieldUpdateOperationsInput_1.NullableStringFieldUpdateOperationsInput)
+], UserUpdateWithoutPatientInput.prototype, "refreshToken", void 0);
+__decorate([
     TypeGraphQL.Field(_type => DoctorUpdateOneWithoutUserNestedInput_1.DoctorUpdateOneWithoutUserNestedInput, {
         nullable: true
     }),

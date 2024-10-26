@@ -4,7 +4,6 @@ export enum AvailabilitySlotScalarFieldEnum {
   id = "id",
   startTime = "startTime",
   endTime = "endTime",
-  isBooked = "isBooked",
   doctorId = "doctorId"
 }
 TypeGraphQL.registerEnumType(AvailabilitySlotScalarFieldEnum, {

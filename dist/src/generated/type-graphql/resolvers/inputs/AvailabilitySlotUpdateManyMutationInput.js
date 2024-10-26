@@ -35,7 +35,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AvailabilitySlotUpdateManyMutationInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
 const DateTimeFieldUpdateOperationsInput_1 = require("../inputs/DateTimeFieldUpdateOperationsInput");
-const NullableBoolFieldUpdateOperationsInput_1 = require("../inputs/NullableBoolFieldUpdateOperationsInput");
 let AvailabilitySlotUpdateManyMutationInput = class AvailabilitySlotUpdateManyMutationInput {
 };
 exports.AvailabilitySlotUpdateManyMutationInput = AvailabilitySlotUpdateManyMutationInput;
@@ -51,12 +50,6 @@ __decorate([
     }),
     __metadata("design:type", DateTimeFieldUpdateOperationsInput_1.DateTimeFieldUpdateOperationsInput)
 ], AvailabilitySlotUpdateManyMutationInput.prototype, "endTime", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => NullableBoolFieldUpdateOperationsInput_1.NullableBoolFieldUpdateOperationsInput, {
-        nullable: true
-    }),
-    __metadata("design:type", NullableBoolFieldUpdateOperationsInput_1.NullableBoolFieldUpdateOperationsInput)
-], AvailabilitySlotUpdateManyMutationInput.prototype, "isBooked", void 0);
 exports.AvailabilitySlotUpdateManyMutationInput = AvailabilitySlotUpdateManyMutationInput = __decorate([
     TypeGraphQL.InputType("AvailabilitySlotUpdateManyMutationInput", {})
 ], AvailabilitySlotUpdateManyMutationInput);

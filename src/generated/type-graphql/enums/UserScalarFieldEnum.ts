@@ -13,7 +13,8 @@ export enum UserScalarFieldEnum {
   resetPasswordToken = "resetPasswordToken",
   resetPasswordTokenExpire = "resetPasswordTokenExpire",
   otpExpire = "otpExpire",
-  profilePicture = "profilePicture"
+  profilePicture = "profilePicture",
+  refreshToken = "refreshToken"
 }
 TypeGraphQL.registerEnumType(UserScalarFieldEnum, {
   name: "UserScalarFieldEnum",

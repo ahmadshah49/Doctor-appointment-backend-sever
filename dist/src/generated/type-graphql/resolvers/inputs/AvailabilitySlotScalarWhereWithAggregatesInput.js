@@ -34,7 +34,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AvailabilitySlotScalarWhereWithAggregatesInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const BoolNullableWithAggregatesFilter_1 = require("../inputs/BoolNullableWithAggregatesFilter");
 const DateTimeWithAggregatesFilter_1 = require("../inputs/DateTimeWithAggregatesFilter");
 const IntWithAggregatesFilter_1 = require("../inputs/IntWithAggregatesFilter");
 let AvailabilitySlotScalarWhereWithAggregatesInput = class AvailabilitySlotScalarWhereWithAggregatesInput {
@@ -76,12 +75,6 @@ __decorate([
     }),
     __metadata("design:type", DateTimeWithAggregatesFilter_1.DateTimeWithAggregatesFilter)
 ], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "endTime", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => BoolNullableWithAggregatesFilter_1.BoolNullableWithAggregatesFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", BoolNullableWithAggregatesFilter_1.BoolNullableWithAggregatesFilter)
-], AvailabilitySlotScalarWhereWithAggregatesInput.prototype, "isBooked", void 0);
 __decorate([
     TypeGraphQL.Field(_type => IntWithAggregatesFilter_1.IntWithAggregatesFilter, {
         nullable: true

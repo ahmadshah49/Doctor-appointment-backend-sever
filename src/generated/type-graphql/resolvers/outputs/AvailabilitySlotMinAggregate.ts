@@ -20,11 +20,6 @@ export class AvailabilitySlotMinAggregate {
   })
   endTime!: Date | null;
 
-  @TypeGraphQL.Field(_type => Boolean, {
-    nullable: true
-  })
-  isBooked!: boolean | null;
-
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
   })

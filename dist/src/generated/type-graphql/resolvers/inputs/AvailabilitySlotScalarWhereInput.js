@@ -34,7 +34,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AvailabilitySlotScalarWhereInput = void 0;
 const TypeGraphQL = __importStar(require("type-graphql"));
-const BoolNullableFilter_1 = require("../inputs/BoolNullableFilter");
 const DateTimeFilter_1 = require("../inputs/DateTimeFilter");
 const IntFilter_1 = require("../inputs/IntFilter");
 let AvailabilitySlotScalarWhereInput = class AvailabilitySlotScalarWhereInput {
@@ -76,12 +75,6 @@ __decorate([
     }),
     __metadata("design:type", DateTimeFilter_1.DateTimeFilter)
 ], AvailabilitySlotScalarWhereInput.prototype, "endTime", void 0);
-__decorate([
-    TypeGraphQL.Field(_type => BoolNullableFilter_1.BoolNullableFilter, {
-        nullable: true
-    }),
-    __metadata("design:type", BoolNullableFilter_1.BoolNullableFilter)
-], AvailabilitySlotScalarWhereInput.prototype, "isBooked", void 0);
 __decorate([
     TypeGraphQL.Field(_type => IntFilter_1.IntFilter, {
         nullable: true

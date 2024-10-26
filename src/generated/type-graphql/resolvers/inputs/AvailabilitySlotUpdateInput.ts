@@ -4,7 +4,6 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput } from "../inputs/DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput";
-import { NullableBoolFieldUpdateOperationsInput } from "../inputs/NullableBoolFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType("AvailabilitySlotUpdateInput", {})
 export class AvailabilitySlotUpdateInput {
@@ -17,11 +16,6 @@ export class AvailabilitySlotUpdateInput {
     nullable: true
   })
   endTime?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => NullableBoolFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  isBooked?: NullableBoolFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => DoctorUpdateOneRequiredWithoutAvailabilitySlotNestedInput, {
     nullable: true

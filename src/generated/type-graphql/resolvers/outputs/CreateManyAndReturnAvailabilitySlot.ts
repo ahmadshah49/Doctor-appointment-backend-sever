@@ -21,11 +21,6 @@ export class CreateManyAndReturnAvailabilitySlot {
   })
   endTime!: Date;
 
-  @TypeGraphQL.Field(_type => Boolean, {
-    nullable: true
-  })
-  isBooked!: boolean | null;
-
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
