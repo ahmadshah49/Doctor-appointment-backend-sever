@@ -162,7 +162,7 @@ let AppointmentResolver = class AppointmentResolver {
                 throw new graphql_1.GraphQLError("Please add appointmentIdForUpdate and doctorId");
             }
             if (context.payload.role !== "PATIENT") {
-                throw new graphql_1.GraphQLError("You are not patient so you can't di this action");
+                throw new graphql_1.GraphQLError("You are not patient so you can't do this action");
             }
             const currentUserId = context.payload?.userId;
             if (!currentUserId) {
@@ -173,6 +173,12 @@ let AppointmentResolver = class AppointmentResolver {
             });
             if (!checkDoctorId) {
                 throw new graphql_1.GraphQLError("Doctor not found!");
+            }
+            const checkAppointmentId = await prisma_1.default.appointment.findUnique({
+                where: { id: appointmentIdForUpdate },
+            });
+            if (!checkAppointmentId) {
+                throw new graphql_1.GraphQLError("Appointment not found!");
             }
             let imageUrl = null;
             if (presciptions) {
@@ -207,11 +213,14 @@ let AppointmentResolver = class AppointmentResolver {
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
-    async cancelAppointment(patientId, context) {
+    async cancelAppointment(appointmentId) {
+        if (!appointmentId) {
+            throw new graphql_1.GraphQLError("Please add Appointment Id");
+        }
         try {
             await prisma_1.default.appointment.update({
                 where: {
-                    id: patientId,
+                    id: appointmentId,
                 },
                 data: {
                     status: "CANCELLED",
@@ -223,12 +232,12 @@ let AppointmentResolver = class AppointmentResolver {
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
-    async completeAppointment(patientId, context) {
+    async completeAppointment(appointmentId, context) {
         try {
             await (0, Validation_1.validateUserRole)(context);
             await prisma_1.default.appointment.update({
                 where: {
-                    id: patientId,
+                    id: appointmentId,
                 },
                 data: {
                     status: "COMPLETED",
@@ -240,7 +249,7 @@ let AppointmentResolver = class AppointmentResolver {
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
-    async rescheduleAppointment(patientId, scheduledDate, startTime, endTime, context) {
+    async rescheduleAppointment(appointmentId, scheduledDate, startTime, endTime, context) {
         try {
             await (0, Validation_1.validateUserRole)(context);
             if (context.payload.role !== "PATIENT") {
@@ -257,7 +266,7 @@ let AppointmentResolver = class AppointmentResolver {
             }
             (0, Validation_1.InvalidDateTime)({ startTime, endTime });
             const doctor = await prisma_1.default.appointment.findUnique({
-                where: { id: patientId },
+                where: { id: appointmentId },
             });
             const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
             const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
@@ -334,13 +343,13 @@ let AppointmentResolver = class AppointmentResolver {
             }
             await (0, Validation_1.AppointmentAlreadyBooked)({
                 doctorId: doctor.doctorId,
-                patientId,
+                patientId: appointmentId,
                 endTime,
                 scheduledDate,
                 startTime,
             });
             await prisma_1.default.appointment.update({
-                where: { id: patientId },
+                where: { id: appointmentId },
                 data: {
                     scheduledDate,
                     startTime: parsedStartTime,
@@ -399,16 +408,15 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
     (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
-    __param(0, (0, type_graphql_1.Arg)("PatientId")),
-    __param(1, (0, type_graphql_1.Ctx)()),
+    __param(0, (0, type_graphql_1.Arg)("AppointmentId")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], AppointmentResolver.prototype, "cancelAppointment", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
     (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth, MiddleWare_1.isDoctor),
-    __param(0, (0, type_graphql_1.Arg)("PatientId")),
+    __param(0, (0, type_graphql_1.Arg)("AppointmentId")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
@@ -417,7 +425,7 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
     (0, type_graphql_1.UseMiddleware)(MiddleWare_1.isAuth),
-    __param(0, (0, type_graphql_1.Arg)("PatientId")),
+    __param(0, (0, type_graphql_1.Arg)("AppointmentId")),
     __param(1, (0, type_graphql_1.Arg)("scheduledDate")),
     __param(2, (0, type_graphql_1.Arg)("startTime")),
     __param(3, (0, type_graphql_1.Arg)("endTime")),

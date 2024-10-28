@@ -174,12 +174,7 @@ export class DoctorAvailabilityResvolver {
       const parsedEndDate = parseISO(endDate);
       const parsedStartTime = parseISO(startTime);
       const parsedEndTime = parseISO(endTime);
-      DateNotinPastforDoctor({
-        startTime: parsedStartTime,
-        startDate: parsedStartDate,
-        endDate: parsedEndDate,
-        endTime: parsedEndTime,
-      });
+
       await Prisma.unavailabilitySlot.create({
         data: {
           endTime: parsedEndTime,
@@ -245,12 +240,7 @@ export class DoctorAvailabilityResvolver {
       const parsedEndDate = parseISO(endDate);
       const parsedStartTime = parseISO(startTime);
       const parsedEndTime = parseISO(endTime);
-      DateNotinPastforDoctor({
-        startTime: parsedStartTime,
-        startDate: parsedStartDate,
-        endDate: parsedEndDate,
-        endTime: parsedEndTime,
-      });
+
       const currentUserId = context.payload.userId;
 
       if (!currentUserId) {

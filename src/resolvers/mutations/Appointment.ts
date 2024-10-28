@@ -224,7 +224,7 @@ export class AppointmentResolver {
 
       if (context.payload.role !== "PATIENT") {
         throw new GraphQLError(
-          "You are not patient so you can't di this action"
+          "You are not patient so you can't do this action"
         );
       }
 
@@ -238,6 +238,13 @@ export class AppointmentResolver {
       });
       if (!checkDoctorId) {
         throw new GraphQLError("Doctor not found!");
+      }
+
+      const checkAppointmentId = await Prisma.appointment.findUnique({
+        where: { id: appointmentIdForUpdate },
+      });
+      if (!checkAppointmentId) {
+        throw new GraphQLError("Appointment not found!");
       }
 
       let imageUrl = null;
@@ -277,14 +284,14 @@ export class AppointmentResolver {
   }
   @Mutation(() => String)
   @UseMiddleware(isAuth)
-  async cancelAppointment(
-    @Arg("PatientId") patientId: number,
-    @Ctx() context: Context
-  ) {
+  async cancelAppointment(@Arg("AppointmentId") appointmentId: number) {
+    if (!appointmentId) {
+      throw new GraphQLError("Please add Appointment Id");
+    }
     try {
       await Prisma.appointment.update({
         where: {
-          id: patientId,
+          id: appointmentId,
         },
         data: {
           status: "CANCELLED",
@@ -298,14 +305,14 @@ export class AppointmentResolver {
   @Mutation(() => String)
   @UseMiddleware(isAuth, isDoctor)
   async completeAppointment(
-    @Arg("PatientId") patientId: number,
+    @Arg("AppointmentId") appointmentId: number,
     @Ctx() context: Context
   ) {
     try {
       await validateUserRole(context);
       await Prisma.appointment.update({
         where: {
-          id: patientId,
+          id: appointmentId,
         },
         data: {
           status: "COMPLETED",
@@ -319,7 +326,7 @@ export class AppointmentResolver {
   @Mutation(() => String)
   @UseMiddleware(isAuth)
   async rescheduleAppointment(
-    @Arg("PatientId") patientId: number,
+    @Arg("AppointmentId") appointmentId: number,
     @Arg("scheduledDate") scheduledDate: string,
     @Arg("startTime") startTime: string,
     @Arg("endTime") endTime: string,
@@ -348,7 +355,7 @@ export class AppointmentResolver {
 
       InvalidDateTime({ startTime, endTime });
       const doctor = await Prisma.appointment.findUnique({
-        where: { id: patientId },
+        where: { id: appointmentId },
       });
 
       const parsedStartTime = parseISO(startTime);
@@ -452,14 +459,14 @@ export class AppointmentResolver {
       }
       await AppointmentAlreadyBooked({
         doctorId: doctor.doctorId,
-        patientId,
+        patientId: appointmentId,
         endTime,
         scheduledDate,
         startTime,
       });
 
       await Prisma.appointment.update({
-        where: { id: patientId },
+        where: { id: appointmentId },
         data: {
           scheduledDate,
           startTime: parsedStartTime,

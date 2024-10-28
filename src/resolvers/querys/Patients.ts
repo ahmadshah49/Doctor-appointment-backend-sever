@@ -106,15 +106,20 @@ export class Patients {
   ) {
     try {
       await validateUserRole(context);
+      const checkPatientExistence = await Prisma.patient.findUnique({
+        where: { id: patientId },
+      });
+
+      if (!checkPatientExistence) {
+        throw new GraphQLError("Patient not found");
+      }
+
       const patient = await Prisma.patient.findUnique({
         where: { id: patientId },
         include: {
           appointments: true,
         },
       });
-      if (!patient) {
-        throw new GraphQLError("Patient not found");
-      }
       return patient;
     } catch (error) {
       throw new GraphQLError(error.message || "An unexpected error occurred.");

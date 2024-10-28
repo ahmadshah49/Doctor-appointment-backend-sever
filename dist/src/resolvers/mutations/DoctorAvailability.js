@@ -136,12 +136,6 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
             const parsedEndDate = (0, date_fns_1.parseISO)(endDate);
             const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
             const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
-            (0, Validation_1.DateNotinPastforDoctor)({
-                startTime: parsedStartTime,
-                startDate: parsedStartDate,
-                endDate: parsedEndDate,
-                endTime: parsedEndTime,
-            });
             await prisma_1.default.unavailabilitySlot.create({
                 data: {
                     endTime: parsedEndTime,
@@ -192,12 +186,6 @@ let DoctorAvailabilityResvolver = class DoctorAvailabilityResvolver {
             const parsedEndDate = (0, date_fns_1.parseISO)(endDate);
             const parsedStartTime = (0, date_fns_1.parseISO)(startTime);
             const parsedEndTime = (0, date_fns_1.parseISO)(endTime);
-            (0, Validation_1.DateNotinPastforDoctor)({
-                startTime: parsedStartTime,
-                startDate: parsedStartDate,
-                endDate: parsedEndDate,
-                endTime: parsedEndTime,
-            });
             const currentUserId = context.payload.userId;
             if (!currentUserId) {
                 throw new graphql_1.GraphQLError("User not found");

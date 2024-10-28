@@ -33,12 +33,30 @@ export class DoctorTypes {
 
 @ObjectType()
 export class AuthResponse {
-  @Field()
-  accessToken: string;
+  @Field({ nullable: true })
+  accessToken?: string;
 
-  @Field()
-  refreshToken: string;
+  @Field({ nullable: true })
+  refreshToken?: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => User, { nullable: true })
+  user?: User;
+
+  @Field({ nullable: true })
+  message?: string;
 }
+
+// @ObjectType()
+// export class AuthResponseForPhoneNo {
+//   @Field({ nullable: true })
+//   accessToken?: string;
+
+//   @Field({ nullable: true })
+//   refreshToken?: string;
+
+//   @Field({ nullable: true })
+//   message?: string;
+
+//   @Field(() => User, { nullable: true })
+//   user?: User;
+// }

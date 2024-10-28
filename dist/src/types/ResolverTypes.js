@@ -58,17 +58,32 @@ let AuthResponse = class AuthResponse {
 };
 exports.AuthResponse = AuthResponse;
 __decorate([
-    (0, type_graphql_1.Field)(),
+    (0, type_graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], AuthResponse.prototype, "accessToken", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
+    (0, type_graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], AuthResponse.prototype, "refreshToken", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => type_graphql_2.User),
+    (0, type_graphql_1.Field)(() => type_graphql_2.User, { nullable: true }),
     __metadata("design:type", type_graphql_2.User)
 ], AuthResponse.prototype, "user", void 0);
+__decorate([
+    (0, type_graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], AuthResponse.prototype, "message", void 0);
 exports.AuthResponse = AuthResponse = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], AuthResponse);
+// @ObjectType()
+// export class AuthResponseForPhoneNo {
+//   @Field({ nullable: true })
+//   accessToken?: string;
+//   @Field({ nullable: true })
+//   refreshToken?: string;
+//   @Field({ nullable: true })
+//   message?: string;
+//   @Field(() => User, { nullable: true })
+//   user?: User;
+// }

@@ -48,6 +48,7 @@ const MiddleWare_1 = require("../../middleware/MiddleWare");
 const SendResetPassword_1 = require("../../utils/SendResetPassword");
 const ResolverTypes_1 = require("../../types/ResolverTypes");
 const GenerateJwt_1 = require("../../utils/GenerateJwt");
+const SendOtp_1 = require("../../utils/SendOtp");
 let AuthResolver = class AuthResolver {
     async registerUser(name, email, phoneNo, password, role) {
         try {
@@ -165,7 +166,7 @@ let AuthResolver = class AuthResolver {
                     phoneNumber: phoneNo,
                 },
             });
-            if (user.phoneNumber !== phoneNo) {
+            if (user?.phoneNumber !== phoneNo) {
                 throw new graphql_1.GraphQLError("User Not Found!");
             }
             if (!userOtp) {
@@ -179,17 +180,21 @@ let AuthResolver = class AuthResolver {
                         otpExpire: new Date(Date.now() + 5 * 60 * 1000),
                     },
                 });
-                return "Otp Sent on Your Mobile";
+                await (0, SendOtp_1.createOtp)(phoneNo, generateOTP);
             }
-            if (userOtp.length < 4) {
+            if (!userOtp) {
+                throw new graphql_1.GraphQLError("Enter Your OTP");
+            }
+            if (userOtp && userOtp?.length < 4) {
                 throw new graphql_1.GraphQLError("Otp must be 4 digits long!");
             }
-            if (user.otpExpire && user.otpExpire < new Date()) {
+            if (user?.otpExpire && user?.otpExpire < new Date()) {
                 throw new graphql_1.GraphQLError("OTP has expired. Please request a new OTP.");
             }
-            if (user.otp !== userOtp) {
+            if (userOtp && user?.otp !== userOtp) {
                 throw new graphql_1.GraphQLError("Wrong Otp");
             }
+            console.log("186");
             await prisma_1.default.user.updateMany({
                 where: {
                     phoneNumber: phoneNo,
@@ -201,9 +206,20 @@ let AuthResolver = class AuthResolver {
             });
             const accessToken = (0, GenerateJwt_1.generateAccessToken)(user);
             const refreshToken = (0, GenerateJwt_1.generateRefreshToken)(user);
+            if (refreshToken) {
+                await prisma_1.default.user.update({
+                    where: {
+                        phoneNumber: phoneNo,
+                    },
+                    data: {
+                        refreshToken,
+                    },
+                });
+            }
             return { accessToken, refreshToken, user };
         }
         catch (error) {
+            console.log("Error while phone no", error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -339,7 +355,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "registerUser", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => ResolverTypes_1.AuthResponse),
+    (0, type_graphql_1.Mutation)(() => ResolverTypes_1.AuthResponse, { nullable: true }),
     __param(0, (0, type_graphql_1.Arg)("email")),
     __param(1, (0, type_graphql_1.Arg)("password")),
     __metadata("design:type", Function),

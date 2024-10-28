@@ -98,15 +98,18 @@ let Patients = class Patients {
     async getAppointmentByPatient(context, patientId) {
         try {
             await (0, Validation_1.validateUserRole)(context);
+            const checkPatientExistence = await prisma_1.default.patient.findUnique({
+                where: { id: patientId },
+            });
+            if (!checkPatientExistence) {
+                throw new graphql_1.GraphQLError("Patient not found");
+            }
             const patient = await prisma_1.default.patient.findUnique({
                 where: { id: patientId },
                 include: {
                     appointments: true,
                 },
             });
-            if (!patient) {
-                throw new graphql_1.GraphQLError("Patient not found");
-            }
             return patient;
         }
         catch (error) {

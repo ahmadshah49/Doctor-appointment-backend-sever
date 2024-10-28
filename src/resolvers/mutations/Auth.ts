@@ -13,6 +13,7 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../utils/GenerateJwt";
+import { createOtp } from "../../utils/SendOtp";
 
 @Resolver(() => User)
 export class AuthResolver {
@@ -81,7 +82,7 @@ export class AuthResolver {
     }
   }
 
-  @Mutation(() => AuthResponse)
+  @Mutation(() => AuthResponse, { nullable: true })
   async LoginWithEmail(
     @Arg("email") email: string,
     @Arg("password") password: string
@@ -129,7 +130,6 @@ export class AuthResolver {
       return { accessToken, refreshToken, user };
     } catch (error) {
       console.log("Error While login", error);
-
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -149,14 +149,17 @@ export class AuthResolver {
           throw new GraphQLError("The phone number is not valid.");
         }
       }
+
       const user = await Prisma.user.findUnique({
         where: {
           phoneNumber: phoneNo,
         },
       });
-      if (user.phoneNumber !== phoneNo) {
+
+      if (user?.phoneNumber !== phoneNo) {
         throw new GraphQLError("User Not Found!");
       }
+
       if (!userOtp) {
         const generateOTP = Math.floor(1000 + Math.random() * 9000).toString();
         await Prisma.user.updateMany({
@@ -168,19 +171,21 @@ export class AuthResolver {
             otpExpire: new Date(Date.now() + 5 * 60 * 1000),
           },
         });
-
-        return "Otp Sent on Your Mobile";
+        await createOtp(phoneNo, generateOTP);
       }
-      if (userOtp.length < 4) {
+      if (!userOtp) {
+        throw new GraphQLError("Enter Your OTP");
+      }
+      if (userOtp && userOtp?.length < 4) {
         throw new GraphQLError("Otp must be 4 digits long!");
       }
-      if (user.otpExpire && user.otpExpire < new Date()) {
+      if (user?.otpExpire && user?.otpExpire < new Date()) {
         throw new GraphQLError("OTP has expired. Please request a new OTP.");
       }
-      if (user.otp !== userOtp) {
+      if (userOtp && user?.otp !== userOtp) {
         throw new GraphQLError("Wrong Otp");
       }
-
+      console.log("186");
       await Prisma.user.updateMany({
         where: {
           phoneNumber: phoneNo,
@@ -190,10 +195,24 @@ export class AuthResolver {
           otpExpire: null,
         },
       });
+
       const accessToken = generateAccessToken(user);
       const refreshToken = generateRefreshToken(user);
+
+      if (refreshToken) {
+        await Prisma.user.update({
+          where: {
+            phoneNumber: phoneNo,
+          },
+          data: {
+            refreshToken,
+          },
+        });
+      }
       return { accessToken, refreshToken, user };
     } catch (error) {
+      console.log("Error while phone no", error);
+
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }

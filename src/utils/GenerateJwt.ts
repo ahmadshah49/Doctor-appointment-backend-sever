@@ -5,7 +5,7 @@ export const generateAccessToken = (user: User) => {
   const accessToken = sign(
     { userId: user?.id, email: user?.email, role: user?.role },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "1d" }
+    { expiresIn: "1m" }
   );
   return accessToken;
 };
