@@ -22,7 +22,6 @@ export const isAuth: MiddlewareFn<Context> = async ({ context }, next) => {
 
   try {
     const accessTokenFromHeader = accessToken.split(" ")[1];
-    console.log("accessTokenFromHeader", accessTokenFromHeader);
 
     const payload = Jwt.verify(
       accessTokenFromHeader,
@@ -38,7 +37,6 @@ export const isAuth: MiddlewareFn<Context> = async ({ context }, next) => {
 
     try {
       const refreshTokenFromHeader = refreshToken.split(" ")[1];
-      console.log("refreshTokenFromHeader", refreshTokenFromHeader);
 
       const refreshPayload = Jwt.verify(
         refreshTokenFromHeader,
@@ -62,12 +60,10 @@ export const isAuth: MiddlewareFn<Context> = async ({ context }, next) => {
         process.env.ACCESS_TOKEN_SECRET!,
         { expiresIn: "1m" }
       );
-      console.log("NewAccessToken", newAccessToken);
 
       res.setHeader("x-access-token", newAccessToken);
       context.payload = refreshPayload;
     } catch (error) {
-      console.log("Refresh token verification failed:", error);
       throw new GraphQLError("Not authenticated");
     }
   }
@@ -83,12 +79,11 @@ export const isDoctor: MiddlewareFn<Context> = async ({ context }, next) => {
     : req.headers["x-refresh-token"];
 
   if (!accessToken) {
-    throw new GraphQLError(     "Not authenticated");
+    throw new GraphQLError("Not authenticated");
   }
 
   try {
     const accessTokenFromHeader = accessToken.split(" ")[1];
-    console.log("accessTokenFromHeader", accessTokenFromHeader);
 
     const payload = Jwt.verify(
       accessTokenFromHeader,
@@ -107,7 +102,6 @@ export const isDoctor: MiddlewareFn<Context> = async ({ context }, next) => {
     }
     try {
       const refreshTokenFromHeader = refreshToken.split(" ")[1];
-      console.log("refreshTokenFromHeader", refreshTokenFromHeader);
 
       const refreshPayload = Jwt.verify(
         refreshTokenFromHeader,
@@ -130,13 +124,10 @@ export const isDoctor: MiddlewareFn<Context> = async ({ context }, next) => {
         process.env.ACCESS_TOKEN_SECRET!,
         { expiresIn: "1m" }
       );
-      console.log("NewAccessToken", newAccessToken);
 
       res.setHeader("x-access-token", newAccessToken);
       context.payload = refreshPayload;
     } catch (error) {
-      console.log("Refresh token verification failed:", error);
-
       throw new GraphQLError(error.message || "Access denied: Doctors only");
     }
   }

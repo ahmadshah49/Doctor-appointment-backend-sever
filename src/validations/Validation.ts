@@ -18,21 +18,6 @@ export const DateNotinPast = ({
   stringscheduleDate,
 }: validation) => {
   const currentTimeUTC = moment().format("YYYY-MM-DD HH:mm:ss"); // UTC time
-  console.log("Current Time (UTC):", currentTimeUTC);
-
-  console.log("EndTime  Form Validation (UTC)", moment(endTime).utc().format());
-  console.log(
-    "startTime  Form Validation (UTC)",
-    moment(startTime).utc().format()
-  );
-  console.log(
-    "datescheduleDate Form Validation (UTC)",
-    moment(datescheduleDate).utc().format()
-  );
-  console.log(
-    "stringscheduleDate Form Validation (UTC)",
-    moment(stringscheduleDate).utc().format()
-  );
 
   const startTimeUTC = moment(startTime).utc().format("YYYY-MM-DD HH:mm:ss");
   const endTimeUTC = moment(endTime).utc().format("YYYY-MM-DD HH:mm:ss");
@@ -44,9 +29,6 @@ export const DateNotinPast = ({
   const scheduledDateUTCDate = moment(datescheduleDate)
     .utc()
     .format("YYYY-MM-DD HH:mm:ss");
-  console.log("startTime (UTC):", startTimeUTC);
-  console.log("endTime (UTC):", endTimeUTC);
-  console.log("scheduledDate (UTC):", scheduledDateUTC);
 
   if (startTime && moment(startTimeUTC).isBefore(currentTimeUTC)) {
     throw new GraphQLError("Start time cannot be in the past");
@@ -107,21 +89,6 @@ export const DateNotinPastforDoctor = ({
   endDate,
 }: validationforDoctor) => {
   const currentTimeUTC = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log("Current Time (UTC):", currentTimeUTC);
-
-  console.log("EndTime  Form Validation (UTC)", moment(endTime).utc().format());
-  console.log(
-    "startTime  Form Validation (UTC)",
-    moment(startTime).utc().format()
-  );
-  console.log(
-    "datescheduleDate Form Validation (UTC)",
-    moment(startDate).utc().format()
-  );
-  console.log(
-    "stringscheduleDate Form Validation (UTC)",
-    moment(endDate).utc().format()
-  );
 
   const startTimeUTC = moment(startTime).utc().format("YYYY-MM-DD HH:mm:ss");
   const endTimeUTC = moment(endTime).utc().format("YYYY-MM-DD HH:mm:ss");
@@ -129,10 +96,6 @@ export const DateNotinPastforDoctor = ({
   const startDateUTC = moment(startDate).utc().format("YYYY-MM-DD HH:mm:ss");
 
   const endDateUTC = moment(endDate).utc().format("YYYY-MM-DD HH:mm:ss");
-  console.log("startTime (UTC):", startTimeUTC);
-  console.log("endTime (UTC):", endTimeUTC);
-  console.log("startDateUTC (UTC):", startDateUTC);
-  console.log("endDateUTC (UTC):", endDateUTC);
 
   if (startTime && moment(startTimeUTC).isBefore(currentTimeUTC)) {
     throw new GraphQLError("Start time cannot be in the past");

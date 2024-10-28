@@ -59,8 +59,6 @@ export class Doctors {
 
       return doctor;
     } catch (error) {
-      console.log("error", error);
-
       throw new GraphQLError(error.message || "Something went wrong!");
     }
   }

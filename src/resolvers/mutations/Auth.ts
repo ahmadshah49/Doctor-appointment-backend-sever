@@ -129,7 +129,6 @@ export class AuthResolver {
       }
       return { accessToken, refreshToken, user };
     } catch (error) {
-      console.log("Error While login", error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -185,7 +184,7 @@ export class AuthResolver {
       if (userOtp && user?.otp !== userOtp) {
         throw new GraphQLError("Wrong Otp");
       }
-      console.log("186");
+
       await Prisma.user.updateMany({
         where: {
           phoneNumber: phoneNo,
@@ -211,8 +210,6 @@ export class AuthResolver {
       }
       return { accessToken, refreshToken, user };
     } catch (error) {
-      console.log("Error while phone no", error);
-
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -253,7 +250,6 @@ export class AuthResolver {
       sendResetPasswordOtp(email, generateToken);
       return "Reset Password Token Sent on Your Email";
     } catch (error) {
-      console.error("Error while Reset Password".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }
@@ -266,7 +262,6 @@ export class AuthResolver {
       if (token.length < 6) {
         throw new GraphQLError("Otp must be 6 digits long!");
       }
-      console.log("OTP", token);
 
       const user = await Prisma.user.findFirst({
         where: {
@@ -276,8 +271,6 @@ export class AuthResolver {
           },
         },
       });
-      console.log("User", user);
-      console.log("user", user?.email);
 
       if (!user) {
         throw new GraphQLError("Wrong or expired otp");
@@ -303,7 +296,6 @@ export class AuthResolver {
       }
       return "Password Changed!";
     } catch (error) {
-      console.error("Error while Reset Password".toUpperCase(), error);
       throw new GraphQLError(error.message || "An unexpected error occurred.");
     }
   }

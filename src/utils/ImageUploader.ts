@@ -14,7 +14,6 @@ export const ImageUploader = async (imagePath: string) => {
     const mainDir = path.resolve(__dirname, "..", "assets", "uploads");
 
     const fileName = path.join(mainDir, imagePath);
-    console.log("FileName", fileName);
 
     if (!fs.existsSync(fileName)) {
       throw new GraphQLError(`File not found: ${fileName}`);
@@ -25,15 +24,12 @@ export const ImageUploader = async (imagePath: string) => {
     return result.secure_url;
   } catch (error: any) {
     if (error.message.includes("Invalid")) {
-      console.error("Cloudinary configuration error:", error);
       throw new GraphQLError(
         "Cloudinary credentials are invalid. Please check your API key and secret."
       );
     } else if (error.message.includes("File not found")) {
-      console.error("File not found:", error);
       throw new GraphQLError(`The file at path ${imagePath} does not exist.`);
     } else {
-      console.error("Error uploading image:", error);
       throw new GraphQLError(
         "Failed to upload image to Cloudinary. Please try again."
       );
