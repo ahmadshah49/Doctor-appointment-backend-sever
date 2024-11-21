@@ -19,7 +19,6 @@ const MultipleImagesUploader = async (imagePaths) => {
         const uploadedImages = [];
         for (const imagePath of imagePaths) {
             const fileName = path_1.default.join(mainDir, imagePath);
-            console.log("Uploading File:", fileName);
             if (!fs_1.default.existsSync(fileName)) {
                 throw new graphql_1.GraphQLError(`File not found: ${fileName}`);
             }
@@ -30,15 +29,12 @@ const MultipleImagesUploader = async (imagePaths) => {
     }
     catch (error) {
         if (error.message.includes("Invalid")) {
-            console.error("Cloudinary configuration error:", error);
             throw new graphql_1.GraphQLError("Cloudinary credentials are invalid. Please check your API key and secret.");
         }
         else if (error.message.includes("File not found")) {
-            console.error("File not found:", error);
             throw new graphql_1.GraphQLError(`One or more files in the array do not exist.`);
         }
         else {
-            console.error("Error uploading image(s):", error);
             throw new graphql_1.GraphQLError("Failed to upload one or more images to Cloudinary. Please try again.");
         }
     }

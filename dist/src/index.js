@@ -33,7 +33,7 @@ const index = async () => {
     });
     const server = (0, http_1.createServer)(yoga);
     server.listen(4000, () => {
-        console.info("Server is running ");
+        console.info("Server is running on Port localhost:4000/graphql");
     });
 };
 index();

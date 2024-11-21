@@ -17,7 +17,7 @@ export const isAuth: MiddlewareFn<Context> = async ({ context }, next) => {
     : req.headers["x-refresh-token"];
 
   if (!accessToken) {
-    throw new GraphQLError("Not authenticated");
+    throw new GraphQLError("Access Token Not Found, Please Login Again");
   }
 
   try {

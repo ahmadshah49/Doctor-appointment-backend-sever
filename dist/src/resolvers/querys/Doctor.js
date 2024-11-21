@@ -67,7 +67,6 @@ let Doctors = class Doctors {
             return doctor;
         }
         catch (error) {
-            console.log("error", error);
             throw new graphql_1.GraphQLError(error.message || "Something went wrong!");
         }
     }

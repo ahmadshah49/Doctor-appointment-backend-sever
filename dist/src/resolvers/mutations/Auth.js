@@ -146,7 +146,6 @@ let AuthResolver = class AuthResolver {
             return { accessToken, refreshToken, user };
         }
         catch (error) {
-            console.log("Error While login", error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -194,7 +193,6 @@ let AuthResolver = class AuthResolver {
             if (userOtp && user?.otp !== userOtp) {
                 throw new graphql_1.GraphQLError("Wrong Otp");
             }
-            console.log("186");
             await prisma_1.default.user.updateMany({
                 where: {
                     phoneNumber: phoneNo,
@@ -219,7 +217,6 @@ let AuthResolver = class AuthResolver {
             return { accessToken, refreshToken, user };
         }
         catch (error) {
-            console.log("Error while phone no", error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -256,7 +253,6 @@ let AuthResolver = class AuthResolver {
             return "Reset Password Token Sent on Your Email";
         }
         catch (error) {
-            console.error("Error while Reset Password".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }
@@ -265,7 +261,6 @@ let AuthResolver = class AuthResolver {
             if (token.length < 6) {
                 throw new graphql_1.GraphQLError("Otp must be 6 digits long!");
             }
-            console.log("OTP", token);
             const user = await prisma_1.default.user.findFirst({
                 where: {
                     resetPasswordToken: token,
@@ -274,8 +269,6 @@ let AuthResolver = class AuthResolver {
                     },
                 },
             });
-            console.log("User", user);
-            console.log("user", user?.email);
             if (!user) {
                 throw new graphql_1.GraphQLError("Wrong or expired otp");
             }
@@ -301,7 +294,6 @@ let AuthResolver = class AuthResolver {
             return "Password Changed!";
         }
         catch (error) {
-            console.error("Error while Reset Password".toUpperCase(), error);
             throw new graphql_1.GraphQLError(error.message || "An unexpected error occurred.");
         }
     }

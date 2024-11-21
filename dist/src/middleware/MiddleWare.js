@@ -14,11 +14,10 @@ const isAuth = async ({ context }, next) => {
         ? req.headers["x-refresh-token"][0]
         : req.headers["x-refresh-token"];
     if (!accessToken) {
-        throw new graphql_1.GraphQLError("Not authenticated");
+        throw new graphql_1.GraphQLError("Access Token Not Found, Please Login Again");
     }
     try {
         const accessTokenFromHeader = accessToken.split(" ")[1];
-        console.log("accessTokenFromHeader", accessTokenFromHeader);
         const payload = jsonwebtoken_1.default.verify(accessTokenFromHeader, process.env.ACCESS_TOKEN_SECRET);
         context.payload = payload;
     }
@@ -28,7 +27,6 @@ const isAuth = async ({ context }, next) => {
         }
         try {
             const refreshTokenFromHeader = refreshToken.split(" ")[1];
-            console.log("refreshTokenFromHeader", refreshTokenFromHeader);
             const refreshPayload = jsonwebtoken_1.default.verify(refreshTokenFromHeader, process.env.REFRESH_TOKEN_SECRET);
             const dbUserData = await prisma.user.findUnique({
                 where: { id: refreshPayload.userId },
@@ -41,12 +39,10 @@ const isAuth = async ({ context }, next) => {
                 email: dbUserData.email,
                 role: dbUserData.role,
             }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1m" });
-            console.log("NewAccessToken", newAccessToken);
             res.setHeader("x-access-token", newAccessToken);
             context.payload = refreshPayload;
         }
         catch (error) {
-            console.log("Refresh token verification failed:", error);
             throw new graphql_1.GraphQLError("Not authenticated");
         }
     }
@@ -64,7 +60,6 @@ const isDoctor = async ({ context }, next) => {
     }
     try {
         const accessTokenFromHeader = accessToken.split(" ")[1];
-        console.log("accessTokenFromHeader", accessTokenFromHeader);
         const payload = jsonwebtoken_1.default.verify(accessTokenFromHeader, process.env.ACCESS_TOKEN_SECRET);
         context.payload = payload;
         if (payload.role !== "DOCTOR") {
@@ -77,7 +72,6 @@ const isDoctor = async ({ context }, next) => {
         }
         try {
             const refreshTokenFromHeader = refreshToken.split(" ")[1];
-            console.log("refreshTokenFromHeader", refreshTokenFromHeader);
             const refreshPayload = jsonwebtoken_1.default.verify(refreshTokenFromHeader, process.env.REFRESH_TOKEN_SECRET);
             const dbUserData = await prisma_1.default.user.findUnique({
                 where: { id: refreshPayload.userId },
@@ -90,12 +84,10 @@ const isDoctor = async ({ context }, next) => {
                 email: dbUserData.email,
                 role: dbUserData.role,
             }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1m" });
-            console.log("NewAccessToken", newAccessToken);
             res.setHeader("x-access-token", newAccessToken);
             context.payload = refreshPayload;
         }
         catch (error) {
-            console.log("Refresh token verification failed:", error);
             throw new graphql_1.GraphQLError(error.message || "Access denied: Doctors only");
         }
     }

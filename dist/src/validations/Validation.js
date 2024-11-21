@@ -10,11 +10,6 @@ const moment_1 = __importDefault(require("moment"));
 const prisma_1 = __importDefault(require("../lib/prisma"));
 const DateNotinPast = ({ endTime, startTime, datescheduleDate, stringscheduleDate, }) => {
     const currentTimeUTC = (0, moment_1.default)().format("YYYY-MM-DD HH:mm:ss"); // UTC time
-    console.log("Current Time (UTC):", currentTimeUTC);
-    console.log("EndTime  Form Validation (UTC)", (0, moment_1.default)(endTime).utc().format());
-    console.log("startTime  Form Validation (UTC)", (0, moment_1.default)(startTime).utc().format());
-    console.log("datescheduleDate Form Validation (UTC)", (0, moment_1.default)(datescheduleDate).utc().format());
-    console.log("stringscheduleDate Form Validation (UTC)", (0, moment_1.default)(stringscheduleDate).utc().format());
     const startTimeUTC = (0, moment_1.default)(startTime).utc().format("YYYY-MM-DD HH:mm:ss");
     const endTimeUTC = (0, moment_1.default)(endTime).utc().format("YYYY-MM-DD HH:mm:ss");
     const scheduledDateUTC = (0, moment_1.default)(stringscheduleDate)
@@ -23,9 +18,6 @@ const DateNotinPast = ({ endTime, startTime, datescheduleDate, stringscheduleDat
     const scheduledDateUTCDate = (0, moment_1.default)(datescheduleDate)
         .utc()
         .format("YYYY-MM-DD HH:mm:ss");
-    console.log("startTime (UTC):", startTimeUTC);
-    console.log("endTime (UTC):", endTimeUTC);
-    console.log("scheduledDate (UTC):", scheduledDateUTC);
     if (startTime && (0, moment_1.default)(startTimeUTC).isBefore(currentTimeUTC)) {
         throw new graphql_1.GraphQLError("Start time cannot be in the past");
     }
@@ -61,19 +53,10 @@ const InvalidDateTime = ({ startTime, endTime, endDate, startDate, }) => {
 exports.InvalidDateTime = InvalidDateTime;
 const DateNotinPastforDoctor = ({ endTime, startTime, startDate, endDate, }) => {
     const currentTimeUTC = (0, moment_1.default)().format("YYYY-MM-DD HH:mm:ss");
-    console.log("Current Time (UTC):", currentTimeUTC);
-    console.log("EndTime  Form Validation (UTC)", (0, moment_1.default)(endTime).utc().format());
-    console.log("startTime  Form Validation (UTC)", (0, moment_1.default)(startTime).utc().format());
-    console.log("datescheduleDate Form Validation (UTC)", (0, moment_1.default)(startDate).utc().format());
-    console.log("stringscheduleDate Form Validation (UTC)", (0, moment_1.default)(endDate).utc().format());
     const startTimeUTC = (0, moment_1.default)(startTime).utc().format("YYYY-MM-DD HH:mm:ss");
     const endTimeUTC = (0, moment_1.default)(endTime).utc().format("YYYY-MM-DD HH:mm:ss");
     const startDateUTC = (0, moment_1.default)(startDate).utc().format("YYYY-MM-DD HH:mm:ss");
     const endDateUTC = (0, moment_1.default)(endDate).utc().format("YYYY-MM-DD HH:mm:ss");
-    console.log("startTime (UTC):", startTimeUTC);
-    console.log("endTime (UTC):", endTimeUTC);
-    console.log("startDateUTC (UTC):", startDateUTC);
-    console.log("endDateUTC (UTC):", endDateUTC);
     if (startTime && (0, moment_1.default)(startTimeUTC).isBefore(currentTimeUTC)) {
         throw new graphql_1.GraphQLError("Start time cannot be in the past");
     }

@@ -173,7 +173,6 @@ let Patients = class Patients {
             return patient;
         }
         catch (error) {
-            console.log("error", error);
             throw new graphql_1.GraphQLError(error.message || "Something went wrong!");
         }
     }
@@ -190,7 +189,6 @@ let Patients = class Patients {
             return patient;
         }
         catch (error) {
-            console.log("error", error);
             throw new graphql_1.GraphQLError(error.message || "Something went wrong!");
         }
     }

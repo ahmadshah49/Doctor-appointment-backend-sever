@@ -12,6 +12,7 @@ cloudinary.config({
 export const ImageUploader = async (imagePath: string) => {
   try {
     const mainDir = path.resolve(__dirname, "..", "assets", "uploads");
+    // const mainDir = path.resolve();
 
     const fileName = path.join(mainDir, imagePath);
 

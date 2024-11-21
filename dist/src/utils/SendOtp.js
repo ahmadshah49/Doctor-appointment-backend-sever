@@ -7,11 +7,11 @@ exports.createOtp = exports.otp = void 0;
 const twilio_1 = __importDefault(require("twilio"));
 const otp_generator_1 = __importDefault(require("otp-generator"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const graphql_1 = require("graphql");
 dotenv_1.default.config();
 if (!process.env.TWILIO_ACCOUNT_SID ||
     !process.env.TWILIO_AUTH_TOKEN ||
     !process.env.TWILIO_PHONE_NO) {
-    console.log("All Environment Variables,");
     throw new Error("Twilio credentials are missing from environment variables All Environment Variables");
 }
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -34,10 +34,9 @@ const createOtp = async (phoneNo, generatedOtp) => {
             to: phoneNo,
             from: twilioPhoneNo,
         });
-        console.log("OTP Sent: " + generatedOtp);
     }
     catch (error) {
-        console.error("Error Sending OTP", error);
+        throw new graphql_1.GraphQLError(error.message || "Something went wrong");
     }
 };
 exports.createOtp = createOtp;
